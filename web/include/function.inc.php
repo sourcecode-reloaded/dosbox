@@ -539,17 +539,17 @@ function show_downloads($priv)
 				<tr valign="top" align="left">
 				<td width="210">
 				<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><a href="'.$result[2].'" target="_blank">'.$result[1].'</a>
-				</td>
+				</font></td>
 
 				<td width="110">
 				<font face="Verdana, Arial, Helvetica, sans-serif" size="2">version '.$result[4].'
-				</td>
+				</font></td>
 				<td>
 				<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$result[3].'
-				</td>
+				</font></td>
 				<td width="226">
 				<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$result[5].'
-				</td>
+				</font></td>
 				</tr>';
 			}
 			echo '</table>';
