@@ -20,7 +20,7 @@ echo '
 			DOSBox is a DOS-emulator that uses the SDL-library which makes DOSBox very easy to port to different platforms. 
 		        DOSBox has already been ported to many different platforms, such as Windows, BeOS, Linux, MacOS X...<br><br>
 			DOSBox also emulates CPU:286/386 realmode/protected mode, Directory FileSystem/XMS/EMS, Tandy/Hercules/CGA/EGA/VGA/VESA graphics, 
-			a SoundBlaster/Gravis Ultra Sound card for exelent sound compatibility with older games...<br><br>
+			a SoundBlaster/Gravis Ultra Sound card for excellent sound compatibility with older games...<br><br>
 			You can "re-live" the good old days with the help of DOSBox, it can run plenty of the old classics that don\'t run on your new computer!<br><br>
 			
 			DOSBox is totally free of charge and OpenSource.<br><br>
