@@ -529,7 +529,7 @@ function show_downloads($priv)
 
 
 
-		$query = mysql_query("SELECT ID, name, url, description, version, DATE_FORMAT(added, '%W, %M %D, %Y'), changelog FROM download WHERE catID=".$cat_result[0]." ORDER BY added DESC");
+		$query = mysql_query("SELECT ID, name, url, description, version, DATE_FORMAT(added, '%W, %M %D, %Y'), changelog FROM download WHERE catID=".$cat_result[0]." ORDER BY version DESC");
 		if (mysql_num_rows($query) != 0)
 		{
 			echo '<table cellspacing="0" cellpadding="0" width="100%">';
@@ -546,11 +546,11 @@ function show_downloads($priv)
 				</font></td>
 				<td>
 				<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$result[3].'
-				</font></td>
-				<td width="226">
-				<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$result[5].'
-				</font></td>
-				</tr>';
+				</font></td>' ;
+//				<td width="226">
+//				<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$result[5].'
+//				</font></td>
+	echo			'</tr>';
 			}
 			echo '</table>';
 		}
