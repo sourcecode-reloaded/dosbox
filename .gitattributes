@@ -96,12 +96,14 @@ src/gui/sdlmain.cpp -text
 src/hardware/Makefile.am -text
 src/hardware/adlib.cpp -text
 src/hardware/cmos.cpp -text
+src/hardware/disney.cpp -text
 src/hardware/dma.cpp -text
 src/hardware/ega-switch.h -text
 src/hardware/fmopl.c -text
 src/hardware/fmopl.h -text
 src/hardware/font-switch.h -text
 src/hardware/gameblaster.cpp -text
+src/hardware/gus.cpp -text
 src/hardware/hardware.cpp -text
 src/hardware/iohandler.cpp -text
 src/hardware/joystick.cpp -text
