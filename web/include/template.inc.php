@@ -6,7 +6,9 @@ function template_header()
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD><TITLE>DOSBox, a x86 emulator with DOS</TITLE>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+<link rel="icon" type="image/x-icon" href="./favicon.ico">
 </HEAD>	
 		<body bgcolor="#000000" text="#FFFFFF" link="#FFFFFF" vlink="#FFFFFF" alink="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" background="site_images/background.gif">
 			
