@@ -74,7 +74,7 @@ function template_end()
 			  <area shape="rect" coords="242,4,273,27" href="faq.php" alt="Frequently Asked Questions">
 			  <area shape="rect" coords="282,4,359,47" href="download.php?main=1" alt="You may download DOSBox here">
 			  <area shape="rect" coords="370,4,416,41" href="comp_list.php?letter=a" alt="DOSBox compatibility-list">
-			  <area shape="rect" coords="427,4,473,35" href="http://vogons.zetafleet.com/forumdisplay.php?s=&amp;forumid=30" alt="DOSBox forum" target="_blank">
+			  <area shape="rect" coords="427,4,473,35" href="http://vogons.zetafleet.com/index.php?c=7" alt="DOSBox forum" target="_blank">
 			  <area shape="rect" coords="482,4,523,45" href="links.php" alt="DOSBox recomended links">
 			  <area shape="rect" coords="530,3,576,25" href="login.php" alt="Login to your account">
 			</map>
