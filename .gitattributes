@@ -67,6 +67,16 @@ src/cpu/core_full/optable.h -text
 src/cpu/core_full/save.h -text
 src/cpu/core_full/string.h -text
 src/cpu/core_full/support.h -text
+src/cpu/core_normal.cpp -text
+src/cpu/core_normal/Makefile.am -text
+src/cpu/core_normal/helpers.h -text
+src/cpu/core_normal/prefix_0f.h -text
+src/cpu/core_normal/prefix_66.h -text
+src/cpu/core_normal/prefix_66_0f.h -text
+src/cpu/core_normal/prefix_none.h -text
+src/cpu/core_normal/string.h -text
+src/cpu/core_normal/support.h -text
+src/cpu/core_normal/table_ea.h -text
 src/cpu/cpu.cpp -text
 src/cpu/flags.cpp -text
 src/cpu/instructions.h -text

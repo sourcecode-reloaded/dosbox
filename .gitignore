@@ -30,6 +30,9 @@ src/cpu/core_16/Makefile.in
 src/cpu/core_full/.deps
 src/cpu/core_full/Makefile
 src/cpu/core_full/Makefile.in
+src/cpu/core_normal/.deps
+src/cpu/core_normal/Makefile
+src/cpu/core_normal/Makefile.in
 src/debug/.deps
 src/debug/Makefile
 src/debug/Makefile.in
