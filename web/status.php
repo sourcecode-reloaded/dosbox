@@ -118,7 +118,7 @@ if ($_GET['show_status']==1)
 	
 	echo '<br><table width="100%"><tr><td width="14">&nbsp;</td><td>';// start of framespacing-table
 		echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-		This shows a basic overview of the different systems emulated in DOSBox.<br><br>';
+		This shows a basic overview of the different systems emulated in DOSBox.<br><br></font>';
 				
 	show_status_db($user['priv']['status_manage']);
 	
