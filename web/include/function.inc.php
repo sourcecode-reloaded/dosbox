@@ -525,7 +525,7 @@ function show_downloads($priv)
 
 		;
 
-		template_pagebox_start($cat, 890);
+		template_pagebox_start($cat, 690);
 
 
 
