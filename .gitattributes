@@ -171,6 +171,7 @@ src/hardware/vga_draw.cpp -text
 src/hardware/vga_gfx.cpp -text
 src/hardware/vga_memory.cpp -text
 src/hardware/vga_misc.cpp -text
+src/hardware/vga_other.cpp -text
 src/hardware/vga_seq.cpp -text
 src/ints/Makefile.am -text
 src/ints/bios.cpp -text
