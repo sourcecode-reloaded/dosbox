@@ -150,7 +150,6 @@ src/hardware/vga_attr.cpp -text
 src/hardware/vga_crtc.cpp -text
 src/hardware/vga_dac.cpp -text
 src/hardware/vga_draw.cpp -text
-src/hardware/vga_fonts.cpp -text
 src/hardware/vga_gfx.cpp -text
 src/hardware/vga_memory.cpp -text
 src/hardware/vga_misc.cpp -text
