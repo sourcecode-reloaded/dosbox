@@ -173,6 +173,8 @@ src/hardware/vga_memory.cpp -text
 src/hardware/vga_misc.cpp -text
 src/hardware/vga_other.cpp -text
 src/hardware/vga_seq.cpp -text
+src/hardware/ymf262.c -text
+src/hardware/ymf262.h -text
 src/ints/Makefile.am -text
 src/ints/bios.cpp -text
 src/ints/bios_disk.cpp -text
