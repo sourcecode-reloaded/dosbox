@@ -195,6 +195,9 @@ src/platform/visualc/Makefile.am -text
 src/platform/visualc/config.h -text
 src/platform/visualc/dirent.c -text
 src/platform/visualc/dirent.h -text
+src/platform/visualc/ntddcdrm.h -text
+src/platform/visualc/ntddscsi.h -text
+src/platform/visualc/ntddstor.h -text
 src/platform/visualc/unistd.h -text
 src/shell/Makefile.am -text
 src/shell/shell.cpp -text
