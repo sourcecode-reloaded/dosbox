@@ -21,10 +21,6 @@ template_pagebox_start("DOSBox related links", 900);
 			</font></li>							    
 			<li>
 			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-			<a href="http://www.rdu.dk" target="_blank">www.rdu.dk</a> - A forum which discusses the CVS version of DOSBox.
-			</font></li>
-			<li>
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
 			<a href="http://cvscompile.aep-emu.de/dosbox.htm" target="_blank">cvscompile.aep-emu.de</a> - CVS builds kindly provided by the people of AEP-Emulation.
 			</font></li>
 			</ul>';
