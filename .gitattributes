@@ -161,7 +161,6 @@ src/hardware/softmodem.cpp -text
 src/hardware/tandy_sound.cpp -text
 src/hardware/timer.cpp -text
 src/hardware/vga.cpp -text
-src/hardware/vga.h -text
 src/hardware/vga_attr.cpp -text
 src/hardware/vga_crtc.cpp -text
 src/hardware/vga_dac.cpp -text
