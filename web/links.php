@@ -34,21 +34,6 @@ template_pagebox_start("PC/DOS/SB Emulation links", 900);
 			</font></li>
 			</ul>';
 template_pagebox_end();
-			
-template_pagebox_start("Abandonware/Oldgames links", 900);
-			echo '<ul>
-			<li><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-			<a href="http://www.old-games.net/" target="_blank">#OldGames Homepage</a> - Our favourite oldies channel\'s official homepage with some nonsense.
-			</font></li>
-                        <li><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-			<a href="http://www.the-underdogs.org/" target="_blank">Home of the Underdogs</a> - Biggest oldgames site on the web, lot\'s of stuff to try DOSBox on.
-			</font></li>
-                        <li><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-			<a href="http://www.tuol.org/" target="_blank">-.the ultimate oldgames linkpage.-</a> - Big link list to sites with abandonware and a host for a lot of abandonware related pages.
-			</font></li>
-			</ul>';
-template_pagebox_end();
-
 	
 	echo '</td></tr></table>';	// end of framespacing-table
 	
