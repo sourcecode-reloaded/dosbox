@@ -566,7 +566,7 @@ function show_downloads($priv)
 }
 function get_latest_version()
 {
-	$query = mysql_query("SELECT version FROM versions ORDER BY version DESC");
+	$query = mysql_query("SELECT version FROM versions ORDER BY version DESC LIMIT 1");
 	$result = mysql_fetch_row($query);
 
 	return $result[0];
@@ -667,7 +667,7 @@ function compat_list_latest()
 	$query = mysql_query("SELECT ID, name, version, released FROM list_game ORDER BY added DESC LIMIT 10");
 	while ($result = mysql_fetch_row($query))
 	{
-		$q = mysql_query("SELECT status_games.status FROM status_games WHERE status_games.gameID=$result[0] ORDER BY status_games.status DESC");
+		$q = mysql_query("SELECT status_games.status FROM status_games WHERE status_games.gameID=$result[0] ORDER BY status_games.status DESC LIMIT 1");
 		$a = mysql_fetch_row($q);
 
 		echo '<option value="'.$result[0].'"';
@@ -755,7 +755,7 @@ function comp_mainlist($letter)
 		while($result=mysql_fetch_row($query))
 		{
 
-			$status_query = mysql_query("SELECT status_games.status, versions.version FROM versions, status_games WHERE status_games.gameID=".$result[0]." AND status_games.versionID=versions.ID ORDER BY status_games.status DESC");
+			$status_query = mysql_query("SELECT status_games.status, versions.version FROM versions, status_games WHERE status_games.gameID=".$result[0]." AND status_games.versionID=versions.ID ORDER BY status_games.status DESC LIMT 1");
 			$status = mysql_fetch_row($status_query);
 			$percent_text = return_status($status[0]);
 
@@ -884,7 +884,7 @@ function search_results($keyword)
 		while($result=mysql_fetch_row($query))
 		{
 
-			$status_query = mysql_query("SELECT status_games.status, versions.version FROM versions, status_games WHERE status_games.gameID=".$result[0]." AND status_games.versionID=versions.ID ORDER BY status_games.status DESC");
+			$status_query = mysql_query("SELECT status_games.status, versions.version FROM versions, status_games WHERE status_games.gameID=".$result[0]." AND status_games.versionID=versions.ID ORDER BY status_games.status DESC LIMIT 1");
 			$status = mysql_fetch_row($status_query);
 			$percent_text = return_status($status[0]);
 
