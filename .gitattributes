@@ -47,7 +47,6 @@ src/cpu/Makefile.am -text
 src/cpu/callback.cpp -text
 src/cpu/core_16/Makefile.am -text
 src/cpu/core_16/helpers.h -text
-src/cpu/core_16/instructions.h -text
 src/cpu/core_16/main.h -text
 src/cpu/core_16/prefix_66.h -text
 src/cpu/core_16/prefix_66_of.h -text
@@ -58,6 +57,7 @@ src/cpu/core_16/support.h -text
 src/cpu/core_16/table_ea.h -text
 src/cpu/cpu.cpp -text
 src/cpu/flags.cpp -text
+src/cpu/instructions.h -text
 src/cpu/modrm.cpp -text
 src/cpu/modrm.h -text
 src/cpu/slow_16.cpp -text
