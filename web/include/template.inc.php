@@ -42,7 +42,7 @@ function template_end()
 				<td valign="top" width="14">
  					&nbsp;
 				</td>
-				<td valign="top">';
+				<td valign="top">
 					&nbsp;&nbsp;&nbsp;
 					<a target="_blank" href="http://t.extreme-dm.com/?login=harekiet">
 					<img name=im src="http://t1.extreme-dm.com/i.gif" height=38
@@ -62,7 +62,7 @@ function template_end()
 					&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.sourceforge.net" target="_blank"><img src="http://sourceforge.net/sflogo.php?group_id=52551&amp;type=1" width="88" height="31" border="0" alt="SourceForge.net Logo"></a><br>
 					<img src="site_images/copyright.gif" alt="Copyright 2003 DOSBox">
 					
-				echo '</td>
+				</td>
 			</tr>
 		</table><br><br><br><br><br><br>
 			<map name="dosbox">
