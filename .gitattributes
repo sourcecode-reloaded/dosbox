@@ -12,6 +12,8 @@
 /autogen.sh -text
 /config.guess -text
 /configure.in -text
+docs/Makefile.am -text
+docs/dosbox.1 -text
 include/Makefile.am -text
 include/bios.h -text
 include/callback.h -text

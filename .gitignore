@@ -9,6 +9,9 @@
 /config.sub
 /configure
 /depcomp
+docs/.deps
+docs/Makefile
+docs/Makefile.in
 include/.deps
 include/Makefile
 include/Makefile.in
