@@ -73,6 +73,7 @@ src/dos/Ntddscsi.h -text
 src/dos/Ntddstor.h -text
 src/dos/cdrom.cpp -text
 src/dos/cdrom.h -text
+src/dos/cdrom_aspi_win32.cpp -text
 src/dos/cdrom_ioctl.cpp -text
 src/dos/dev_con.h -text
 src/dos/dos.cpp -text
