@@ -220,7 +220,7 @@ function main_news($priv)
 		if ($priv==1 || $result[3]==$_SESSION['userID'])
 		echo '<p><b>'.$result[1].'</b> - '.$result[2].'&nbsp;&nbsp;<a href="news.php?change_news=1&amp;newsID='.$result[4].'"><img src="site_images/change_icon.gif" border="0"></a>&nbsp;<a href="news.php?removing_news=1&newsID='.$result[4].'"><img src="site_images/delete_icon.gif" border="0"></a></p>';
 		else
-		echo '<p><b>'.$result[1].'</b> - '.$result[2].'</p>';
+		echo '<b>'.$result[1].'</b> - '.$result[2].' ';
 
 		echo '</font></td></tr></table></td>
 		</tr></table></td></tr></table><table width="730" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#113466"><tr>
