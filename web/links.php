@@ -23,7 +23,6 @@ template_pagebox_start("DOSBox related links", 900);
 			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
 			<a href="http://www.mypixels.dk/forums/" target="_blank">www.mypixels.dk</a> - A forum which discusses the CVS version of DOSBox.
 			</font></li>						
-			<li>
 			</ul>';
 template_pagebox_end();
 										    
