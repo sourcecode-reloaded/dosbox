@@ -86,7 +86,6 @@ src/cpu/lazyflags.h -text
 src/cpu/modrm.cpp -text
 src/cpu/modrm.h -text
 src/cpu/paging.cpp -text
-src/cpu/slow_16.cpp -text
 src/debug/Makefile.am -text
 src/debug/debug.cpp -text
 src/debug/debug_disasm.cpp -text
