@@ -80,6 +80,7 @@ src/dos/dos_memory.cpp -text
 src/dos/dos_misc.cpp -text
 src/dos/dos_programs.cpp -text
 src/dos/dos_tables.cpp -text
+src/dos/drive_cache.cpp -text
 src/dos/drive_local.cpp -text
 src/dos/drive_virtual.cpp -text
 src/dos/drives.cpp -text
