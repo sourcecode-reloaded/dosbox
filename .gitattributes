@@ -172,6 +172,7 @@ src/ints/int10_pal.cpp -text
 src/ints/int10_put_pixel.cpp -text
 src/ints/mouse.cpp -text
 src/ints/xms.cpp -text
+src/ints/xms.h -text
 src/misc/Makefile.am -text
 src/misc/messages.cpp -text
 src/misc/programs.cpp -text
