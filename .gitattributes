@@ -142,6 +142,7 @@ src/gui/sdlmain.cpp -text
 src/hardware/Makefile.am -text
 src/hardware/adlib.cpp -text
 src/hardware/cmos.cpp -text
+src/hardware/directserial_win32.cpp -text
 src/hardware/disney.cpp -text
 src/hardware/dma.cpp -text
 src/hardware/fmopl.c -text
