@@ -207,6 +207,7 @@ function main_news($priv)
 	userdb.ID=news.ownerID
 	ORDER BY
 	news.added DESC
+	LIMIT 5  
 	");
 
 	while ($result = mysql_fetch_row($query))
