@@ -10,7 +10,6 @@
 /VERSION -text
 /acinclude.m4 -text
 /autogen.sh -text
-/config.guess -text
 /configure.in -text
 docs/Makefile.am -text
 docs/dosbox.1 -text
