@@ -69,6 +69,7 @@ src/cpu/core_full/support.h -text
 src/cpu/cpu.cpp -text
 src/cpu/flags.cpp -text
 src/cpu/instructions.h -text
+src/cpu/lazyflags.h -text
 src/cpu/modrm.cpp -text
 src/cpu/modrm.h -text
 src/cpu/slow_16.cpp -text
