@@ -39,10 +39,10 @@ echo '
 	template_pagebox_end();
 
 	
-	echo '</td></tr></table>';	// end of framespacing-table
-echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-      <P>If you want to communicate with us feel free to use the following:</br>
+echo '</td></tr><tr><td>&nbsp;</td><td><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
+      <P>If you want to communicate with us feel free to use the following: 
       <IMG SRC="site_images/nothing.png" width="200" height="20"alt="Nothing"></br></FONT>';
+echo '</td></tr></table>';	// end of framespacing-table
 
 
 	template_end();
