@@ -41,6 +41,7 @@ include/regs.h -text
 include/render.h -text
 include/serialport.h -text
 include/setup.h -text
+include/shell.h -text
 include/support.h -text
 include/timer.h -text
 include/vga.h -text
