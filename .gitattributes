@@ -161,6 +161,7 @@ src/ints/Makefile.am -text
 src/ints/bios.cpp -text
 src/ints/bios_disk.cpp -text
 src/ints/bios_keyboard.cpp -text
+src/ints/dpmi.cpp -text
 src/ints/ems.cpp -text
 src/ints/int10.cpp -text
 src/ints/int10.h -text
