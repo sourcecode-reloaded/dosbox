@@ -95,6 +95,7 @@ src/gui/render.cpp -text
 src/gui/sdlmain.cpp -text
 src/hardware/Makefile.am -text
 src/hardware/adlib.cpp -text
+src/hardware/cmos.cpp -text
 src/hardware/dma.cpp -text
 src/hardware/ega-switch.h -text
 src/hardware/fmopl.c -text
