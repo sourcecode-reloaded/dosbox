@@ -55,6 +55,7 @@ src/cpu/core_16/prefix_of.h -text
 src/cpu/core_16/support.h -text
 src/cpu/core_16/table_ea.h -text
 src/cpu/core_full.cpp -text
+src/cpu/core_full/Makefile.am -text
 src/cpu/core_full/ea_lookup.h -text
 src/cpu/core_full/load.h -text
 src/cpu/core_full/loadwrite.h -text
