@@ -105,7 +105,8 @@ src/gui/midi.cpp -text
 src/gui/midi_oss.h -text
 src/gui/midi_win32.h -text
 src/gui/render.cpp -text
-src/gui/render_support.h -text
+src/gui/render_normal.h -text
+src/gui/render_scale2x.h -text
 src/gui/sdlmain.cpp -text
 src/hardware/Makefile.am -text
 src/hardware/adlib.cpp -text
