@@ -38,6 +38,7 @@ include/pic.h -text
 include/programs.h -text
 include/regs.h -text
 include/render.h -text
+include/serialport.h -text
 include/setup.h -text
 include/support.h -text
 include/timer.h -text
@@ -142,6 +143,8 @@ src/hardware/mpu401.cpp -text
 src/hardware/pcspeaker.cpp -text
 src/hardware/pic.cpp -text
 src/hardware/sblaster.cpp -text
+src/hardware/serialport.cpp -text
+src/hardware/softmodem.cpp -text
 src/hardware/tandy_sound.cpp -text
 src/hardware/timer.cpp -text
 src/hardware/vga.cpp -text
