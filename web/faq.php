@@ -41,7 +41,7 @@
 					
 					<b>Does Duke Nukem 3D Run?</b>
 					<ul>
-						NO! Not until protected mode is implemented , which will not be ready for quite some time.
+						Yes, but don't expect it to run smooth or fast or whatever.
 					</ul>
 					
 					<b>Where might i ask questions regarding DOSBox ?</b>
