@@ -34,6 +34,7 @@ include/mem.h -text
 include/mixer.h -text
 include/modules.h -text
 include/mouse.h -text
+include/paging.h -text
 include/pic.h -text
 include/programs.h -text
 include/regs.h -text
