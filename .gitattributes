@@ -112,6 +112,7 @@ src/hardware/joystick.cpp -text
 src/hardware/keyboard.cpp -text
 src/hardware/memory.cpp -text
 src/hardware/mixer.cpp -text
+src/hardware/mpu401.cpp -text
 src/hardware/pcspeaker.cpp -text
 src/hardware/pic.cpp -text
 src/hardware/sblaster.cpp -text
