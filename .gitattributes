@@ -91,6 +91,8 @@ src/fpu/fpu.cpp -text
 src/fpu/fpu_core_16/instructions.h -text
 src/fpu/fpu_core_16/support.h -text
 src/fpu/fpu_flags.cpp -text
+src/fpu/fpu_instructions.h -text
+src/fpu/fpu_types.h -text
 src/gui/Makefile.am -text
 src/gui/render.cpp -text
 src/gui/sdlmain.cpp -text
