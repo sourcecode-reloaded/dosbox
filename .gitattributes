@@ -52,8 +52,6 @@ src/cpu/core_16/main.h -text
 src/cpu/core_16/prefix_66.h -text
 src/cpu/core_16/prefix_66_of.h -text
 src/cpu/core_16/prefix_of.h -text
-src/cpu/core_16/start.h -text
-src/cpu/core_16/stop.h -text
 src/cpu/core_16/support.h -text
 src/cpu/core_16/table_ea.h -text
 src/cpu/core_full.cpp -text
