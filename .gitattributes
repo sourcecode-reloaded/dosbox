@@ -29,6 +29,7 @@ include/hardware.h -text
 include/inout.h -text
 include/joystick.h -text
 include/keyboard.h -text
+include/logging.h -text
 include/mem.h -text
 include/mixer.h -text
 include/modules.h -text
