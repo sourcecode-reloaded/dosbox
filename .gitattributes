@@ -44,6 +44,7 @@ include/setup.h -text
 include/support.h -text
 include/timer.h -text
 include/video.h -text
+scripts/dosbox-installer.nsi -text
 scripts/ega-switch.pl -text
 scripts/font-switch.pl -text
 src/Makefile.am -text
