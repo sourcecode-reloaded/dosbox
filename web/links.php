@@ -5,6 +5,31 @@
 	template_header();
 	echo '<br><table width="100%"><tr><td width="14">&nbsp;</td><td>';// start of framespacing-table
 
+template_pagebox_start("DOSBox related links", 900);
+			echo '<ul>
+			<li>
+			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
+			<a href="http://www.sourceforge.net/projects/dosbox" target="_blank">Sourceforge</a> - DOSBox project page,  submit bugs and patches here. 
+			</font></li>
+			<li>
+			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
+			<a href="http://vogons.zetafleet.com" target="_blank">VOGONS</a> - Official DOSBox Forum, look here for solutions for your problems.
+			</font></li>
+			<li>
+			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
+			<a href="http://pain.scene.org/service_dosbox.php" target="_blank">pain.scene.org</a> - Unofficial DOSBox Demo Compatibility List.
+			</font></li>							    
+			<li>
+			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
+			<a href="http://www.mypixels.dk/forums/" target="_blank">www.mypixels.dk</a> - A forum which discusses the CVS version of DOSBox.
+			</font></li>						
+			<li>
+			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
+			<a href="http://www.dosbox-forum.de/ib/" target="_blank">www.dosbox-forum.de</a> - A german DOSBox forum.
+			</font></li>
+			</ul>';
+template_pagebox_end();
+										    
 template_pagebox_start("General Emulation links", 900);
 			echo '<ul>
 			<li>
