@@ -99,10 +99,10 @@ if ($_GET['show_news']==1)
 	template_header();
 	echo '<br><table width="100%"><tr><td width="14">&nbsp;</td><td>';// start of framespacing-table		
 
-	echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Note:</b> this website uses cookies for the user account-system!<br><br>';
+	echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Note:</b> this website uses cookies for the user account-system!</font><br><br>';
 	
 	if ($user['priv']['post_news']==1)
-		echo '<a href="news.php?post_news=1">Create news-item</a></font><br><br>';
+		echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><a href="news.php?post_news=1">Create news-item</a></font><br><br>';
 
 	main_news($user['priv']['news_management']);
 		
