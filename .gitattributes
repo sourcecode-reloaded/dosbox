@@ -114,6 +114,7 @@ src/dos/dos_mscdex.cpp -text
 src/dos/dos_programs.cpp -text
 src/dos/dos_tables.cpp -text
 src/dos/drive_cache.cpp -text
+src/dos/drive_fat.cpp -text
 src/dos/drive_local.cpp -text
 src/dos/drive_virtual.cpp -text
 src/dos/drives.cpp -text
