@@ -99,6 +99,7 @@ src/dos/Makefile.am -text
 src/dos/cdrom.cpp -text
 src/dos/cdrom.h -text
 src/dos/cdrom_aspi_win32.cpp -text
+src/dos/cdrom_image.cpp -text
 src/dos/cdrom_ioctl_linux.cpp -text
 src/dos/cdrom_ioctl_win32.cpp -text
 src/dos/dev_con.h -text
@@ -115,6 +116,7 @@ src/dos/dos_programs.cpp -text
 src/dos/dos_tables.cpp -text
 src/dos/drive_cache.cpp -text
 src/dos/drive_fat.cpp -text
+src/dos/drive_iso.cpp -text
 src/dos/drive_local.cpp -text
 src/dos/drive_virtual.cpp -text
 src/dos/drives.cpp -text
