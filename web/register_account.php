@@ -91,9 +91,9 @@
 	{
 		echo '
 			<form action="register_account.php?adding=1" method="POST">
-				<b class=boldblue>Fill in the boxes below:</b> (the boxes that isn\'t marked are optional)<br>
-				<b class=boldblue>Please Note</b> that registering will <b class=coldblue>only</b> allow you to make comments or <br>add compatibility reports about games.<b class=coldblue>
-			   Nothing more!</b><br><br>
+				<b class=boldblue>Fill in the boxes below:</b> (the boxes that isn\'t marked are optional)<br><br>
+				<b class=boldblue>Please note:</b>Registering will <b class=coldblue>only</b> allow you to make comments or <br>add compatibility reports about games.<b class=coldblue>
+			   Nothing more!</b><br><br><br>
 				<table cellspacing="0" cellpadding="0">
 				<tr valign="top"> 
 					<td>
