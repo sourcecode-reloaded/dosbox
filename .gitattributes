@@ -69,6 +69,9 @@ src/debug/debug_inc.h -text
 src/debug/debug_win32.cpp -text
 src/debug/disasm_tables.h -text
 src/dos/Makefile.am -text
+src/dos/cdrom.cpp -text
+src/dos/cdrom.h -text
+src/dos/cdrom_ioctl.cpp -text
 src/dos/dev_con.h -text
 src/dos/dos.cpp -text
 src/dos/dos_classes.cpp -text
