@@ -11,6 +11,7 @@
 /acinclude.m4 -text
 /autogen.sh -text
 /config.guess -text
+/config.h.in -text
 /configure.in -text
 include/Makefile.am -text
 include/bios.h -text
