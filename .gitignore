@@ -66,5 +66,12 @@ src/shell/Makefile
 src/shell/Makefile.in
 /stamp-h1
 visualc/.deps
+visualc/Debug
 visualc/Makefile
 visualc/Makefile.in
+visualc/Release
+visualc_net/.deps
+visualc_net/Debug
+visualc_net/Makefile
+visualc_net/Makefile.in
+visualc_net/Release
