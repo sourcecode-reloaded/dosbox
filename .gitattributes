@@ -133,9 +133,10 @@ src/gui/midi_coreaudio.h -text
 src/gui/midi_oss.h -text
 src/gui/midi_win32.h -text
 src/gui/render.cpp -text
-src/gui/render_normal.h -text
-src/gui/render_scale2x.h -text
+src/gui/render_scalers.cpp -text
+src/gui/render_scalers.h -text
 src/gui/render_templates.h -text
+src/gui/sdl_mapper.cpp -text
 src/gui/sdlmain.cpp -text
 src/hardware/Makefile.am -text
 src/hardware/adlib.cpp -text
