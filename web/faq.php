@@ -18,7 +18,7 @@
 					
 					<b>Game X doesn't Run?</b>
 					<ul>
-						Shit happens, wait for another version.
+						Shit happens, wait for another version. (<a href="http://vogons.zetafleet.com/viewtopic.php?t=4020">look here</a>)
 					</ul>
 
 					<b>DOSBox crashes out with some EXIT:CPU:Opcode blah Unhandled message.</b><br>
@@ -41,7 +41,8 @@
 					
 					<b>Does Duke Nukem 3D Run?</b>
 					<ul>
-						Yes, but don't expect it to run smooth or fast or whatever.
+						Yes, but remember that you are emulating a <b>full</b> PC when selecting graphics and other options.<br>
+						It might run not as fast as you had hoped.
 					</ul>
 					
 					<b>Where might i ask questions regarding DOSBox ?</b>
