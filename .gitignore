@@ -15,7 +15,6 @@ include/Makefile.in
 /install-sh
 /missing
 /mkinstalldirs
-/settings.h
 src/.deps
 src/Makefile
 src/Makefile.in
