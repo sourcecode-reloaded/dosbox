@@ -92,6 +92,9 @@ src/fpu/fpu_flags.cpp -text
 src/fpu/fpu_instructions.h -text
 src/fpu/fpu_types.h -text
 src/gui/Makefile.am -text
+src/gui/midi.cpp -text
+src/gui/midi_oss.h -text
+src/gui/midi_win32.h -text
 src/gui/render.cpp -text
 src/gui/render_support.h -text
 src/gui/sdlmain.cpp -text
