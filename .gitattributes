@@ -51,14 +51,6 @@ scripts/font-switch.pl -text
 src/Makefile.am -text
 src/cpu/Makefile.am -text
 src/cpu/callback.cpp -text
-src/cpu/core_16/Makefile.am -text
-src/cpu/core_16/helpers.h -text
-src/cpu/core_16/main.h -text
-src/cpu/core_16/prefix_66.h -text
-src/cpu/core_16/prefix_66_of.h -text
-src/cpu/core_16/prefix_of.h -text
-src/cpu/core_16/support.h -text
-src/cpu/core_16/table_ea.h -text
 src/cpu/core_full.cpp -text
 src/cpu/core_full/Makefile.am -text
 src/cpu/core_full/ea_lookup.h -text
