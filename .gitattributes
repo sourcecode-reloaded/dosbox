@@ -140,7 +140,6 @@ src/ints/mouse.cpp -text
 src/ints/xms.cpp -text
 src/misc/Makefile.am -text
 src/misc/messages.cpp -text
-src/misc/plugins.cpp -text
 src/misc/programs.cpp -text
 src/misc/setup.cpp -text
 src/misc/support.cpp -text
