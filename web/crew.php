@@ -25,7 +25,7 @@ echo '
 	{
 		echo '
 		<tr>
-			<td valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><a href="mailto:'.$result[2].'">'.$result[0].'</a></font>
+			<td valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$result[0].'</font>
 			</td>
 			<td valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$result[1].'</font>
 			</td>
@@ -40,6 +40,9 @@ echo '
 
 	
 	echo '</td></tr></table>';	// end of framespacing-table
+echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
+      <P>If you want to communicate with us feel free to use the following:</br>
+      <IMG SRC="site_images/nothing.png" width="200" height="20"alt="Nothing"></br></FONT>';
 
 
 	template_end();
