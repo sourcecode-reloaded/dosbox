@@ -81,6 +81,7 @@ src/cpu/core_normal/prefix_none.h -text
 src/cpu/core_normal/string.h -text
 src/cpu/core_normal/support.h -text
 src/cpu/core_normal/table_ea.h -text
+src/cpu/core_simple.cpp -text
 src/cpu/cpu.cpp -text
 src/cpu/flags.cpp -text
 src/cpu/instructions.h -text
