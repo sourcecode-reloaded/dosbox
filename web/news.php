@@ -99,7 +99,8 @@ if ($_GET['show_news']==1)
 	template_header();
 	echo '<br><table width="100%"><tr><td width="14">&nbsp;</td><td>';// start of framespacing-table		
 
-	echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Note:</b> this website uses cookies for the user account-system!</font><br><br>';
+	echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Note:</b> this website uses cookies for the user account-system!</font>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://sourceforge.net/donate/index.php?group_id=52551"><img src="http://images.sourceforge.net/images/project-support.jpg" width="88" height="32" border="0" alt="Support This Project"></a><br><br>';
 	
 	if ($user['priv']['post_news']==1)
 		echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><a href="news.php?post_news=1">Create news-item</a></font><br><br>';
