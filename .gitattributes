@@ -128,6 +128,7 @@ src/dosbox.cpp -text
 src/fpu/Makefile.am -text
 src/fpu/fpu.cpp -text
 src/fpu/fpu_instructions.h -text
+src/fpu/fpu_instructions_x86.h -text
 src/fpu/fpu_types.h -text
 src/gui/Makefile.am -text
 src/gui/midi.cpp -text
