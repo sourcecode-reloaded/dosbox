@@ -18,7 +18,7 @@
 					
 					<b>Game X doesn't Run?</b>
 					<ul>
-						Shit happens, wait for another version. (<a href="http://vogons.zetafleet.com/viewtopic.php?t=4020">look here</a>)
+						Shit happens, wait for another version. (<a href="http://vogons.zetafleet.com/viewtopic.php?t=4020">or look here</a>)
 					</ul>
 
 					<b>DOSBox crashes out with some EXIT:CPU:Opcode blah Unhandled message.</b><br>
