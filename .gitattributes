@@ -94,9 +94,6 @@ src/debug/debug_inc.h -text
 src/debug/debug_win32.cpp -text
 src/debug/disasm_tables.h -text
 src/dos/Makefile.am -text
-src/dos/Ntddcdrm.h -text
-src/dos/Ntddscsi.h -text
-src/dos/Ntddstor.h -text
 src/dos/cdrom.cpp -text
 src/dos/cdrom.h -text
 src/dos/cdrom_aspi_win32.cpp -text
