@@ -1,1 +1,22 @@
 * text=auto !eol
+/COPYING -text
+/comp_list.php -text
+/crew.php -text
+/download.php -text
+/faq.php -text
+/gpl.txt -text
+include/config.inc.php -text
+include/function.inc.php -text
+include/session.inc.php -text
+include/standard.inc.php -text
+include/template.inc.php -text
+/index.php -text
+/information.php -text
+/links.php -text
+/login.php -text
+/news.php -text
+/register_account.php -text
+/screenshots.php -text
+/status.php -text
+/usermanagement.php -text
+/versionadmin.php -text
