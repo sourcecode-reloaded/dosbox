@@ -42,7 +42,6 @@ include/timer.h -text
 include/video.h -text
 scripts/ega-switch.pl -text
 scripts/font-switch.pl -text
-/settings.h.cvs -text
 src/Makefile.am -text
 src/cpu/Makefile.am -text
 src/cpu/callback.cpp -text
