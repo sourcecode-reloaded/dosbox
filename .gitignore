@@ -24,6 +24,9 @@ src/Makefile.in
 src/cpu/.deps
 src/cpu/Makefile
 src/cpu/Makefile.in
+src/cpu/core_dyn_x86/.deps
+src/cpu/core_dyn_x86/Makefile
+src/cpu/core_dyn_x86/Makefile.in
 src/cpu/core_full/.deps
 src/cpu/core_full/Makefile
 src/cpu/core_full/Makefile.in
