@@ -56,6 +56,16 @@ src/cpu/core_16/start.h -text
 src/cpu/core_16/stop.h -text
 src/cpu/core_16/support.h -text
 src/cpu/core_16/table_ea.h -text
+src/cpu/core_full.cpp -text
+src/cpu/core_full/ea_lookup.h -text
+src/cpu/core_full/load.h -text
+src/cpu/core_full/loadwrite.h -text
+src/cpu/core_full/main.h -text
+src/cpu/core_full/op.h -text
+src/cpu/core_full/optable.h -text
+src/cpu/core_full/save.h -text
+src/cpu/core_full/string.h -text
+src/cpu/core_full/support.h -text
 src/cpu/cpu.cpp -text
 src/cpu/flags.cpp -text
 src/cpu/instructions.h -text

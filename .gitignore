@@ -27,6 +27,9 @@ src/cpu/Makefile.in
 src/cpu/core_16/.deps
 src/cpu/core_16/Makefile
 src/cpu/core_16/Makefile.in
+src/cpu/core_full/.deps
+src/cpu/core_full/Makefile
+src/cpu/core_full/Makefile.in
 src/debug/.deps
 src/debug/Makefile
 src/debug/Makefile.in
