@@ -755,7 +755,7 @@ function comp_mainlist($letter)
 		while($result=mysql_fetch_row($query))
 		{
 
-			$status_query = mysql_query("SELECT status_games.status, versions.version FROM versions, status_games WHERE status_games.gameID=".$result[0]." AND status_games.versionID=versions.ID ORDER BY status_games.status DESC LIMT 1");
+			$status_query = mysql_query("SELECT status_games.status, versions.version FROM versions, status_games WHERE status_games.gameID=".$result[0]." AND status_games.versionID=versions.ID ORDER BY status_games.status DESC LIMIT 1");
 			$status = mysql_fetch_row($status_query);
 			$percent_text = return_status($status[0]);
 
