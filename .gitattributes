@@ -195,7 +195,6 @@ src/shell/Makefile.am -text
 src/shell/shell.cpp -text
 src/shell/shell_batch.cpp -text
 src/shell/shell_cmds.cpp -text
-src/shell/shell_inc.h -text
 src/shell/shell_misc.cpp -text
 visualc/Makefile.am -text
 visualc/dosbox.dsp -text svneol=unset#application/octet-stream
