@@ -282,7 +282,9 @@ function check_mail_db($email)
 //******************************************************************************************************
 function parse_http($str, $target = '_blank')
 {
-	$str = preg_replace ("/(https?:\/\/|ftp:\/\/|mailto:)([^>\s\"\']+)/i", "<a href='\\0' target='$target'>\\2</a>", $str);
+//	$str = preg_replace ("/(https?:\/\/|ftp:\/\/|mailto:)([^>\s\"\']+)/i", "<a href='\\0' target='$target'>\\2</a>", $str);
+// add target=blank if url starts with http:// or friends
+	$str = preg_replace ("/<a href=(\"?https?:\/\/|\"?ftp:\/\/|\"?mailto:)([^>]+)>/i", "<a href=\\1\\2 target='$target'>", $str);
 	return $str;
 }
 // Displays all the usergroups in a <select> field!
