@@ -802,6 +802,8 @@ function comp_mainlist($letter)
 function stri_replace($searchFor, $replaceWith, $string, $offset = 0)
 {
 	$lsearchFor = strtolower($searchFor);
+	if(strlen($lsearchFor) == 0)
+		return($string);
 	$lstring = strtolower($string);
 	$newPos = strpos($lstring, $lsearchFor, $offset);
 	if (strlen($newPos) == 0)
