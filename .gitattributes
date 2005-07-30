@@ -145,7 +145,6 @@ src/gui/sdlmain.cpp -text
 src/hardware/Makefile.am -text
 src/hardware/adlib.cpp -text
 src/hardware/cmos.cpp -text
-src/hardware/directserial_win32.cpp -text
 src/hardware/disney.cpp -text
 src/hardware/dma.cpp -text
 src/hardware/fmopl.c -text
@@ -164,8 +163,14 @@ src/hardware/mpu401.cpp -text
 src/hardware/pcspeaker.cpp -text
 src/hardware/pic.cpp -text
 src/hardware/sblaster.cpp -text
-src/hardware/serialport.cpp -text
-src/hardware/softmodem.cpp -text
+src/hardware/serialport/Makefile.am -text
+src/hardware/serialport/directserial_win32.cpp -text
+src/hardware/serialport/directserial_win32.h -text
+src/hardware/serialport/serialdummy.cpp -text
+src/hardware/serialport/serialdummy.h -text
+src/hardware/serialport/serialport.cpp -text
+src/hardware/serialport/softmodem.cpp -text
+src/hardware/serialport/softmodem.h -text
 src/hardware/tandy_sound.cpp -text
 src/hardware/timer.cpp -text
 src/hardware/vga.cpp -text
