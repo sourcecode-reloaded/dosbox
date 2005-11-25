@@ -102,6 +102,7 @@ src/dos/cdrom.h -text
 src/dos/cdrom_aspi_win32.cpp -text
 src/dos/cdrom_image.cpp -text
 src/dos/cdrom_ioctl_linux.cpp -text
+src/dos/cdrom_ioctl_os2.cpp -text
 src/dos/cdrom_ioctl_win32.cpp -text
 src/dos/dev_con.h -text
 src/dos/dos.cpp -text
