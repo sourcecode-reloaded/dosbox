@@ -165,6 +165,8 @@ src/hardware/pcspeaker.cpp -text
 src/hardware/pic.cpp -text
 src/hardware/sblaster.cpp -text
 src/hardware/serialport/Makefile.am -text
+src/hardware/serialport/directserial_os2.cpp -text
+src/hardware/serialport/directserial_os2.h -text
 src/hardware/serialport/directserial_win32.cpp -text
 src/hardware/serialport/directserial_win32.h -text
 src/hardware/serialport/serialdummy.cpp -text
