@@ -218,6 +218,7 @@ src/libs/zmbv/zmbv.h -text
 src/libs/zmbv/zmbv.inf -text
 src/libs/zmbv/zmbv.sln -text
 src/libs/zmbv/zmbv.vcproj -text
+src/libs/zmbv/zmbv_vfw.cpp -text
 src/libs/zmbv/zmbv_vfw.h -text
 src/libs/zmbv/zmbv_vfw.rc -text
 src/misc/Makefile.am -text
