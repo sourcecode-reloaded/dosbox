@@ -208,6 +208,16 @@ src/ints/int10_vesa.cpp -text
 src/ints/mouse.cpp -text
 src/ints/xms.cpp -text
 src/ints/xms.h -text
+src/libs/zmbv/drvproc.cpp -text
+src/libs/zmbv/resource.h -text
+src/libs/zmbv/zmbv.cpp -text
+src/libs/zmbv/zmbv.def -text
+src/libs/zmbv/zmbv.h -text
+src/libs/zmbv/zmbv.inf -text
+src/libs/zmbv/zmbv.sln -text
+src/libs/zmbv/zmbv.vcproj -text
+src/libs/zmbv/zmbv_vfw.h -text
+src/libs/zmbv/zmbv_vfw.rc -text
 src/misc/Makefile.am -text
 src/misc/messages.cpp -text
 src/misc/programs.cpp -text
