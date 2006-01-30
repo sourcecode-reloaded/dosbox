@@ -186,6 +186,7 @@ src/hardware/vga_gfx.cpp -text
 src/hardware/vga_memory.cpp -text
 src/hardware/vga_misc.cpp -text
 src/hardware/vga_other.cpp -text
+src/hardware/vga_s3.cpp -text
 src/hardware/vga_seq.cpp -text
 src/hardware/vga_xga.cpp -text
 src/hardware/ymf262.c -text
