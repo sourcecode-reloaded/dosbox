@@ -126,6 +126,8 @@ src/dos/drives.h -text
 src/dos/scsidefs.h -text
 src/dos/wnaspi32.h -text
 src/dosbox.cpp -text
+src/dosbox.ico -text
+src/dosbox.rc -text
 src/fpu/Makefile.am -text
 src/fpu/fpu.cpp -text
 src/fpu/fpu_instructions.h -text
