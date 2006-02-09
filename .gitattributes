@@ -132,6 +132,7 @@ src/fpu/fpu_instructions.h -text
 src/fpu/fpu_instructions_x86.h -text
 src/fpu/fpu_types.h -text
 src/gui/Makefile.am -text
+src/gui/dosbox_logo.h -text
 src/gui/midi.cpp -text
 src/gui/midi_alsa.h -text
 src/gui/midi_coreaudio.h -text
