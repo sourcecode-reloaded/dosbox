@@ -144,6 +144,7 @@ src/gui/render.cpp -text
 src/gui/render_loops.h -text
 src/gui/render_scalers.cpp -text
 src/gui/render_scalers.h -text
+src/gui/render_simple.h -text
 src/gui/render_templates.h -text
 src/gui/sdl_mapper.cpp -text
 src/gui/sdlmain.cpp -text
