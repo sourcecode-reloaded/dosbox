@@ -56,6 +56,12 @@ src/hardware/serialport/Makefile.in
 src/ints/.deps
 src/ints/Makefile
 src/ints/Makefile.in
+src/libs/.deps
+src/libs/Makefile
+src/libs/Makefile.in
+src/libs/zmbv/.deps
+src/libs/zmbv/Makefile
+src/libs/zmbv/Makefile.in
 src/misc/.deps
 src/misc/Makefile
 src/misc/Makefile.in
