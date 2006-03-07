@@ -39,6 +39,9 @@ template_pagebox_start("General Emulation links", 900);
 			<li><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
 			<a href="http://www.emu-france.com/" target="_blank">Emu-France</a> - a good french source for your daily emulation news.
 			</font></li>
+			<li><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
+			<a href="http://www.aep-emu.de/" target="_blank">AEP Emulation Page</a> - German emulation news. Online since 1 april 1998.
+			</font></li>
 			</ul>';
 template_pagebox_end();
 
