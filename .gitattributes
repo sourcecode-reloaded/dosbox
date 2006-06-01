@@ -59,6 +59,7 @@ src/cpu/core_dyn_x86.cpp -text
 src/cpu/core_dyn_x86/Makefile.am -text
 src/cpu/core_dyn_x86/cache.h -text
 src/cpu/core_dyn_x86/decoder.h -text
+src/cpu/core_dyn_x86/dyn_fpu.h -text
 src/cpu/core_dyn_x86/helpers.h -text
 src/cpu/core_dyn_x86/risc_x86.h -text
 src/cpu/core_dyn_x86/string.h -text
@@ -133,7 +134,6 @@ src/fpu/Makefile.am -text
 src/fpu/fpu.cpp -text
 src/fpu/fpu_instructions.h -text
 src/fpu/fpu_instructions_x86.h -text
-src/fpu/fpu_types.h -text
 src/gui/Makefile.am -text
 src/gui/dosbox_logo.h -text
 src/gui/midi.cpp -text
