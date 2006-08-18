@@ -48,7 +48,7 @@ template_pagebox_end();
 template_pagebox_start("PC/DOS/SB Emulation links", 900);			
 			echo '<ul>
 			<li><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-			<a href="http://ntvdm.cjb.net/" target="_blank">VDMSound</a> - Great tool by Vlad R. that gives you Soundblaster emulation under Windows NT/2K/XP.
+			<a href="http://sourceforge.net/projects/vdmsound/" target="_blank">VDMSound</a> - Great tool by Vlad R. that gives you Soundblaster emulation under Windows NT/2K/XP.
 			</font></li>
 		        <li><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
 			<a href="http://bochs.sourceforge.net/" target="_blank">Bochs IA-32 Emulator</a> - Bochs emulates a full x86 based pc. Unlike DOSBox that tries to mainly emulate dos programs.
