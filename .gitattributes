@@ -60,6 +60,7 @@ src/cpu/core_dyn_x86/Makefile.am -text
 src/cpu/core_dyn_x86/cache.h -text
 src/cpu/core_dyn_x86/decoder.h -text
 src/cpu/core_dyn_x86/dyn_fpu.h -text
+src/cpu/core_dyn_x86/dyn_fpu_dh.h -text
 src/cpu/core_dyn_x86/helpers.h -text
 src/cpu/core_dyn_x86/risc_x86.h -text
 src/cpu/core_dyn_x86/string.h -text
