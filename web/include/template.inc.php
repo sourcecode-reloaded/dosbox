@@ -45,7 +45,7 @@ function template_end()
  					&nbsp;
 				</td>
 				<td valign="top">
-					&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;<img src="site_images/compilations.jpg" />&nbsp;&nbsp;&nbsp;
 					<a target="_blank" href="http://t.extreme-dm.com/?login=harekiet">
 					<img name=im src="http://t1.extreme-dm.com/i.gif" height=38
 					border=0 width=41 alt=""></a><script language="javascript"><!--
