@@ -110,10 +110,13 @@ src/dos/cdrom_ioctl_win32.cpp -text
 src/dos/dev_con.h -text
 src/dos/dos.cpp -text
 src/dos/dos_classes.cpp -text
+src/dos/dos_codepages.h -text
 src/dos/dos_devices.cpp -text
 src/dos/dos_execute.cpp -text
 src/dos/dos_files.cpp -text
 src/dos/dos_ioctl.cpp -text
+src/dos/dos_keyboard_layout.cpp -text
+src/dos/dos_keyboard_layout_data.h -text
 src/dos/dos_memory.cpp -text
 src/dos/dos_misc.cpp -text
 src/dos/dos_mscdex.cpp -text
