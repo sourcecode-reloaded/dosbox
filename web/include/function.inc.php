@@ -545,7 +545,7 @@ function show_downloads($priv)
 				</font></td>
 
 				<td width="110">
-				<font face="Verdana, Arial, Helvetica, sans-serif" size="2">version '.$result[4].'
+				<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$result[4].'
 				</font></td>
 				<td>
 				<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$result[3].'
