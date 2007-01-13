@@ -181,8 +181,14 @@ src/hardware/sblaster.cpp -text
 src/hardware/serialport/Makefile.am -text
 src/hardware/serialport/directserial_os2.cpp -text
 src/hardware/serialport/directserial_os2.h -text
+src/hardware/serialport/directserial_posix.cpp -text
+src/hardware/serialport/directserial_posix.h -text
 src/hardware/serialport/directserial_win32.cpp -text
 src/hardware/serialport/directserial_win32.h -text
+src/hardware/serialport/misc_util.cpp -text
+src/hardware/serialport/misc_util.h -text
+src/hardware/serialport/nullmodem.cpp -text
+src/hardware/serialport/nullmodem.h -text
 src/hardware/serialport/serialdummy.cpp -text
 src/hardware/serialport/serialdummy.h -text
 src/hardware/serialport/serialport.cpp -text
