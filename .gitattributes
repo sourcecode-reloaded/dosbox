@@ -258,9 +258,6 @@ src/shell/shell.cpp -text
 src/shell/shell_batch.cpp -text
 src/shell/shell_cmds.cpp -text
 src/shell/shell_misc.cpp -text
-visualc/Makefile.am -text
-visualc/dosbox.dsp -text svneol=unset#application/octet-stream
-visualc/dosbox.dsw -text svneol=unset#application/octet-stream
 visualc_net/Makefile.am -text
 visualc_net/dosbox.sln -text
 visualc_net/dosbox.vcproj -text
