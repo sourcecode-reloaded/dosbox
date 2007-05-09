@@ -136,8 +136,10 @@ if ($_SESSION['userID'])
 		$moby 		= mysql_escape_string(stripslashes($_POST['moby']));
 		$userID		= $_SESSION['userID'];
 		$first_char 	= $name{0};
+		$query = mysql_query("Select name from list_game where name='$name'");
+		$num = mysql_num_rows($query);
 
-		if ($name == '' || $publisher == '' || !is_numeric($released) || strlen($comment)>1024)
+		if ($num > 0 || $name == '' || $publisher == '' || !is_numeric($released) || strlen($comment)>1024)
 		Header("Location: comp_list.php?post_new=1&error=1&letter=".$_POST['letter']);
 		else
 		{
