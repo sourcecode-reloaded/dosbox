@@ -64,6 +64,16 @@ src/cpu/core_dyn_x86/dyn_fpu_dh.h -text
 src/cpu/core_dyn_x86/helpers.h -text
 src/cpu/core_dyn_x86/risc_x86.h -text
 src/cpu/core_dyn_x86/string.h -text
+src/cpu/core_dynrec.cpp -text
+src/cpu/core_dynrec/Makefile.am -text
+src/cpu/core_dynrec/cache.h -text
+src/cpu/core_dynrec/decoder.h -text
+src/cpu/core_dynrec/decoder_basic.h -text
+src/cpu/core_dynrec/decoder_opcodes.h -text
+src/cpu/core_dynrec/dyn_fpu.h -text
+src/cpu/core_dynrec/operators.h -text
+src/cpu/core_dynrec/risc_x64.h -text
+src/cpu/core_dynrec/risc_x86.h -text
 src/cpu/core_full.cpp -text
 src/cpu/core_full/Makefile.am -text
 src/cpu/core_full/ea_lookup.h -text
