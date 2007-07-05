@@ -12,6 +12,7 @@
 /autogen.sh -text
 /configure.in -text
 docs/Makefile.am -text
+docs/PORTING -text
 docs/README.video -text
 docs/dosbox.1 -text
 include/Makefile.am -text
