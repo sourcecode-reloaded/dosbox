@@ -666,7 +666,12 @@ function choose_percentage()
 function compat_list_latest()
 {
 	echo '<b>Latest Added:</b><br>';
-	$query = mysql_query("SELECT ID, name, version, released FROM list_game ORDER BY added DESC LIMIT 10");
+	global $user;
+	$limit = 10;
+	if($user['priv']['compat_list_manage']==1){
+		$limit = 30;
+	}
+	$query = mysql_query("SELECT ID, name, version, released FROM list_game ORDER BY added DESC LIMIT $limit");
 	while ($result = mysql_fetch_row($query))
 	{
 		$q = mysql_query("SELECT status_games.status FROM status_games WHERE status_games.gameID=$result[0] ORDER BY status_games.status DESC LIMIT 1");
