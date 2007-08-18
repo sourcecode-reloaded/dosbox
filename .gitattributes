@@ -258,6 +258,7 @@ src/misc/programs.cpp -text
 src/misc/setup.cpp -text
 src/misc/support.cpp -text
 src/platform/Makefile.am -text
+src/platform/sdl-win32.diff -text
 src/platform/visualc/Makefile.am -text
 src/platform/visualc/config.h -text
 src/platform/visualc/dirent.c -text
