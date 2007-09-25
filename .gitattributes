@@ -236,6 +236,7 @@ src/ints/int10_modes.cpp -text
 src/ints/int10_pal.cpp -text
 src/ints/int10_put_pixel.cpp -text
 src/ints/int10_vesa.cpp -text
+src/ints/int10_video_state.cpp -text
 src/ints/mouse.cpp -text
 src/ints/xms.cpp -text
 src/ints/xms.h -text
