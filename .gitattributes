@@ -167,6 +167,7 @@ src/gui/render_templates_hq.h -text
 src/gui/render_templates_hq2x.h -text
 src/gui/render_templates_hq3x.h -text
 src/gui/render_templates_sai.h -text
+src/gui/sdl_gui.cpp -text
 src/gui/sdl_mapper.cpp -text
 src/gui/sdlmain.cpp -text
 src/hardware/Makefile.am -text
