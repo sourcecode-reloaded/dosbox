@@ -242,6 +242,10 @@ src/ints/mouse.cpp -text
 src/ints/xms.cpp -text
 src/ints/xms.h -text
 src/libs/Makefile.am -text
+src/libs/gui_tk/Doxyfile -text
+src/libs/gui_tk/Makefile.am -text
+src/libs/gui_tk/gui_tk.cpp -text
+src/libs/gui_tk/gui_tk.h -text
 src/libs/zmbv/Makefile.am -text
 src/libs/zmbv/drvproc.cpp -text
 src/libs/zmbv/resource.h -text
