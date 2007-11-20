@@ -985,8 +985,6 @@ function comp_show_ID($showID)
 	{
 		$status_text = return_status($status[1]);
 
-		echo ;
-
 		echo '<table cellspacing="0" cellpadding="0" width="580">
 		<tr>
 		<td>

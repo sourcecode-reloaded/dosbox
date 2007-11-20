@@ -45,25 +45,25 @@ function template_end()
  					&nbsp;
 				</td>
 				<td valign="top">
-					&nbsp;&nbsp;&nbsp;<img src="site_images/compilations.jpg" />&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;<img src="site_images/compilations.jpg" alt="Compilations"/>&nbsp;&nbsp;&nbsp;
 					<a target="_blank" href="http://t.extreme-dm.com/?login=harekiet">
 					<img name=im src="http://t1.extreme-dm.com/i.gif" height=38
-					border=0 width=41 alt=""></a><script language="javascript"><!--
+					border=0 width=41 alt=""></a><script language="javascript" type="text/javascript"><!--
 					an=navigator.appName;d=document;function
 					pr(){d.write("<img src=\"http://t0.extreme-dm.com",
 					"/0.gif?tag=harekiet&j=y&srw="+srw+"&srb="+srb+"&",
 					"rs="+r+"&l="+escape(parent.document.referrer)+"\" height=1 ",
 					"width=1>");}srb="na";srw="na";//-->
-					</script><script language="javascript1.2"><!--
+					</script><script language="javascript1.2" type="text/javascript"><!--
 					s=screen;srw=s.width;an!="Netscape"?
 					srb=s.colorDepth:srb=s.pixelDepth;//-->
-					</script><script language="javascript"><!--
+					</script><script language="javascript" type="text/javascript"><!--
 					r=41;d.images?r=d.im.width:z=0;pr();//-->
 					</script><noscript><img height=1 width=1 alt="" 
 					src="http://t0.extreme-dm.com/0.gif?tag=harekiet&amp;j=n"></noscript>	
 					&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.sourceforge.net/projects/dosbox" target="_blank"><img src="http://sourceforge.net/sflogo.php?group_id=52551&amp;type=1" width="88" height="31" border="0" alt="SourceForge.net Logo"></a>
 					&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://sourceforge.net/donate/index.php?group_id=52551"><img src="http://images.sourceforge.net/images/project-support.jpg" width="88" height="32" border="0" alt="Support This Project"></a><br>
-					<img src="site_images/copyright.gif" alt="Copyright 2003 DOSBox">
+					<img src="site_images/copyright.gif" alt="Copyright 2007 DOSBox">
 				</td>
 			</tr>
 		</table><br><br><br><br><br><br>

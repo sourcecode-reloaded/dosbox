@@ -6,7 +6,7 @@ sstart();
 
 if ($_GET['changeversion']==1)
 {
-	if (isset($_SESSION['userID']))
+	if (isset($_SESSION['userID'],$_POST['statusID'],$_POST['percent']))
 	mysql_query("UPDATE status_games SET status=".$_POST['percent']." WHERE status_games.ID=".$_POST['statusID']);
 
 	Header("Location: comp_list.php?changeID=".$_POST['gameID']."&letter=".$_POST['letter']);
