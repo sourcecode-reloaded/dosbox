@@ -155,6 +155,7 @@ src/gui/dosbox_logo.h -text
 src/gui/midi.cpp -text
 src/gui/midi_alsa.h -text
 src/gui/midi_coreaudio.h -text
+src/gui/midi_coremidi.h -text
 src/gui/midi_oss.h -text
 src/gui/midi_win32.h -text
 src/gui/render.cpp -text
