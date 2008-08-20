@@ -73,6 +73,11 @@ src/cpu/core_dynrec/decoder_basic.h -text
 src/cpu/core_dynrec/decoder_opcodes.h -text
 src/cpu/core_dynrec/dyn_fpu.h -text
 src/cpu/core_dynrec/operators.h -text
+src/cpu/core_dynrec/risc_armv4le-common.h -text
+src/cpu/core_dynrec/risc_armv4le-o3.h -text
+src/cpu/core_dynrec/risc_armv4le-s3.h -text
+src/cpu/core_dynrec/risc_armv4le-thumb.h -text
+src/cpu/core_dynrec/risc_armv4le.h -text
 src/cpu/core_dynrec/risc_mipsel32.h -text
 src/cpu/core_dynrec/risc_x64.h -text
 src/cpu/core_dynrec/risc_x86.h -text
