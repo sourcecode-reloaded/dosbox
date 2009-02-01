@@ -17,7 +17,9 @@ docs/README.video -text
 docs/dosbox.1 -text
 include/Makefile.am -text
 include/bios.h -text
+include/bios_disk.h -text
 include/callback.h -text
+include/control.h -text
 include/cpu.h -text
 include/cross.h -text
 include/debug.h -text
