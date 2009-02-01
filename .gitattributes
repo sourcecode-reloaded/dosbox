@@ -273,6 +273,7 @@ src/libs/zmbv/zmbv_vfw.cpp -text
 src/libs/zmbv/zmbv_vfw.h -text
 src/libs/zmbv/zmbv_vfw.rc -text
 src/misc/Makefile.am -text
+src/misc/cross.cpp -text
 src/misc/messages.cpp -text
 src/misc/programs.cpp -text
 src/misc/setup.cpp -text
