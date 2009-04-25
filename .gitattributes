@@ -185,6 +185,8 @@ src/hardware/Makefile.am -text
 src/hardware/adlib.cpp -text
 src/hardware/adlib.h -text
 src/hardware/cmos.cpp -text
+src/hardware/dbopl.cpp -text
+src/hardware/dbopl.h -text
 src/hardware/disney.cpp -text
 src/hardware/dma.cpp -text
 src/hardware/fmopl.c -text
