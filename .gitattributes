@@ -155,7 +155,6 @@ src/dos/scsidefs.h -text
 src/dos/wnaspi32.h -text
 src/dosbox.cpp -text
 src/dosbox.ico -text
-src/dosbox.rc -text
 src/fpu/Makefile.am -text
 src/fpu/fpu.cpp -text
 src/fpu/fpu_instructions.h -text
@@ -297,6 +296,7 @@ src/shell/shell.cpp -text
 src/shell/shell_batch.cpp -text
 src/shell/shell_cmds.cpp -text
 src/shell/shell_misc.cpp -text
+src/winres.rc -text
 visualc_net/Makefile.am -text
 visualc_net/dosbox.sln -text
 visualc_net/dosbox.vcproj -text
