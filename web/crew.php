@@ -4,18 +4,18 @@
 	sstart();
 	template_header();
 
-	echo '<br><table width="100%"><tr><td width="14">&nbsp;</td><td>';// start of framespacing-table
+	echo '<br><table width="100%"><tr><td width="14">&nbsp;</td><td valign="top">';// start of framespacing-table
 
 	template_pagebox_start("The people behind DOSBox");
 
 echo '
 	<table cellspacing="0" cellpadding="0" width="100%">
 	<tr>
-		<td valign="top" width="180"><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Name:</b></font>
+		<td valign="top" width="180"><b>Name:</b>
 		</td>
-		<td valign="top" width="150"><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Nickname:</B></font>
+		<td valign="top" width="150"><b>Nickname:</B>
 		</td>
-		<td valign="top" width="250"><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Website:</B></font>
+		<td valign="top" width="250"><b>Website:</B>
 		</td>
 
 	</tr>';
@@ -25,12 +25,12 @@ echo '
 	{
 		echo '
 		<tr>
-			<td valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$result[0].'</font>
+			<td valign="top">'.$result[0].'
 			</td>
-			<td valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$result[1].'</font>
+			<td valign="top">'.$result[1].'
 			</td>
-			<td valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">'; if ($result[3] != '') echo '<a href="'.$result[3].'" target="_blank">'.$result[3].'</a>'; else echo '&nbsp;';
-			echo '</font></td>
+			<td valign="top">'; if ($result[3] != '') echo '<a href="'.$result[3].'" target="_blank">'.$result[3].'</a>'; else echo '&nbsp;';
+			echo '</td>
 
 		</tr>';				
 	}	
@@ -39,9 +39,11 @@ echo '
 	template_pagebox_end();
 
 	
-echo '</td></tr><tr><td>&nbsp;</td><td><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-      <P>If you want to communicate with us feel free to use the following: 
-      <IMG SRC="site_images/nothing.png" width="200" height="20"alt="Nothing"></br></FONT>';
+echo '</td></tr><tr><td>&nbsp;</td><td>
+      If you want to communicate with us feel free to use the following: 
+<IMG SRC="site_images/nothing.png" width="200" height="20"alt="Nothing"><br>
+<em>If you have questions on how to use DOSBox or how to run a specific game; please use the <a href="http://vogons.zetafleet.com/index.php?c=7">forum</a> instead</em><br>
+';
 echo '</td></tr></table>';	// end of framespacing-table
 
 
