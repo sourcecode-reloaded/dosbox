@@ -18,5 +18,6 @@ include/template.inc.php -text
 /register_account.php -text
 /screenshots.php -text
 /status.php -text
+/test.css -text
 /usermanagement.php -text
 /versionadmin.php -text

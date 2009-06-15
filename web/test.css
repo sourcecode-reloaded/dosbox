@@ -1,0 +1,94 @@
+body {
+background-image: url(site_images/background.gif);
+background-color: #000000;
+color: #FFFFFF;
+margin: 0;
+font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px;
+}
+A:link { color: #FFFFFF }
+A:visited { color: #FFFFFF }
+A:active { color: #FFFFFF }
+
+td,th,option,select {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px;}
+
+option,select {
+color: #000000;
+}
+li.c2 {list-style: none;}
+span.undl {
+font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px;
+text-decoration: underline;
+}
+span.support {
+font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px;
+}
+div.temp {
+background-color: #355787;
+width: 120px;
+border: 1px solid;
+border-color: #000000;
+padding: 20px 0px 20px 0px;
+}
+div.gog {
+background-color: #113466;
+width: 120px;
+border: 1px solid;
+border-color: #000000;
+padding: 15px 0px 15px 0px;
+}
+.gog1 {
+color: #93be03;
+font-weight: bold; 
+}
+
+.gog2 {
+color: #fcb70a;
+font-weight: bold; 
+}
+a.goglink {
+color: #a1a1ff;
+text-align: center;
+}
+
+.code {
+font-family: monospace; 
+background-color: #355787;
+}
+div.temp2 {
+background-color: #355787;
+width: 610px;
+border: 1px solid;
+border-color: #000000;
+padding: 10px;
+}
+table.table630{
+width: 630px;
+}
+table.table_other{
+width: 1000px;
+}
+table.table690{
+width: 690px;
+}
+table.tablecomp{
+width: 630px;
+}
+table.comp_min10{
+width: 620px;
+
+}
+table.main{
+width: 822px;
+}
+table.table900{
+width: 800px;
+}
+table.table540{
+width: 540px;
+}
+table.table890{
+width: 690px;
+}
+table.table550{
+width: 550px;
+}
