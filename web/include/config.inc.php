@@ -16,4 +16,10 @@ $settings['melbdate']= date("Y-n-d_H-i-s",time() + $timeadjust);
 
 $settings['online']=60*6;
 $settings['lifetime']=3600*24*3;
+
+function scramble($p) {
+	$q = md5($p);
+	return $q; //Choose your own hashing algorithm here.
+}
+
 ?>
