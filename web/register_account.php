@@ -1,21 +1,22 @@
 <?php
+
 // this src is written under the terms of the GPL-licence, see gpl.txt for futher details
 	include("include/standard.inc.php");
 	$page = 'page_register.gif';
 	sstart();
 
-	if ($_GET['adding']==1)
+	if (isset($_POST['nickname'],$_POST['password1'],$_POST['password2']) && $_GET['adding']==1)
 	{
-		$nickname 	= mysql_escape_string(stripslashes($_POST['nickname']));
-		$password_plain	= mysql_escape_string(stripslashes($_POST['password1']));
-		$password1 	= mysql_escape_string(stripslashes(md5($_POST['password1'])));
-		$password2 	= mysql_escape_string(stripslashes(md5($_POST['password2'])));
-		$name 		= mysql_escape_string(stripslashes($_POST['name']));
-		$email 		= mysql_escape_string(stripslashes($_POST['email']));
-		$website 	= mysql_escape_string(stripslashes($_POST['website']));
+		$nickname 	= mysql_real_escape_string(stripslashes($_POST['nickname']));
+		$password_plain	= mysql_real_escape_string(stripslashes($_POST['password1']));
+		$password1 	= mysql_real_escape_string(stripslashes(scramble($_POST['password1'])));
+		$password2 	= mysql_real_escape_string(stripslashes(scramble($_POST['password2'])));
+		$name 		= mysql_real_escape_string(stripslashes($_POST['name']));
+		$email 		= mysql_real_escape_string(stripslashes($_POST['email']));
+		$website 	= mysql_real_escape_string(stripslashes($_POST['website']));
 		$temp_passwd	= md5(rand(0, 1999999999999999));
 	
-		if ($nickname == '' || $name == '' || $password2 == '' || $password1 == '' || $email == '')
+		if ($nickname == '' || $name == '' || $password2 == '' || $password_plain == '' || $email == '')
 			$problem = 1;
 		
 		if ($password1 != $password2)

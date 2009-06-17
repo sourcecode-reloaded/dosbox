@@ -3,13 +3,13 @@
 include("include/standard.inc.php");
 sstart();
 
-if ($user['priv']['status_manage']==1)
+if (isset($user) && $user['priv']['status_manage']==1)
 {
 	if ($_GET['createversion']==1)
 	{
 		if ($_POST['version'] != '')
 		{
-			$version = mysql_escape_string(stripslashes($_POST['version']));
+			$version = mysql_real_escape_string(stripslashes($_POST['version']));
 			mysql_query("INSERT INTO versions (version) VALUES ('$version')");
 			Header("Location: versionadmin.php");
 		}
@@ -18,8 +18,8 @@ if ($user['priv']['status_manage']==1)
 	}
 	if ($_GET['changeversion']==1)
 	{
-		$version	= mysql_escape_string(stripslashes($_POST['version']));
-		$versionID 	= mysql_escape_string(stripslashes($_POST['versionID']));
+		$version	= mysql_real_escape_string(stripslashes($_POST['version']));
+		$versionID 	= mysql_real_escape_string(stripslashes($_POST['versionID']));
 		
 		if ($version != '')
 		{
@@ -31,7 +31,7 @@ if ($user['priv']['status_manage']==1)
 	}
 	if (isset($_GET['removeID']))
 	{
-		$removeID = mysql_escape_string(stripslashes($_GET['removeID']));
+		$removeID = mysql_real_escape_string(intval(stripslashes($_GET['removeID'])));
 		$query = mysql_query("SELECT COUNT(ID) FROM status_games WHERE versionID=$removeID");
 		$count = mysql_fetch_row($query);
 		if ($count[0] != 0)
