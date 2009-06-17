@@ -1,6 +1,16 @@
 <?php
 // this src is written under the terms of the GPL-licence, see gpl.txt for futher details
+
+function error_msg(){
+$result = "";
+for ($i = 0;$i < func_num_args();$i++) {
+      $result .= func_get_arg($i) . " ";
+    }
+die($result);
+}
+
 // Starting session
+
 //******************************************************************************************************
 function sstart()
 {
@@ -29,12 +39,16 @@ function db_connect()
 	if (!$result) error_msg("Cannot connect to database mongo",$db);
 }
 
+
+
 // Logging in user
-//******************************************************************************************************
+//**************************************************************************************************
+
+
 function login($usr, $pwd)
 {
-	$username=mysql_escape_string(stripslashes($usr));
-	$password=mysql_escape_string(stripslashes(md5($pwd)));
+	$username=mysql_real_escape_string(stripslashes($usr));
+	$password=mysql_real_escape_string(scramble($pwd));
 
 	$query = mysql_query("
 	SELECT
@@ -122,7 +136,8 @@ function dbg_o()
 //******************************************************************************************************
 function check_dublicate_username($username)
 {
-	$query = mysql_query("SELECT COUNT(ID) FROM userdb WHERE userdb.nickname = '$username'");
+	$name = mysql_real_escape_string($username);
+	$query = mysql_query("SELECT COUNT(ID) FROM userdb WHERE userdb.nickname = '$name'");
 	$result = mysql_fetch_row($query);
 
 	if ($result[0] == 1)
@@ -141,9 +156,10 @@ function get_name_from_id($userID)
 }
 function check_if_owner($newsID,$userID=NULL)
 {
-	$newsID = mysql_escape_string(stripslashes($newsID));
+	$newsID = mysql_real_escape_string(stripslashes($newsID));
 	if ($newsID != NULL)
 	{
+		$userID = mysql_real_escape_string(stripslashes($userID));
 		$query = mysql_query("SELECT COUNT(*) FROM news WHERE news.ID = $newsID AND news.ownerID = $userID");
 		$result = mysql_fetch_row($query);
 		return $result[0];
@@ -184,10 +200,12 @@ function get_version_num($version = 0)
 }
 function check_game_owner($gameID, $userID)
 {
-	$gameID = mysql_escape_string(stripslashes($gameID));
-	$userID = mysql_escape_string(stripslashes($_SESSION['userID']));
+	$gameID = mysql_real_escape_string(stripslashes($gameID));
+	$userID = mysql_real_escape_string(stripslashes($_SESSION['userID']));
 
 	$query = mysql_query("SELECT COUNT(*) FROM list_game WHERE list_game.ID=$gameID AND list_game.ownerID=$userID");
+
+	if(!$query) return 0;
 
 	$result = mysql_fetch_row($query);
 
@@ -215,17 +233,17 @@ function main_news($priv)
 		$text = ereg_replace ("\n", "<br>", $result[0]);
 		$text = parse_http($text);
 
-		echo '<table width="730" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#355787"><tr><td>
-		<table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">';
+		echo '<table class="table630" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#355787"><tr><td>
+		<table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">';
 
-		if ($priv==1 || $result[3]==$_SESSION['userID'])
+		if ($priv==1 || (isset($_SESSION['userID']) && $result[3]==$_SESSION['userID']))
 		echo '<p><b>'.$result[1].'</b> - '.$result[2].'&nbsp;&nbsp;<a href="news.php?change_news=1&amp;newsID='.$result[4].'"><img src="site_images/change_icon.gif" border="0"></a>&nbsp;<a href="news.php?removing_news=1&newsID='.$result[4].'"><img src="site_images/delete_icon.gif" border="0"></a></p>';
 		else
 		echo '<b>'.$result[1].'</b> - '.$result[2].' ';
 
-		echo '</font></td></tr></table></td>
-		</tr></table></td></tr></table><table width="730" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#113466"><tr>
-		<td><table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">';
+		echo '</td></tr></table></td>
+		</tr></table></td></tr></table><table class="table630" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#113466"><tr>
+		<td><table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">';
 
 
 
@@ -233,7 +251,7 @@ function main_news($priv)
 
 		echo $text;
 
-		echo '</font></td></tr></table></td></tr></table></td></tr></table><br>';
+		echo '</td></tr></table></td></tr></table></td></tr></table><br>';
 	}
 
 
@@ -272,7 +290,7 @@ function verifyurl( $urladdr )
 //******************************************************************************************************
 function check_mail_db($email)
 {
-	$mail 	= mysql_escape_string(stripslashes($email));
+	$mail 	= mysql_real_escape_string(stripslashes($email));
 	$query 	= mysql_query("SELECT COUNT(*) FROM userdb WHERE userdb.email = '$mail'");
 	$result = mysql_fetch_row($query);
 
@@ -306,7 +324,7 @@ function get_usergroups($selected=NULL)
 }
 function status_change($changeID)
 {
-	$catID = mysql_escape_string(stripslashes($changeID));
+	$catID = mysql_real_escape_string(stripslashes($changeID));
 
 	$query = mysql_query("
 
@@ -321,19 +339,18 @@ function status_change($changeID)
 	echo '<table cellspacing="0" cellpadding="0">
 	<tr valign="top" align="left">
 	<td width="180">
-	<font face="Verdana, Arial, Helvetica, sans-serif" size="2">Name:
 	</td>
 
 	<td width="5">
 	&nbsp;
 	</td>
 
-	<td width="60"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Status:
+	<td width="60">Status:
 	</td>
 	<td width="5">
 	&nbsp;
 	</td>
-	<td width="100"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Note:
+	<td width="100">Note:
 	</td>
 	<td>
 	&nbsp;
@@ -384,7 +401,7 @@ function show_status_db($priv)
 	while($result=mysql_fetch_row($query))
 	{
 		if ($priv==1)
-		$text = $result[1].'&nbsp;<a href="status.php?changeID='.$result[0].'" target="_top"><img src="site_images/change_icon.gif" border="0" alt="Change these item(s)"></a>';
+		$text = $result[1].'&nbsp;<a href="status.php?changeID='.intval($result[0]).'" target="_top"><img src="site_images/change_icon.gif" border="0" alt="Change these item(s)"></a>';
 		else
 		$text = $result[1];
 
@@ -393,19 +410,17 @@ function show_status_db($priv)
 		echo '
 		<table cellspacing="0" cellpadding="0" width="100%">';
 
-		$item_query = mysql_query("SELECT name,percent,note FROM status_items WHERE catID=".$result[0]);
+		$item_query = mysql_query("SELECT name,percent,note FROM status_items WHERE catID=".intval($result[0]));
 		while($item_result=mysql_fetch_row($item_query))
 		{
 			echo '
 			<tr valign="top" align="left">
 			<td width="125">
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$item_result[0].'
-			</font>
+			'.$item_result[0].'
 						</td>
 
 			<td width="43">
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$item_result[1].'%
-			</font>
+			'.$item_result[1].'%
 						</td>
 
 			<td width="72" valign="middle">';
@@ -420,8 +435,7 @@ function show_status_db($priv)
 			</td>
 
 			<td valign="middle">
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$item_result[2].'
-			</font>
+			'.$item_result[2].'
 						</td>
 			</tr>';
 		}
@@ -433,7 +447,7 @@ function show_status_db($priv)
 }
 function download_change($changeID)
 {
-	$catID = mysql_escape_string(stripslashes($changeID));
+	$catID = mysql_real_escape_string(stripslashes($changeID));
 
 	$query = mysql_query("
 
@@ -448,24 +462,24 @@ function download_change($changeID)
 	echo '<table cellspacing="0" cellpadding="0">
 	<tr valign="top" align="left">
 	<td width="180">
-	<font face="Verdana, Arial, Helvetica, sans-serif" size="2">Name:
+	Name:
 	</td>
 
 	<td width="5">
 	&nbsp;
 	</td>
 
-	<td width="60"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Version:
+	<td width="60">Version:
 	</td>
 	<td width="5">
 	&nbsp;
 	</td>
-	<td width="60"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Description:
+	<td width="60">Description:
 	</td>
 	<td width="5">
 	&nbsp;
 	</td>
-	<td width="100"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">URL:
+	<td width="100">URL:
 	</td>
 	<td>
 	&nbsp;
@@ -478,7 +492,7 @@ function download_change($changeID)
 	{
 
 
-		echo '<form action="download.php?changing=1&catID='.$changeID.'" method="POST" name="changing_status"><input type="hidden" name="updateID" value="'.$result[5].'"><tr><td>
+		echo '<form action="download.php?changing=1&catID='.intval($changeID).'" method="POST" name="changing_status"><input type="hidden" name="updateID" value="'.$result[5].'"><tr><td>
 		<input type="text" value="'.$result[0].'" name="name" maxlength="40" size="25">
 		</td>
 
@@ -522,7 +536,7 @@ function show_downloads($priv)
 	{
 
 		if ($priv==1)
-		$cat=$cat_result[1].'&nbsp;<a href="download.php?changeID='.$cat_result[0].'" target="_top"><img src="site_images/change_icon.gif" border="0" alt="Change these item(s)"></a>';
+		$cat=$cat_result[1].'&nbsp;<a href="download.php?changeID='.intval($cat_result[0]).'" target="_top"><img src="site_images/change_icon.gif" border="0" alt="Change these item(s)"></a>';
 		else
 		$cat=$cat_result[1];
 
@@ -532,7 +546,7 @@ function show_downloads($priv)
 
 
 
-		$query = mysql_query("SELECT ID, name, url, description, version, DATE_FORMAT(added, '%W, %M %D, %Y'), changelog FROM download WHERE catID=".$cat_result[0]." ORDER BY version DESC");
+		$query = mysql_query("SELECT ID, name, url, description, version, DATE_FORMAT(added, '%W, %M %D, %Y'), changelog FROM download WHERE catID=".intval($cat_result[0])." ORDER BY version DESC");
 		if (mysql_num_rows($query) != 0)
 		{
 			echo '<table cellspacing="0" cellpadding="0" width="100%">';
@@ -541,24 +555,24 @@ function show_downloads($priv)
 				echo '
 				<tr valign="top" align="left">
 				<td width="210">
-				<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><a href="'.$result[2].'" target="_blank">'.$result[1].'</a>
-				</font></td>
+				<a href="'.$result[2].'" target="_blank">'.$result[1].'</a>
+				</td>
 
 				<td width="110">
-				<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$result[4].'
-				</font></td>
+				'.$result[4].'
+				</td>
 				<td>
-				<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$result[3].'
-				</font></td>' ;
+				'.$result[3].'
+				</td>' ;
 //				<td width="226">
-//				<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$result[5].'
-//				</font></td>
+//				'.$result[5].'
+//				</td>
 	echo			'</tr>';
 			}
 			echo '</table>';
 		}
 		else
-		echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><i>No items available for download in this category</i></font>';
+		echo '<i>No items available for download in this category</i>';
 		template_pagebox_end();
 
 	}
@@ -583,10 +597,21 @@ function get_versions()
 	}
 	echo '</select>';
 }
+
+function letter_check($letter){
+	if(!isset($letter)) $letter = "A";
+	
+	if($letter != 'num') {
+		if(strlen($letter)>1) $letter=substr($letter,0,1);
+		$letter = ucfirst($letter);
+	}
+	return $letter;
+} 
 function change_version_compatibility_form($gameID)
 {
 	global $user;
-
+	$gameID = intval($gameID);
+	$change = isset($_GET['changeID'])?intval($_GET['changeID']):0;
 
 	$query = mysql_query("SELECT status_games.ID, status_games.status, versions.version, versions.ID FROM versions,status_games WHERE status_games.versionID=versions.ID AND status_games.gameID=$gameID ORDER BY version DESC");
 	$num = mysql_num_rows($query);
@@ -594,9 +619,8 @@ function change_version_compatibility_form($gameID)
 	while ($result = mysql_fetch_row($query))
 	{
 		echo '
-		<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
 
-		<form name="versionchange" method="POST" action="comp_list.php?changeversion=1"><input type="hidden" name="letter" value="'.$_GET['letter'].'"><input type="hidden" name="gameID" value="'.$_GET['changeID'].'">
+		<form name="versionchange" method="POST" action="comp_list.php?changeversion=1"><input type="hidden" name="letter" value="'.letter_check($_GET['letter']).'"><input type="hidden" name="gameID" value="'.$change.'">
 		<input type="hidden" name="statusID" value="'.$result[0].'">
 
 
@@ -615,13 +639,14 @@ function change_version_compatibility_form($gameID)
 
 		echo '</select>&nbsp;&nbsp;';
 		if ($num != 1 AND $user['priv']['compat_list_manage']==1)
-		echo '<a href="comp_list.php?removeVERSION_ID='.$result[0].'&gameID='.$_GET['changeID'].'&letter='.$_GET['letter'].'"><img src="site_images/delete_icon.gif" border="0"></a>';
+		echo '<a href="comp_list.php?removeVERSION_ID='.$result[0].'&gameID='.$change.'&letter='.letter_check($_GET['letter']).'"><img src="site_images/delete_icon.gif" border="0"></a>';
 		echo '</form>';
 	}
 
 }
 function add_version_compatibility_form($gameID)
 {
+	$gameID = isset($gameID)?intval($gameID):0;
 	$query = mysql_query("SELECT versions.ID, versions.version FROM versions ORDER BY versions.version DESC");
 
 	echo '<select name="versionID">
@@ -665,7 +690,6 @@ function choose_percentage()
 }
 function compat_list_latest()
 {
-	echo '<b>Latest Added:</b><br>';
 	global $user;
 	$limit = 10;
 	if($user['priv']['compat_list_manage']==1){
@@ -679,7 +703,7 @@ function compat_list_latest()
 
 		echo '<option value="'.$result[0].'"';
 
-		if ($result[0]==$_GET['showID'])
+		if (isset($_GET['showID']) && ($result[0]==$_GET['showID']))
 		echo ' selected';
 
 		echo '> (';
@@ -689,18 +713,20 @@ function compat_list_latest()
 		echo ') '.$result[1].''; if ($result[2] != 0) echo ' ('.$result[3].')'; echo '</option>';
 	}
 }
+
 function comp_mainlist($letter)
 {
+$letter = letter_check($letter);
 
-	echo '<table width="730" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#355787"><tr><td>
-	<table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Game directory (browsing from <b>'; if($_GET['letter']==num) echo 'numerical'; else echo $_GET['letter']; echo '</b>)</td></tr></table></td>
-	</tr></table></td></tr></table><table width="730" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#113466"><tr>
+	echo '<table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#355787"><tr><td>
+	<table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">Game directory (browsing from <b>'; if($letter=='num') echo 'numerical'; else echo $letter; echo '</b>)</td></tr></table></td>
+	</tr></table></td></tr></table><table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#113466"><tr>
 	<td><table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">';
 
 
-	$letter = mysql_escape_string(stripslashes($letter));
+	$letter = mysql_real_escape_string(stripslashes($letter));
 
-	if ($letter == 'num')
+	if (isset($letter) && ($letter == 'num'))
 	$query = mysql_query("
 	SELECT
 	list_game.ID, list_game.name, list_game.released, list_game.version
@@ -721,15 +747,15 @@ function comp_mainlist($letter)
 	ORDER BY
 	list_game.name");
 	if (mysql_num_rows($query) == 0)
-	echo '<table cellspacing="0" cellpadding="0" width="100%"><tr><td><font face="Verdana, Arial, Helvetica, sans-serif" size="2">No games with the first letter "'.$letter.'" was found in the database!</td></tr></table>';
+	echo '<table cellspacing="0" cellpadding="0" width="100%"><tr><td>No games with the first letter "'.$letter.'" was found in the database!</td></tr></table>';
 	else
 	{
 
 
-		echo '<table cellspacing="0" cellpadding="0" width="720">
+		echo '<table cellspacing="0" cellpadding="0" class="tablecomp_min10">
 		<tr>
 		<td width="385">
-		<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Game:</b></font>
+		<b>Game:</b>
 		</td>
 
 		<td width="6">
@@ -737,7 +763,7 @@ function comp_mainlist($letter)
 		</td>
 
 		<td width="70">
-		<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Version:</b></font>
+		<b>Version:</b>
 		</td>
 
 		<td width="6">
@@ -745,7 +771,7 @@ function comp_mainlist($letter)
 		</td>
 
 		<td width="70">
-		<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Status:</b></font>
+		<b>Status:</b>
 		</td>
 
 
@@ -755,7 +781,7 @@ function comp_mainlist($letter)
 
 
 		<td width="275">
-		<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>runable&nbsp;&nbsp;-&nbsp;&nbsp;playable&nbsp;&nbsp;-&nbsp;&nbsp;supported</b></font>
+		<b>runable&nbsp;&nbsp;-&nbsp;&nbsp;playable&nbsp;&nbsp;-&nbsp;&nbsp;supported</b>
 		</td>
 		</tr>';
 
@@ -769,7 +795,8 @@ function comp_mainlist($letter)
 
 			echo '<tr>
 			<td>
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><a href="comp_list.php?showID='.$result[0].'&amp;letter='.$_GET['letter'].'">'.$result[1].'</a>'; if ($result[2] != 0) echo ' ('.$result[2].')'; echo '</font>
+<a href="comp_list.php?showID='.$result[0].'&amp;letter='.$letter.'">'.$result[1].'</a>'; if ($result[2] != 0) echo ' ('.$result[2].')'; 
+echo '
 			</td>
 
 			<td>
@@ -777,7 +804,7 @@ function comp_mainlist($letter)
 			</td>
 
 			<td>
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$status[1].'</font>
+			'.$status[1].'
 			</td>
 
 			<td>
@@ -785,7 +812,7 @@ function comp_mainlist($letter)
 			</td>
 
 			<td>
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$percent_text.'</font>
+			'.$percent_text.'
 			</td>
 
 			<td>
@@ -794,7 +821,7 @@ function comp_mainlist($letter)
 
 
 			<td>';
-			if ($status[0] != 0) echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><img src="site_images/progress.gif" border="1" width="'.$status[0].'%" height="8" alt="'.$status[0].'% ('.$percent_text.')"></font>'; else echo '&nbsp;';
+			if ($status[0] != 0) echo '<img src="site_images/progress.gif" border="1" width="'.$status[0].'%" height="8" alt="'.$status[0].'% ('.$percent_text.')">'; else echo '&nbsp;';
 			echo '</td>
 			</tr>';
 		}
@@ -825,7 +852,7 @@ function search_results($keyword)
 {
 
 
-	$keyword = mysql_escape_string(stripslashes($keyword));
+	$keyword = mysql_real_escape_string(stripslashes($keyword));
 
 	$query = mysql_query("
 	SELECT
@@ -840,27 +867,27 @@ function search_results($keyword)
 	$num = mysql_num_rows($query);
 	if ($num == 0)
 	{
-		echo '<table width="730" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#355787"><tr><td>
-		<table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Searching game-database (keyword "<b>'.$keyword.'</b>")</td></tr></table></td>
-		</tr></table></td></tr></table><table width="730" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#113466"><tr>
+		echo '<table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#355787"><tr><td>
+		<table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">Searching game-database (keyword "<b>'.$keyword.'</b>")</td></tr></table></td>
+		</tr></table></td></tr></table><table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#113466"><tr>
 		<td><table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">';
 
-		echo '<table cellspacing="0" cellpadding="0" width="100%"><tr><td><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><i>0 hits found with the keyword "'.$keyword.'"</td></tr></table>';
+		echo '<table cellspacing="0" cellpadding="0" width="100%"><tr><td><i>0 hits found with the keyword "'.$keyword.'"</i></td></tr></table>';
 
 	}
 	else
 	{
 
-		echo '<table width="730" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#355787"><tr><td>
-		<table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Searching: <b>'.$keyword.'</b> (<b>'.$num.'</b>'; if ($num ==1) echo ' result found'; else echo ' results found'; echo ')</td></tr></table></td>
-		</tr></table></td></tr></table><table width="730" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#113466"><tr>
+		echo '<table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#355787"><tr><td>
+		<table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">Searching: <b>'.$keyword.'</b> (<b>'.$num.'</b>'; if ($num ==1) echo ' result found'; else echo ' results found'; echo ')</td></tr></table></td>
+		</tr></table></td></tr></table><table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#113466"><tr>
 		<td><table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">';
 
 
-		echo '<table cellspacing="0" cellpadding="0" width="720">
+		echo '<table cellspacing="0" cellpadding="0" class="comp_min10">
 		<tr>
-		<td width="385">
-		<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Game:</b></font>
+		<td width="335">
+		<b>Game:</b>
 		</td>
 
 		<td width="6">
@@ -868,7 +895,7 @@ function search_results($keyword)
 		</td>
 
 		<td width="70">
-		<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Version:</b></font>
+		<b>Version:</b>
 		</td>
 
 		<td width="6">
@@ -876,7 +903,7 @@ function search_results($keyword)
 		</td>
 
 		<td width="70">
-		<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Status:</b></font>
+		<b>Status:</b>
 		</td>
 
 
@@ -885,8 +912,8 @@ function search_results($keyword)
 		</td>
 
 
-		<td width="275">
-		<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>runable&nbsp;&nbsp;-&nbsp;&nbsp;playable&nbsp;&nbsp;-&nbsp;&nbsp;supported</font>
+		<td width="225">
+		<b>runable&nbsp;&nbsp;-&nbsp;&nbsp;playable&nbsp;&nbsp;-&nbsp;&nbsp;supported
 		</td>
 		</tr>';
 
@@ -900,7 +927,7 @@ function search_results($keyword)
 			$name = stri_replace($keyword, "<b><font color=\"#90DEFF\">".$keyword."</b></font color>", $result[1]);
 			echo '<tr>
 			<td>
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><a href="comp_list.php?showID='.$result[0].'&letter='.$result[4].'&search='.$keyword.'">'.$name.'</a>'; if ($result[2] != 0) echo ' ('.$result[2].')'; echo '</font>
+			<a href="comp_list.php?showID='.$result[0].'&letter='.$result[4].'&search='.$keyword.'">'.$name.'</a>'; if ($result[2] != 0) echo ' ('.$result[2].')'; echo '
 			</td>
 
 			<td>
@@ -908,7 +935,7 @@ function search_results($keyword)
 			</td>
 
 			<td>
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$status[1].'</font>
+			'.$status[1].'
 			</td>
 
 			<td>
@@ -916,7 +943,7 @@ function search_results($keyword)
 			</td>
 
 			<td>
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$percent_text.'</font>
+			'.$percent_text.'
 			</td>
 
 			<td>
@@ -925,7 +952,7 @@ function search_results($keyword)
 
 
 			<td>';
-			if ($status[0] != 0) echo '<img src="site_images/progress.gif" border="1" width="'.$status[0].'%" height="8" alt="'.$status[0].'% ('.$percent_text.')"></font>'; else echo '&nbsp;';
+			if ($status[0] != 0) echo '<img src="site_images/progress.gif" border="1" width="'.$status[0].'%" height="8" alt="'.$status[0].'% ('.$percent_text.')">'; else echo '&nbsp;';
 			echo '</td>
 			</tr>';
 		}
@@ -938,7 +965,9 @@ function search_results($keyword)
 function comp_show_ID($showID)
 {
 	global $user;
-	$gameID = mysql_escape_string(stripslashes($gameID));
+	//HACK THING ?
+	$showID = intval($showID);
+	$showID = mysql_real_escape_string(stripslashes($showID));
 
 	$query = mysql_query("
 
@@ -953,20 +982,20 @@ function comp_show_ID($showID)
 
 	$result=mysql_fetch_row($query);
 
-	echo '<table width="730" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#355787"><tr><td>
-	<table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Game details';
+	echo '<table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#355787"><tr><td>
+	<table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">Game details';
 
 	if (isset($_SESSION['userID']))
-	echo '&nbsp;&nbsp;<a href="comp_list.php?changeID='.$showID.'&letter='.$_GET['letter'].'"><img src="site_images/change_icon.gif" border="0"></a>&nbsp;';
-	if ($result[6] == $_SESSION['userID'] || $user['priv']['manage_comment']==1)
-	echo '<a href="comp_list.php?removeID='.$showID.'&letter='.$_GET['letter'].'"><img src="site_images/delete_icon.gif" border="0"></a>';
+	echo '&nbsp;&nbsp;<a href="comp_list.php?changeID='.$showID.'&letter='.letter_check($_GET['letter']).'"><img src="site_images/change_icon.gif" border="0"></a>&nbsp;';
+	if ((isset($_SESSION['userID']) && $result[6] == $_SESSION['userID']) || (isset($user) && $user['priv']['manage_comment']==1))
+	echo '<a href="comp_list.php?removeID='.$showID.'&letter='.letter_check($_GET['letter']).'"><img src="site_images/delete_icon.gif" border="0"></a>';
 
 	echo '</td></tr></table></td>
-	</tr></table></td></tr></table><table width="730" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#113466"><tr>
+	</tr></table></td></tr></table><table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#113466"><tr>
 	<td><table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">';
 
 
-	echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$result[1].' - '.$result[2]; if ($result[3] != 0) echo ' ('.$result[3].')';
+	echo ' '.$result[1].' - '.$result[2]; if ($result[3] != 0) echo ' ('.$result[3].')';
 	echo '<br><b>Tested By:</b> '.$result[4].'<br><br>';
 
 	$status_query=mysql_query("
@@ -981,17 +1010,17 @@ function comp_show_ID($showID)
 	versions.version DESC
 	");
 
-	while ($status = mysql_fetch_row($status_query))
+	while ($status_query && ($status = mysql_fetch_row($status_query)))
 	{
 		$status_text = return_status($status[1]);
 
-		echo '<table cellspacing="0" cellpadding="0" width="580">
+		echo '<table cellspacing="0" cellpadding="0" width="480">
 		<tr>
 		<td>
 		<table cellspacing="0" cellpadding="0" width="262">
 		<tr>
 		<td width="237">
-		<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>runable&nbsp;&nbsp;-&nbsp;&nbsp;playable&nbsp;&nbsp;-&nbsp;&nbsp;supported</font>
+		<b>runable&nbsp;&nbsp;-&nbsp;&nbsp;playable&nbsp;&nbsp;-&nbsp;&nbsp;supported
 		</td>
 		</tr>';
 
@@ -999,7 +1028,7 @@ function comp_show_ID($showID)
 
 		echo '<tr>
 		<td width="237">';
-		if ($status[1] != 0) echo '<img src="site_images/progress.gif" border="1" width="'.$status[1].'%" height="8" alt="'.$status[1].'% ('.$status_text.')"></font>'; else echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2">0% supported</font>';
+		if ($status[1] != 0) echo '<img src="site_images/progress.gif" border="1" width="'.$status[1].'%" height="8" alt="'.$status[1].'% ('.$status_text.')">'; else echo '0% supported';
 		echo '</td>
 		</tr>';
 
@@ -1009,7 +1038,7 @@ function comp_show_ID($showID)
 		&nbsp;
 		</td>
 		<td valign="middle" align="left" width="330">
-		<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>DOSBox version:</b> '.$status[2].'</b> ('.$status_text.')<br></font>
+		<b>DOSBox version:</b> '.$status[2].'</b> ('.$status_text.')<br>
 		</td>
 
 		</tr>
@@ -1022,32 +1051,33 @@ function comp_show_ID($showID)
 	}
 
 	if (isset($_SESSION['userID']) AND $_GET['post_new']!=1)
-	echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><a href="comp_list.php?post_newMSG=1&showID='.$_GET['showID'].'&letter='.$_GET['letter'].'#post_comment">Click here</a> to post new comment</font><br>';
+	echo '<a href="comp_list.php?post_newMSG=1&showID='.$showID.'&letter='.letter_check($_GET['letter']).'#post_comment">Click here</a> to post new comment<br>';
 	echo '</td></tr></table></td></tr></table></td></tr></table>';
 }
 function comp_bar()
 {
+	$letter = letter_check($_GET['letter']);
 	echo '
 
 	<table cellspacing="0" cellpadding="0">
 	<tr>
 	<td>
-	<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>First char:
-		</b></font>
+	<b>First char:
+		</b>
 	</td>
 
 	<td width="6">&nbsp;</td>
 
 	<td>
-	<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Latest added:
-		</b></font>
+	<b>Latest added:
+		</b>
 	</td>
 
 	<td width="6">&nbsp;</td>
 
 	<td>
-	<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Game-search:
-		</b></font>
+	<b>Game-search:
+		</b>
 	</td>
 
 
@@ -1055,35 +1085,35 @@ function comp_bar()
 
 	<tr>
 	<td>
-	<form name="sort">
-	<select name="letter" onChange="submit(form.sort);" method="POST" action="comp_list.php">
+	<form name="sort" method="GET" action="comp_list.php">
+	<select name="letter" onChange="submit(form.sort);">
 	<option value="A">A ('; echo count_firstchar('A'); echo ')</option>
-	<option value="B"'; if ($_GET['letter'] =='B') echo ' selected'; echo '>B ('; echo count_firstchar('B'); echo ')</option>
-	<option value="C"'; if ($_GET['letter'] =='C') echo ' selected'; echo '>C ('; echo count_firstchar('C'); echo ')</option>
-	<option value="D"'; if ($_GET['letter'] =='D') echo ' selected'; echo '>D ('; echo count_firstchar('D'); echo ')</option>
-	<option value="E"'; if ($_GET['letter'] =='E') echo ' selected'; echo '>E ('; echo count_firstchar('E'); echo ')</option>
-	<option value="F"'; if ($_GET['letter'] =='F') echo ' selected'; echo '>F ('; echo count_firstchar('F'); echo ')</option>
-	<option value="G"'; if ($_GET['letter'] =='G') echo ' selected'; echo '>G ('; echo count_firstchar('G'); echo ')</option>
-	<option value="H"'; if ($_GET['letter'] =='H') echo ' selected'; echo '>H ('; echo count_firstchar('H'); echo ')</option>
-	<option value="I"'; if ($_GET['letter'] =='I') echo ' selected'; echo '>I ('; echo count_firstchar('I'); echo ')</option>
-	<option value="J"'; if ($_GET['letter'] =='J') echo ' selected'; echo '>J ('; echo count_firstchar('J'); echo ')</option>
-	<option value="K"'; if ($_GET['letter'] =='K') echo ' selected'; echo '>K ('; echo count_firstchar('K'); echo ')</option>
-	<option value="L"'; if ($_GET['letter'] =='L') echo ' selected'; echo '>L ('; echo count_firstchar('L'); echo ')</option>
-	<option value="M"'; if ($_GET['letter'] =='M') echo ' selected'; echo '>M ('; echo count_firstchar('M'); echo ')</option>
-	<option value="N"'; if ($_GET['letter'] =='N') echo ' selected'; echo '>N ('; echo count_firstchar('N'); echo ')</option>
-	<option value="O"'; if ($_GET['letter'] =='O') echo ' selected'; echo '>O ('; echo count_firstchar('O'); echo ')</option>
-	<option value="P"'; if ($_GET['letter'] =='P') echo ' selected'; echo '>P ('; echo count_firstchar('P'); echo ')</option>
-	<option value="Q"'; if ($_GET['letter'] =='Q') echo ' selected'; echo '>Q ('; echo count_firstchar('Q'); echo ')</option>
-	<option value="R"'; if ($_GET['letter'] =='R') echo ' selected'; echo '>R ('; echo count_firstchar('R'); echo ')</option>
-	<option value="S"'; if ($_GET['letter'] =='S') echo ' selected'; echo '>S ('; echo count_firstchar('S'); echo ')</option>
-	<option value="T"'; if ($_GET['letter'] =='T') echo ' selected'; echo '>T ('; echo count_firstchar('T'); echo ')</option>
-	<option value="U"'; if ($_GET['letter'] =='U') echo ' selected'; echo '>U ('; echo count_firstchar('U'); echo ')</option>
-	<option value="V"'; if ($_GET['letter'] =='V') echo ' selected'; echo '>V ('; echo count_firstchar('V'); echo ')</option>
-	<option value="W"'; if ($_GET['letter'] =='W') echo ' selected'; echo '>W ('; echo count_firstchar('W'); echo ')</option>
-	<option value="X"'; if ($_GET['letter'] =='X') echo ' selected'; echo '>X ('; echo count_firstchar('X'); echo ')</option>
-	<option value="Y"'; if ($_GET['letter'] =='Y') echo ' selected'; echo '>Y ('; echo count_firstchar('Y'); echo ')</option>
-	<option value="Z"'; if ($_GET['letter'] =='Z') echo ' selected'; echo '>Z ('; echo count_firstchar('Z'); echo ')</option>
-	<option value="num"'; if ($_GET['letter'] =='num') echo ' selected'; echo '>Numerical ('; echo count_firstchar('num'); echo ')</option>
+	<option value="B"'; if ($letter =='B') echo ' selected'; echo '>B ('; echo count_firstchar('B'); echo ')</option>
+	<option value="C"'; if ($letter =='C') echo ' selected'; echo '>C ('; echo count_firstchar('C'); echo ')</option>
+	<option value="D"'; if ($letter =='D') echo ' selected'; echo '>D ('; echo count_firstchar('D'); echo ')</option>
+	<option value="E"'; if ($letter =='E') echo ' selected'; echo '>E ('; echo count_firstchar('E'); echo ')</option>
+	<option value="F"'; if ($letter =='F') echo ' selected'; echo '>F ('; echo count_firstchar('F'); echo ')</option>
+	<option value="G"'; if ($letter =='G') echo ' selected'; echo '>G ('; echo count_firstchar('G'); echo ')</option>
+	<option value="H"'; if ($letter =='H') echo ' selected'; echo '>H ('; echo count_firstchar('H'); echo ')</option>
+	<option value="I"'; if ($letter =='I') echo ' selected'; echo '>I ('; echo count_firstchar('I'); echo ')</option>
+	<option value="J"'; if ($letter =='J') echo ' selected'; echo '>J ('; echo count_firstchar('J'); echo ')</option>
+	<option value="K"'; if ($letter =='K') echo ' selected'; echo '>K ('; echo count_firstchar('K'); echo ')</option>
+	<option value="L"'; if ($letter =='L') echo ' selected'; echo '>L ('; echo count_firstchar('L'); echo ')</option>
+	<option value="M"'; if ($letter =='M') echo ' selected'; echo '>M ('; echo count_firstchar('M'); echo ')</option>
+	<option value="N"'; if ($letter =='N') echo ' selected'; echo '>N ('; echo count_firstchar('N'); echo ')</option>
+	<option value="O"'; if ($letter =='O') echo ' selected'; echo '>O ('; echo count_firstchar('O'); echo ')</option>
+	<option value="P"'; if ($letter =='P') echo ' selected'; echo '>P ('; echo count_firstchar('P'); echo ')</option>
+	<option value="Q"'; if ($letter =='Q') echo ' selected'; echo '>Q ('; echo count_firstchar('Q'); echo ')</option>
+	<option value="R"'; if ($letter =='R') echo ' selected'; echo '>R ('; echo count_firstchar('R'); echo ')</option>
+	<option value="S"'; if ($letter =='S') echo ' selected'; echo '>S ('; echo count_firstchar('S'); echo ')</option>
+	<option value="T"'; if ($letter =='T') echo ' selected'; echo '>T ('; echo count_firstchar('T'); echo ')</option>
+	<option value="U"'; if ($letter =='U') echo ' selected'; echo '>U ('; echo count_firstchar('U'); echo ')</option>
+	<option value="V"'; if ($letter =='V') echo ' selected'; echo '>V ('; echo count_firstchar('V'); echo ')</option>
+	<option value="W"'; if ($letter =='W') echo ' selected'; echo '>W ('; echo count_firstchar('W'); echo ')</option>
+	<option value="X"'; if ($letter =='X') echo ' selected'; echo '>X ('; echo count_firstchar('X'); echo ')</option>
+	<option value="Y"'; if ($letter =='Y') echo ' selected'; echo '>Y ('; echo count_firstchar('Y'); echo ')</option>
+	<option value="Z"'; if ($letter =='Z') echo ' selected'; echo '>Z ('; echo count_firstchar('Z'); echo ')</option>
+	<option value="num"'; if ($letter =='num') echo ' selected'; echo '>0-9 ('; echo count_firstchar('num'); echo ')</option>
 	</select>
 
 	</form>
@@ -1094,7 +1124,7 @@ function comp_bar()
 
 	<td>
 	<form name="latest" method="GET" action="comp_list.php">
-	<input name="letter" type="hidden" value="'.$_GET['letter'].'">
+	<input name="letter" type="hidden" value="'.$letter.'">
 	<select name="showID" onChange="submit(form.latest);">
 	<option value="0">-</option>';
 	compat_list_latest();
@@ -1108,19 +1138,19 @@ function comp_bar()
 	<td width="6">&nbsp;</td>
 
 	<td>
-	<form name="game-search">
-	<input name="letter" type="hidden" value="'.$_GET['letter'].'"><input type="text" name="search" size="18" value="game-name">&nbsp;<input type="submit" name="submit" value="Search">
+	<form name="game-search" method="GET" action="comp_list.php">
+	<input name="letter" type="hidden" value="'.$letter.'"><input type="text" name="search" size="14" value="game-name">&nbsp;<input type="submit" name="submit" value="Search">
 	</form>
 	</td>
 
 	</tr>
 	</table>';
-	if ($_GET['post_new'] != 1 AND $_GET['posting'] !=1 AND isset($_SESSION['userID']))
-	echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><a href="comp_list.php?post_new=1&letter='.$_GET['letter'].'">Add new game to database</a></font><br><br>';
+	if ((!isset($_GET['post_new']) || $_GET['post_new'] != 1) AND ( !isset($_GET['posting']) || $_GET['posting'] !=1) AND isset($_SESSION['userID']))
+	echo '<a href="comp_list.php?post_new=1&letter='.$letter.'">Add new game to database</a><br><br>';
 }
 function count_firstchar($letter)
 {
-	$letter = mysql_escape_string(stripslashes($letter));
+	$letter = mysql_real_escape_string(letter_check(stripslashes($letter)));
 
 	if ($letter == 'num')
 	$query = mysql_query("SELECT COUNT(*) FROM list_game WHERE first_char='1' OR first_char='2' OR first_char='3' OR first_char='4' OR first_char='5' OR first_char='6' OR first_char='7' OR first_char='8' OR first_char='9' OR first_char='0' OR first_char='#' OR first_char='!' OR first_char='$'");
@@ -1145,7 +1175,7 @@ function return_status($percent)
 function get_msg_threads($gameID, $msgID=null)
 {
 	global $user;
-	$gameID = mysql_escape_string(stripslashes($gameID));
+	$gameID = mysql_real_escape_string(intval(stripslashes($gameID)));
 
 	if (!isset($msgID))
 	{
@@ -1167,7 +1197,7 @@ function get_msg_threads($gameID, $msgID=null)
 	while ($result = mysql_fetch_row($query))
 	{
 
-		echo '<table width="730" cellspacing="0" cellpadding="1" bgcolor="#000000">
+		echo '<table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000">
 		<tr>
 		<td valign="top" align="left">
 		<table cellspacing="4" cellpadding="0" width="100%" bgcolor="#355787">
@@ -1176,18 +1206,20 @@ function get_msg_threads($gameID, $msgID=null)
 		<table cellspacing="0" cellpadding="0" width="100%">
 		<tr>
 		<td valign="top" align="left">
-		<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$result[3].' ('.$result[6].')';
+		'.$result[3].' ('.$result[6].')';
 
-		if ($user['priv']['compat_list_manage']==1)
-		echo '&nbsp;<a href="comp_list.php?removeMSG_ID='.$result[0].'&letter='.$_GET['letter'].'&gameID='.$_GET['showID'].'"><img src="site_images/msgboard_remove.gif" alt="Remove this comment" border="0"></a>';
-
+		if (isset($user) && $user['priv']['compat_list_manage']==1){
+			$letter = letter_check($_GET['letter']);
+			$show = isset($_GET['showID'])?intval($_GET['showID']):0;
+		echo '&nbsp;<a href="comp_list.php?removeMSG_ID='.$result[0].'&letter='.$letter.'&gameID='.$show.'"><img src="site_images/msgboard_remove.gif" alt="Remove this comment" border="0"></a>';
+}
 
 
 
 
 		echo '</td>
 		<td valign="top" align="right" width="135">
-		<font face="Verdana, Arial, Helvetica, sans-serif" size="2">'.$result[8].'
+		'.$result[8].'
 		</td>
 		</tr>
 		</table>
@@ -1198,7 +1230,7 @@ function get_msg_threads($gameID, $msgID=null)
 		</td>
 		</tr>
 		</table>
-		<table width="730" cellspacing="0" cellpadding="1" bgcolor="#000000">
+		<table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000">
 		<tr>
 		<td valign="top" align="left">
 		<table cellspacing="4" cellpadding="0" width="100%" bgcolor="#0D2E5D">
@@ -1207,7 +1239,7 @@ function get_msg_threads($gameID, $msgID=null)
 		<table cellspacing="0" cellpadding="0" width="100%">
 		<tr>
 		<td valign="top" align="left">
-		<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
+		
 		';
 		echo wordwrap($result[4], 105, "\n", 1);;
 
@@ -1227,16 +1259,19 @@ function get_msg_threads($gameID, $msgID=null)
 }
 function write_comment()
 {
-	echo '<table width="730" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#355787"><tr><td>
-	<table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">Write new comment</td></tr></table></td>
-	</tr></table></td></tr></table><table width="730" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#113466"><tr>
-	<td><table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">';
+	$letter = letter_check($_GET['letter']);
+    $show = isset($_GET['showID'])?intval($_GET['showID']):0;
+
+	echo '<table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#355787"><tr><td>
+	<table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">Write new comment</td></tr></table></td>
+	</tr></table></td></tr></table><table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#113466"><tr>
+	<td><table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">';
 
 	echo '
 	<form action="comp_list.php?post_comment=1" method="POST" name="comment">
-	<input type="hidden" name="gameID" value="'.$_GET['showID'].'"><input type="hidden" name="letter" value="'.$_GET['letter'].'"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">';
+	<input type="hidden" name="gameID" value="'.$show.'"><input type="hidden" name="letter" value="'.$letter.'">';
 
-	if ($_GET['problem']==1)
+	if (isset($_GET['problem']) && $_GET['problem']==1)
 	echo '<b>Error - this form must be filled in accurate!</b><br>';
 
 	echo '
@@ -1253,7 +1288,7 @@ function write_comment()
 }
 function show_screenshots($limit)
 {
-	$page = mysql_escape_string(stripslashes($_GET['page']));
+	$page = mysql_real_escape_string(stripslashes(isset($_GET['page'])?(int)$_GET['page']:0));
 
 	$query = mysql_query("
 	SELECT
@@ -1286,7 +1321,7 @@ function show_screenshots($limit)
 	else
 	echo '<img src="site_images/arrow_left_nofuther.gif" border="0">';
 
-	echo '</td><td align="center"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">browse screen-archive</td><td align="right" width="17">';
+	echo '</td><td align="center">browse screen-archive</td><td align="right" width="17">';
 
 	if ($page<($maxpages))
 	echo '<a href="information.php?page='.($page+1).'"><img src="site_images/arrow_right.gif" border="0" alt="Browse screenshots-archive"></a>';
@@ -1306,20 +1341,20 @@ function get_support_stats()
 	echo '
 	<table cellspacing="0" cellpadding="0" width="100%">
 	<tr>
-	<td valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-	<b>Version:</b></font></td>
+	<td valign="top">
+	<b>Version:</b></td>
 
-	<td valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-	<b>Games broken:</b></font></td>
+	<td valign="top">
+	<b>Games broken:</b></td>
 
-	<td valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-	<b>Games runable:</b></font></td>
+	<td valign="top">
+	<b>Games runable:</b></td>
 
-	<td valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-	<b>Games playable:</b></font></td>
+	<td valign="top">
+	<b>Games playable:</b></td>
 
-	<td valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-	<b>Games supported:</b></font></td>
+	<td valign="top">
+	<b>Games supported:</b></td>
 	</tr>
 
 	';
@@ -1343,20 +1378,20 @@ function get_support_stats()
 		$runable_result = mysql_fetch_row($runable_query);
 
 		echo '<tr>
-		<td valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-		DOSBox '.$version_result[1].' ('.$v_count[0].')</font></td>
+		<td valign="top">
+		DOSBox '.$version_result[1].' ('.$v_count[0].')</td>
 
-		<td valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-		'.$broken_result[0].'</font></td>
+		<td valign="top">
+		'.$broken_result[0].'</td>
 
-		<td valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-		'.$runable_result[0].'</font></td>
+		<td valign="top">
+		'.$runable_result[0].'</td>
 
-		<td valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-		'.$playable_result[0].'</font></td>
+		<td valign="top">
+		'.$playable_result[0].'</td>
 
-		<td valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-		'.$supported_result[0].'</font></td>
+		<td valign="top">
+		'.$supported_result[0].'</td>
 		</tr>';
 
 
