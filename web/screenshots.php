@@ -2,8 +2,8 @@
 // this src is written under the terms of the GPL-licence, see gpl.txt for futher details
 include("include/standard.inc.php");
 sstart();
-	
-if ($user['priv']['screen_manage']==1)
+exit();	
+if (isset($user) && $user['priv']['screen_manage']==1)
 {
 	if ($_GET['upload_file']==1)
 	{		
