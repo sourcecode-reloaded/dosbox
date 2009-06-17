@@ -8,57 +8,57 @@
 template_pagebox_start("DOSBox related links", 900);
 			echo '<ul>
 			<li>
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
 			<a href="http://www.sourceforge.net/projects/dosbox" target="_blank">Sourceforge</a> - DOSBox project page,  submit bugs and patches here. 
-			</font></li>
+			</li>
 			<li>
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
 			<a href="http://vogons.zetafleet.com" target="_blank">VOGONS</a> - Official DOSBox Forum, look here for solutions for your problems.
-			</font></li>
+			</li>
 			<li>
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
 			<a href="http://pain.scene.org/service_dosbox.php" target="_blank">pain.scene.org</a> - Unofficial DOSBox Demo Compatibility List.
-			</font></li>							    
+			</li>							    
 			<li>
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-			<a href="http://cvscompile.aep-emu.de/dosbox.htm" target="_blank">cvscompile.aep-emu.de</a> - CVS builds kindly provided by the people of AEP-Emulation.
-			</font></li>
+			<a href="http://cvscompile.aep-emu.de/" target="_blank">cvscompile.aep-emu.de</a> - CVS builds kindly provided by the people of AEP-Emulation.
+			</li>
 			</ul>';
 template_pagebox_end();
-										    
+	template_pagebox_start("Where to get DOS games",900);
+			echo '<ul>
+			<li>
+			<a href="http://www.classicdosgames.com">Classic DOS Games</a> - has free downloads of over 300 games.
+			</li>
+			<li>
+			<a href="http://www.gog.com/en/frontpage/pp/b3f0c7f6bb763af1be91d9e74eabfeb199dc1f1f">GOG.com</a> - DRM-free PC classics.
+			</li>
+			<li>
+			<a href="http://www.3drealms.com/downloads.html">Apogee/3D Realms</a> -  is an industry veteran who has a rich history in DOS gaming, going back to the mid 80\'s.
+			</li>
+			</ul>';
+
+
+template_pagebox_end();
+
 template_pagebox_start("General Emulation links", 900);
 			echo '<ul>
 			<li>
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-			<a href="http://www.zophar.net/" target="_blank">Zophar\'s Domain</a> - Great emulation news site with a huge list of emulators for many different systems and my site is hosted there.
-			</font>
-			</li>
-			<li><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-			<a href="http://www.retrogames.com/" target="_blank">Retrogames</a> - Retrogames, your one stop emulation site. That should explain it enough.
-			</font></li>
-			<li><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
 			<a href="http://www.emu-france.com/" target="_blank">Emu-France</a> - a good french source for your daily emulation news.
-			</font></li>
-			<li><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
+			</li>
+			<li>
 			<a href="http://www.aep-emu.de/" target="_blank">AEP Emulation Page</a> - German emulation news. Online since 1 april 1998.
-			</font></li>
+			</li>
 			</ul>';
 template_pagebox_end();
 
 template_pagebox_start("PC/DOS/SB Emulation links", 900);			
 			echo '<ul>
-			<li><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
+			<li>
 			<a href="http://sourceforge.net/projects/vdmsound/" target="_blank">VDMSound</a> - Great tool by Vlad R. that gives you Soundblaster emulation under Windows NT/2K/XP.
-			</font></li>
-		        <li><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
+			</li>
+		        <li>
 			<a href="http://bochs.sourceforge.net/" target="_blank">Bochs IA-32 Emulator</a> - Bochs emulates a full x86 based pc. Unlike DOSBox that tries to mainly emulate dos programs.
-			</font></li>
-                        <li><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
-			<a href="http://www.eliel.com/dodge.html" target="_blank">DodGE</a> - DOS Emulator for Win32 by Joel McIntyre, comes with a great GUI.
-			</font></li>
-                        <li><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
+			</li>
+                        <li>
 			<a href="http://www.dosemu.org/" target="_blank">DOSEMU</a> - DOS Emulator for Linux, great tool to run just about any dos application under linux.
-			</font></li>
+			</li>
 			</ul>';
 template_pagebox_end();
 	

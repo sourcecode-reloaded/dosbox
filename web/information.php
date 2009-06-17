@@ -13,7 +13,7 @@ echo '
 	
 		<td width="540">';
 	
-	template_pagebox_start("Information", '100%');		
+	template_pagebox_start("Information", 540);		
 	
 			echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2">
 			<br>
