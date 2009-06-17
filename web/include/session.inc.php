@@ -32,6 +32,8 @@ function sess_write($sess_id, $var){
 	$sess_id=mysql_escape_string($sess_id);
 	$var=mysql_escape_string($var);
 
+if(!isset($_SESSION["userID"])) return false;
+
 	mysql_query("REPLACE INTO user_session (ID, lifetime, string, userID, last_active) VALUES ('$sess_id', UNIX_TIMESTAMP(), '$var',".$_SESSION["userID"].", NOW())");
 	switch(mysql_affected_rows())
 	{
