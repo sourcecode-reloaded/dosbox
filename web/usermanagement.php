@@ -3,7 +3,7 @@
 	include("include/standard.inc.php");
 	sstart();
 
-if ($user['priv']['user_management']==1)
+if (isset($user) && $user['priv']['user_management']==1)
 {
 	
 	if ($_GET['obsolute_delID'])
@@ -80,10 +80,10 @@ if ($user['priv']['user_management']==1)
 		{
 			show_users(999999);			
 		}
-		if ($_GET['editID'])
+		if (isset($_GET['editID']))
 		{
 		
-			$editID=mysql_escape_string(stripslashes($_GET['editID']));
+			$editID=mysql_escape_string(intval(stripslashes($_GET['editID'])));
 
 			$query = mysql_query("
 			
