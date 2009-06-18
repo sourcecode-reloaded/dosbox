@@ -1086,34 +1086,13 @@ function comp_bar()
 	<tr>
 	<td>
 	<form name="sort" method="GET" action="comp_list.php">
-	<select name="letter" onChange="submit(form.sort);">
-	<option value="A">A ('; echo count_firstchar('A'); echo ')</option>
-	<option value="B"'; if ($letter =='B') echo ' selected'; echo '>B ('; echo count_firstchar('B'); echo ')</option>
-	<option value="C"'; if ($letter =='C') echo ' selected'; echo '>C ('; echo count_firstchar('C'); echo ')</option>
-	<option value="D"'; if ($letter =='D') echo ' selected'; echo '>D ('; echo count_firstchar('D'); echo ')</option>
-	<option value="E"'; if ($letter =='E') echo ' selected'; echo '>E ('; echo count_firstchar('E'); echo ')</option>
-	<option value="F"'; if ($letter =='F') echo ' selected'; echo '>F ('; echo count_firstchar('F'); echo ')</option>
-	<option value="G"'; if ($letter =='G') echo ' selected'; echo '>G ('; echo count_firstchar('G'); echo ')</option>
-	<option value="H"'; if ($letter =='H') echo ' selected'; echo '>H ('; echo count_firstchar('H'); echo ')</option>
-	<option value="I"'; if ($letter =='I') echo ' selected'; echo '>I ('; echo count_firstchar('I'); echo ')</option>
-	<option value="J"'; if ($letter =='J') echo ' selected'; echo '>J ('; echo count_firstchar('J'); echo ')</option>
-	<option value="K"'; if ($letter =='K') echo ' selected'; echo '>K ('; echo count_firstchar('K'); echo ')</option>
-	<option value="L"'; if ($letter =='L') echo ' selected'; echo '>L ('; echo count_firstchar('L'); echo ')</option>
-	<option value="M"'; if ($letter =='M') echo ' selected'; echo '>M ('; echo count_firstchar('M'); echo ')</option>
-	<option value="N"'; if ($letter =='N') echo ' selected'; echo '>N ('; echo count_firstchar('N'); echo ')</option>
-	<option value="O"'; if ($letter =='O') echo ' selected'; echo '>O ('; echo count_firstchar('O'); echo ')</option>
-	<option value="P"'; if ($letter =='P') echo ' selected'; echo '>P ('; echo count_firstchar('P'); echo ')</option>
-	<option value="Q"'; if ($letter =='Q') echo ' selected'; echo '>Q ('; echo count_firstchar('Q'); echo ')</option>
-	<option value="R"'; if ($letter =='R') echo ' selected'; echo '>R ('; echo count_firstchar('R'); echo ')</option>
-	<option value="S"'; if ($letter =='S') echo ' selected'; echo '>S ('; echo count_firstchar('S'); echo ')</option>
-	<option value="T"'; if ($letter =='T') echo ' selected'; echo '>T ('; echo count_firstchar('T'); echo ')</option>
-	<option value="U"'; if ($letter =='U') echo ' selected'; echo '>U ('; echo count_firstchar('U'); echo ')</option>
-	<option value="V"'; if ($letter =='V') echo ' selected'; echo '>V ('; echo count_firstchar('V'); echo ')</option>
-	<option value="W"'; if ($letter =='W') echo ' selected'; echo '>W ('; echo count_firstchar('W'); echo ')</option>
-	<option value="X"'; if ($letter =='X') echo ' selected'; echo '>X ('; echo count_firstchar('X'); echo ')</option>
-	<option value="Y"'; if ($letter =='Y') echo ' selected'; echo '>Y ('; echo count_firstchar('Y'); echo ')</option>
-	<option value="Z"'; if ($letter =='Z') echo ' selected'; echo '>Z ('; echo count_firstchar('Z'); echo ')</option>
-	<option value="num"'; if ($letter =='num') echo ' selected'; echo '>0-9 ('; echo count_firstchar('num'); echo ')</option>
+	<select name="letter" onChange="submit(form.sort);">';
+	for ( $l = ord( "A" ); $l <= ord( "Z" ); $l++ ) {
+		$ll = chr( $l );
+		$selected = $letter == $ll ? " selected" : "";
+		echo "<option value='$ll'$selected>$ll (".count_firstchar($ll).")</option>";
+	}
+	echo '<option value="num"'; if ($letter =='num') echo ' selected'; echo '>0-9 ('; echo count_firstchar('num'); echo ')</option>
 	</select>
 
 	</form>

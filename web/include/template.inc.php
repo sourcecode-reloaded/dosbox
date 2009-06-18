@@ -2,15 +2,18 @@
 // this src is written under the terms of the GPL-licence, see gpl.txt for futher details
 function template_header()
 {
-echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<HTML>
-<HEAD><TITLE>DOSBox, a x86 emulator with DOS</TITLE>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
-<link rel="icon" type="image/x-icon" href="./favicon.ico">
-<link rel="stylesheet" type="text/css" href="./test.css">
-</HEAD>	
-<body>			
+echo <<<EOF
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+ <title>DOSBox, an x86 emulator with DOS</title>
+ <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+ <link rel="icon" type="image/x-icon" href="site_images/favicon.ico"/>
+ <link rel="shortcut icon" type="image/x-icon" href="site_images/favicon.ico"/>
+ <link rel="stylesheet" type="text/css" href="test.css"/>
+</head>	
+EOF;
+echo '<body>			
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 
