@@ -125,7 +125,7 @@ if (isset($_GET['removeID'],$_SESSION['userID']) && $_GET['removeID'])
 }
 if (isset($_SESSION['userID']) && $_SESSION['userID'])
 {
-	if (($_GET['posting_new']==1) && isset($_POST['name'],$_POST['publisher']))
+	if (isset($_GET['posting_new']) && ($_GET['posting_new']==1) && isset($_POST['name'],$_POST['publisher']))
 	{
 		$name 		= mysql_real_escape_string(stripslashes($_POST['name']));
 		$publisher 	= mysql_real_escape_string(stripslashes($_POST['publisher']));

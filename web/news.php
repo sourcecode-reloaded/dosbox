@@ -8,7 +8,7 @@
 
 if ((isset($_GET['newsID'],$_SESSION['userID']) && check_if_owner($_GET['newsID'],$_SESSION['userID'])) || (isset($user) && $user['priv']['news_management']==1))
 {
-	if ($_GET['changing_news']==1)
+	if (isset($_GET['changing_news']) && ( $_GET['changing_news']==1))
 	{
 		$text 		= mysql_real_escape_string(stripslashes($_POST['text']));
 		$updateID	= mysql_real_escape_string(stripslashes($_POST['updateID']));
@@ -16,13 +16,13 @@ if ((isset($_GET['newsID'],$_SESSION['userID']) && check_if_owner($_GET['newsID'
 		mysql_query("UPDATE news SET text='$text' WHERE ID = $updateID");
 		Header("Location: news.php?show_news=1");
 	}
-	if ($_GET['removing_news']==1)
+	if (isset($_GET['removing_news']) && ($_GET['removing_news']==1))
 	{
 		$newsID=mysql_real_escape_string(stripslashes($_GET['newsID']));
 		mysql_query("DELETE FROM news WHERE news.ID=$newsID");
 		Header("Location: news.php?show_news=1");
 	}
-	if ($_GET['change_news']==1)
+	if (isset($_GET['change_news']) && ($_GET['change_news']==1))
 	{
 		template_header();
 		echo '<br><table width="100%"><tr><td width="14">&nbsp;</td><td>';// start of framespacing-table		
@@ -62,14 +62,14 @@ if ((isset($_GET['newsID'],$_SESSION['userID']) && check_if_owner($_GET['newsID'
 
 if (isset($user) && $user['priv']['post_news']==1)
 {
-	if ($_GET['posting_news']==1)
+	if (isset($_GET['posting_news'])  && ($_GET['posting_news']==1))
 	{
 		$text = mysql_real_escape_string(stripslashes($_POST['text']));
 
 		mysql_query("INSERT INTO news (text, ownerID, added) VALUES ('$text', ".$_SESSION['userID'].", NOW())");	
 		Header("Location: news.php?success=1");
 	}
-	if ($_GET['post_news']==1)
+	if (isset($_GET['post_news']) && ($_GET['post_news']==1))
 	{
 		template_header();
 		echo '<br><table width="100%"><tr><td width="14">&nbsp;</td><td>';// start of framespacing-table		
@@ -93,7 +93,7 @@ if (isset($user) && $user['priv']['post_news']==1)
 }
 
 
-if ($_GET['show_news']==1)
+if (isset($_GET['show_news']) && $_GET['show_news']==1)
 {
 	template_header();
 	echo '<br>

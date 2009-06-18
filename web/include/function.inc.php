@@ -1050,13 +1050,13 @@ function comp_show_ID($showID)
 
 	}
 
-	if (isset($_SESSION['userID']) AND $_GET['post_new']!=1)
+	if (isset($_SESSION['userID']) AND (!isset($_GET['post_new'])|| ($_GET['post_new']!=1)))
 	echo '<a href="comp_list.php?post_newMSG=1&showID='.$showID.'&letter='.letter_check($_GET['letter']).'#post_comment">Click here</a> to post new comment<br>';
 	echo '</td></tr></table></td></tr></table></td></tr></table>';
 }
 function comp_bar()
 {
-	$letter = letter_check($_GET['letter']);
+	$letter = letter_check(isset($_GET['letter'])?$_GET['letter']:'a');
 	echo '
 
 	<table cellspacing="0" cellpadding="0">

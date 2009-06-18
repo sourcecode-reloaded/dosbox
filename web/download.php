@@ -7,7 +7,8 @@
 if (isset($user) && ($user['priv']['download_management']==1))
 {
 
-	if ($_GET['removeID'])
+	if (isset($_GET['removeID'],$_GET['catID']))
+
 	{
 		$removeID = mysql_real_escape_string(intval(stripslashes($_GET['removeID'])));
 		$catID = mysql_real_escape_string(intval(stripslashes($_GET['catID'])));
@@ -16,7 +17,7 @@ if (isset($user) && ($user['priv']['download_management']==1))
 
 		Header("Location: download.php?changeID=".$catID);
 	}
-	if ($_GET['adding']==1)
+	if (isset($_GET['adding']) &&$_GET['adding'] ==1)
 	{
 		$name = mysql_real_escape_string(stripslashes($_POST['name']));
 		$version = mysql_real_escape_string(stripslashes($_POST['version']));
@@ -36,7 +37,7 @@ if (isset($user) && ($user['priv']['download_management']==1))
 		else
 		      Header("Location: download.php?problem=1&changeID=".isset($_GET['catID'])?intval($_GET['catID']):0);
 	}
-	if ($_GET['changing']==1)
+	if (isset($_GET['changing']) && $_GET['changing']==1)
 	{
 		$updateID = mysql_real_escape_string(intval(stripslashes($_POST['updateID'])));
 		$name = mysql_real_escape_string(stripslashes($_POST['name']));
