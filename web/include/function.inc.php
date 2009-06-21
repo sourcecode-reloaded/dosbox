@@ -237,7 +237,7 @@ function main_news($priv)
 		<table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">';
 
 		if ($priv==1 || (isset($_SESSION['userID']) && $result[3]==$_SESSION['userID']))
-		echo '<p><b>'.$result[1].'</b> - '.$result[2].'&nbsp;&nbsp;<a href="news.php?change_news=1&amp;newsID='.$result[4].'"><img src="site_images/change_icon.gif" border="0"></a>&nbsp;<a href="news.php?removing_news=1&newsID='.$result[4].'"><img src="site_images/delete_icon.gif" border="0"></a></p>';
+		echo '<b>'.$result[1].'</b> - '.$result[2].'&nbsp;&nbsp;<a href="news.php?change_news=1&amp;newsID='.$result[4].'"><img src="site_images/change_icon.gif" border="0"></a>&nbsp;<a href="news.php?removing_news=1&newsID='.$result[4].'"><img src="site_images/delete_icon.gif" border="0"></a>';
 		else
 		echo '<b>'.$result[1].'</b> - '.$result[2].' ';
 
@@ -1356,21 +1356,22 @@ function get_support_stats()
 		$runable_query = mysql_query("SELECT COUNT(ID) FROM status_games WHERE status_games.versionID=".$version_result[0]." AND status_games.status <= 28 AND status_games.status > 0");
 		$runable_result = mysql_fetch_row($runable_query);
 
+		if( $v_count[0] )
 		echo '<tr>
 		<td valign="top">
 		DOSBox '.$version_result[1].' ('.$v_count[0].')</td>
 
 		<td valign="top">
-		'.$broken_result[0].'</td>
+		'.$broken_result[0].' ('.number_format($broken_result[0]/$v_count[0]*100,2).'%)</td>
 
 		<td valign="top">
-		'.$runable_result[0].'</td>
+		'.$runable_result[0].' ('.number_format($runable_result[0]/$v_count[0]*100,2).'%)</td>
 
 		<td valign="top">
-		'.$playable_result[0].'</td>
+		'.$playable_result[0].' ('.number_format($playable_result[0]/$v_count[0]*100,2).'%)</td>
 
 		<td valign="top">
-		'.$supported_result[0].'</td>
+		'.$supported_result[0].' ('.number_format($supported_result[0]/$v_count[0]*100,2).'%)</td>
 		</tr>';
 
 
