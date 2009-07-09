@@ -2,7 +2,8 @@
 // this src is written under the terms of the GPL-licence, see gpl.txt for futher details
 function template_header()
 {
-echo <<<EOF
+    $latest_version = get_latest_version();
+    echo <<<EOT
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,29 +12,27 @@ echo <<<EOF
  <link rel="icon" type="image/x-icon" href="site_images/favicon.ico"/>
  <link rel="shortcut icon" type="image/x-icon" href="site_images/favicon.ico"/>
  <link rel="stylesheet" type="text/css" href="test.css"/>
+ <link rel="stylesheet" type="text/css" href="dosbox.css"/>
 </head>	
-EOF;
-echo '<body>			
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-
-	<tr align="left" valign="top"> 
-		<td><img src="site_images/upper_logo.png" width="499" height="102" alt="logo upper"></td>
-		<td width="100%"><img src="site_images/upper_back.png" width="100%" height="102" alt="back upper"></td>
-	</tr>
-</table>
-
-<table border="0" cellspacing="0" cellpadding="0">
-	<tr align="left" valign="top"> 
-		<td width="520"><img src="site_images/menu.gif" usemap="#dosbox" border="0" alt="menu"></td>
-		<td valign="middle" align="right" width="158">
-			<span class="c1">Latest version: <strong><a href="download.php?main=1">'; echo get_latest_version(); echo '</a></strong></span>
-		</td>
-	</tr>
-</table>
-
-<br>
-<table class="main">
+<body>
+ <h1 id="logo">DOSBox</h1>
+ <ul id="menu">
+  <li><a href="news.php?show_news=1">News</a></li>
+  <li><a href="crew.php">Crew</a></li>
+  <li><a href="information.php?page=0">Information</a></li>
+  <li><a href="status.php?show_status=1">Status</a></li>
+  <li><a href="http://dosbox.com/wiki/">FAQ</a></li>
+  <li><a href="download.php?main=1">Downloads</a></li>
+  <li><a href="comp_list.php?letter=a">Compatibility</a></li>
+  <li><a href="http://vogons.zetafleet.com/index.php?c=7">Forum</a></li>
+  <li><a href="links.php">Links</a></li>
+  <li><a href="login.php">Login</a></li>
+ </ul>
+ <span class="indent top">Latest version:
+  <a class="bold" href="download.php?main=1">$latest_version</a>
+ </span>
+EOT;
+    echo '<table class="main">
 	<tr>
 		<td valign="top"><br>
 ';
@@ -122,18 +121,6 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 				</td>
 			</tr>
 		</table><br><br><br><br><br><br>
-			<map name="dosbox">
-			  <area shape="rect" coords="14,4,54,32" href="news.php?show_news=1"   alt="The latest news regarding DOSBox">
-			  <area shape="rect" coords="59,5,96,37" href="crew.php"   alt="The hard working guys behind DOSBox">
-			  <area shape="rect" coords="102,5,185,54" href="information.php?page=0" alt="Information about DOSBox">
-			  <area shape="rect" coords="192,5,237,51" href="status.php?show_status=1" alt="The current status of DOSBox">
-			  <area shape="rect" coords="242,4,273,27" href="wiki/" alt="Frequently Asked Questions">
-			  <area shape="rect" coords="282,4,359,47" href="download.php?main=1" alt="You may download DOSBox here">
-			  <area shape="rect" coords="370,4,416,41" href="comp_list.php?letter=a" alt="DOSBox compatibility-list">
-			  <area shape="rect" coords="427,4,473,35" href="http://vogons.zetafleet.com/index.php?c=7" alt="DOSBox forum" target="_blank">
-			  <area shape="rect" coords="482,4,523,45" href="links.php" alt="DOSBox recomended links">
-			  <area shape="rect" coords="530,3,576,25" href="login.php" alt="Login to your account">
-			</map>
 		
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");

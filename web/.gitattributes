@@ -2,6 +2,7 @@
 /COPYING -text
 /comp_list.php -text
 /crew.php -text
+/dosbox.css -text
 /download.php -text
 /faq.php -text
 /gpl.txt -text
@@ -17,6 +18,7 @@ include/template.inc.php -text
 /news.php -text
 /register_account.php -text
 /screenshots.php -text
+site_images/background.png -text
 /status.php -text
 /test.css -text
 /usermanagement.php -text
