@@ -5,7 +5,7 @@ sstart();
 
 if (isset($user) && $user['priv']['status_manage']==1)
 {
-	if ($_GET['createversion']==1)
+	if (isset($_GET['createversion']) && $_GET['createversion']==1)
 	{
 		if ($_POST['version'] != '')
 		{
@@ -16,7 +16,7 @@ if (isset($user) && $user['priv']['status_manage']==1)
 		else
 			Header("Location: versionadmin.php?add_empty=1");
 	}
-	if ($_GET['changeversion']==1)
+	if (isset($_GET['changeversion']) && $_GET['changeversion']==1)
 	{
 		$version	= mysql_real_escape_string(stripslashes($_POST['version']));
 		$versionID 	= mysql_real_escape_string(stripslashes($_POST['versionID']));

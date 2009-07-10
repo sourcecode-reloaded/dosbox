@@ -6,7 +6,7 @@
 if (isset($user) && $user['priv']['user_management']==1)
 {
 	
-	if ($_GET['obsolute_delID'])
+	if (isset($_GET['obsolute_delID']))
 	{
 		$ID = mysql_escape_string(stripslashes($_GET['obsolute_delID']));
 		
@@ -26,7 +26,7 @@ if (isset($user) && $user['priv']['user_management']==1)
 		
 		Header("Location: usermanagement.php?show=1");
 	}
-	if ($_GET['delID'])
+	if (isset($_GET['delID']))
 	{
 		$ID = mysql_escape_string(stripslashes($_GET['delID']));
 		
@@ -34,7 +34,7 @@ if (isset($user) && $user['priv']['user_management']==1)
 		Header("Location: usermanagement.php?show=1");
 	}
 	
-	if ($_GET['reactivateID'])
+	if (isset($_GET['reactivateID']))
 	{
 		$ID = mysql_escape_string(stripslashes($_GET['reactivateID']));
 		/*
@@ -46,7 +46,7 @@ if (isset($user) && $user['priv']['user_management']==1)
 					mysql_query("UPDATE userdb SET active=1 WHERE ID=$ID");
 		Header("Location: usermanagement.php?show=1");
 	}
-	if ($_GET['updatingID'])
+	if (isset($_GET['updatingID']))
 	{	
 		$ID = mysql_escape_string(stripslashes($_GET['updatingID']));
 		
@@ -76,7 +76,7 @@ if (isset($user) && $user['priv']['user_management']==1)
 	
 	echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><br>';
 
-		if ($_GET['show']==1)
+		if (isset($_GET['show']) && $_GET['show']==1)
 		{
 			show_users(999999);			
 		}

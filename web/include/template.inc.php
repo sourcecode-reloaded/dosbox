@@ -24,7 +24,7 @@ function template_header()
   <li><a href="http://dosbox.com/wiki/">FAQ</a></li>
   <li><a href="download.php?main=1">Downloads</a></li>
   <li><a href="comp_list.php?letter=a">Compatibility</a></li>
-  <li><a href="http://vogons.zetafleet.com/index.php?c=7">Forum</a></li>
+  <li><a href="http://vogons.zetafleet.com/index.php?c=7" target="_blank">Forum</a></li>
   <li><a href="links.php">Links</a></li>
   <li><a href="login.php">Login</a></li>
  </ul>

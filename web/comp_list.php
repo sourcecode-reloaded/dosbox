@@ -55,8 +55,8 @@ if (isset($_GET['addVersion'],$_POST['gameID'],$_POST['versionID'],$_POST['perce
 if (isset($_GET['post_comment'],$_POST['gameID'],$_SESSION['userID']) && $_GET['post_comment']==1)
 {
 	$gameID		=mysql_real_escape_string(intval(stripslashes($_POST['gameID'])));
-	$subject	=mysql_real_escape_string(stripslashes($_POST['subject']));
-	$text		=mysql_real_escape_string(stripslashes($_POST['text']));
+	$subject	=mysql_real_escape_string(stripslashes(htmlspecialchars($_POST['subject'])));
+	$text		=mysql_real_escape_string(stripslashes(htmlspecialchars($_POST['text'])));
 	$userID		=$_SESSION['userID'];
 
 	if (isset($_SESSION['userID']))
@@ -83,10 +83,10 @@ if (isset($_GET['changing'],$_POST['ID'],$_POST['name'],$_POST['publisher'],$_PO
 
 	$changeID	= intval($_POST['ID']);
 	$letter		= letter_check($_POST['letter']);
-	$name 		= mysql_real_escape_string(stripslashes($_POST['name']));
-	$publisher 	= mysql_real_escape_string(stripslashes($_POST['publisher']));
-	$released 	= mysql_real_escape_string(stripslashes($_POST['year']));
-	$moby 		= mysql_real_escape_string(stripslashes($_POST['moby']));
+	$name 		= mysql_real_escape_string(stripslashes(htmlspecialchars($_POST['name'])));
+	$publisher 	= mysql_real_escape_string(stripslashes(htmlspecialchars($_POST['publisher'])));
+	$released 	= mysql_real_escape_string(stripslashes(htmlspecialchars($_POST['year'])));
+	$moby 		= mysql_real_escape_string(stripslashes(htmlspecialchars($_POST['moby'])));
 	$userID		= $_SESSION['userID'];
 	$first_char 	= $name{0};
 
@@ -127,13 +127,13 @@ if (isset($_SESSION['userID']) && $_SESSION['userID'])
 {
 	if (isset($_GET['posting_new']) && ($_GET['posting_new']==1) && isset($_POST['name'],$_POST['publisher']))
 	{
-		$name 		= mysql_real_escape_string(stripslashes($_POST['name']));
-		$publisher 	= mysql_real_escape_string(stripslashes($_POST['publisher']));
-		$percent 	= mysql_real_escape_string(stripslashes($_POST['percent']));
-		$released 	= mysql_real_escape_string(stripslashes($_POST['year']));
-		$comment	= mysql_real_escape_string(stripslashes($_POST['note']));
-		$version 	= mysql_real_escape_string(stripslashes($_POST['version']));
-		$moby 		= mysql_real_escape_string(stripslashes($_POST['moby']));
+		$name 		= mysql_real_escape_string(stripslashes(htmlspecialchars($_POST['name'])));
+		$publisher 	= mysql_real_escape_string(stripslashes(htmlspecialchars($_POST['publisher'])));
+		$percent 	= mysql_real_escape_string(stripslashes(htmlspecialchars($_POST['percent'])));
+		$released 	= mysql_real_escape_string(stripslashes(htmlspecialchars($_POST['year'])));
+		$comment	= mysql_real_escape_string(stripslashes(htmlspecialchars($_POST['note'])));
+		$version 	= mysql_real_escape_string(stripslashes(htmlspecialchars($_POST['version'])));
+		$moby 		= mysql_real_escape_string(stripslashes(htmlspecialchars($_POST['moby'])));
 		$userID		= $_SESSION['userID'];
 		$first_char 	= $name{0};
 		$letter = letter_check($_POST['letter']);
