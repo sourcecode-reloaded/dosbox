@@ -32,10 +32,10 @@ if (isset($user) && ($user['priv']['download_management']==1))
 			VALUES ('$name', '$url', '$desc', '$version', $catID, NOW())
 			");
 			
-		    Header("Location: download.php?changeID=".isset($_GET['catID'])?intval($_GET['catID']):0);
+		    Header("Location: download.php?changeID=".(isset($_GET['catID'])?intval($_GET['catID']):"0"));
 		}
 		else
-		      Header("Location: download.php?problem=1&changeID=".isset($_GET['catID'])?intval($_GET['catID']):0);
+		      Header("Location: download.php?problem=1&changeID=".(isset($_GET['catID'])?intval($_GET['catID']):"0"));
 	}
 	if (isset($_GET['changing']) && $_GET['changing']==1)
 	{
@@ -50,10 +50,10 @@ if (isset($user) && ($user['priv']['download_management']==1))
 		{
 			mysql_query("UPDATE download SET name='$name', version='$version', description='$desc', url='$url' WHERE ID=$updateID");
 			
-		    Header("Location: download.php?changeID=".isset($_GET['catID'])?intval($_GET['catID']):0);
+		    Header("Location: download.php?changeID=".(isset($_GET['catID'])?intval($_GET['catID']):"0"));
 		}
 		else
-	      Header("Location: download.php?problem=1&changeID=".isset($_GET['catID'])?intval($_GET['catID']):0);
+	      Header("Location: download.php?problem=1&changeID=".(isset($_GET['catID'])?intval($_GET['catID']):"0"));
 	}
 	if (isset($_GET['changeID']))
 	{

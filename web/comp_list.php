@@ -20,6 +20,8 @@ if (isset($_GET['removeMSG_ID']))
 	}
 	Header("Location: comp_list.php?showID=".intval($_GET['gameID'])."&letter=".letter_check($_GET['letter']));
 }
+if (isset($_GET['showID1']) && $_GET['showID1'] != 0)
+	header("Location: comp_list.php?showID=".intval($_GET['showID1'])."&letter=".letter_check($_GET['letter']));
 if (isset($_GET['removeVERSION_ID'],$_GET['gameID'],$_SESSION['userID']))
 {
 	$versionID	=mysql_real_escape_string(intval(stripslashes($_GET['removeVERSION_ID'])));

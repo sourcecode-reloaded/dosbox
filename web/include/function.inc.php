@@ -688,30 +688,49 @@ function choose_percentage()
 
 	echo '</select>';
 }
+function compat_list_query($sql)
+{
+    $query = mysql_query($sql);
+    while( $result = mysql_fetch_row($query) )
+    {
+        $sel = isset($_GET['showID']) && $_GET['showID'] == $result[0] ? "selected" : "";
+        echo "<option value='$result[0]' $sel> (".return_status($result[3]).") $result[1] ($result[2])</option>";
+    }
+    echo "</select>";
+}
 function compat_list_latest()
 {
-	global $user;
-	$limit = 10;
-	if($user['priv']['compat_list_manage']==1){
-		$limit = 30;
-	}
-	$query = mysql_query("SELECT ID, name, version, released FROM list_game ORDER BY added DESC LIMIT $limit");
-	while ($result = mysql_fetch_row($query))
-	{
-		$q = mysql_query("SELECT status_games.status FROM status_games WHERE status_games.gameID=$result[0] ORDER BY status_games.status DESC LIMIT 1");
-		$a = mysql_fetch_row($q);
+    global $user;
+    $limit = 10;
+    if( $user['priv']['compat_list_manage']==1 )
+        $limit = 100;
+    $sql = "SELECT g.ID, name, released, status"
+        . " FROM list_game g"
+        . " JOIN (status_games s)"
+        . " ON (g.ID=s.gameID)"
+        . " GROUP BY name"
+        . " ORDER BY added DESC"
+        . " LIMIT $limit";
+    echo "<select name='showID' onChange='if(form.showID1 !== undefined)form.showID1.selectedIndex=0; submit(form.latest);'><option value='0'>-</option>";
+    compat_list_query($sql);
+}
 
-		echo '<option value="'.$result[0].'"';
-
-		if (isset($_GET['showID']) && ($result[0]==$_GET['showID']))
-		echo ' selected';
-
-		echo '> (';
-
-		echo return_status($a[0]);
-
-		echo ') '.$result[1].''; if ($result[2] != 0) echo ' ('.$result[3].')'; echo '</option>';
-	}
+function compat_list_latest_comments()
+{
+    global $user;
+    if( $user['priv']['compat_list_manage'] != 1 )
+        return;
+    $sql = "SELECT * FROM"
+        . " (SELECT g.ID, name, released, status, `datetime`"
+        . "  FROM list_game g"
+        . "  JOIN (list_comment c, status_games s)"
+        . "  ON (c.gameID=g.ID AND s.gameID=g.ID)"
+        . "  ORDER BY `datetime` DESC, status DESC) a"
+        . " GROUP BY a.`datetime`"
+        . " ORDER BY a.`datetime` DESC"
+        . " LIMIT 100";
+    echo "<select name='showID1' onChange='form.showID.selectedIndex=0; submit(form.latest);'><option value='0'>-</option>";
+    compat_list_query($sql);
 }
 
 function comp_mainlist($letter)
@@ -725,27 +744,10 @@ $letter = letter_check($letter);
 
 
 	$letter = mysql_real_escape_string(stripslashes($letter));
+	$sql = "SELECT ID, name, released, version FROM list_game WHERE first_char";
+	$sql.= $letter == 'num' ? " NOT RLIKE '[A-Z]'" : "='$letter'";
+	$query = mysql_query($sql." ORDER BY name");
 
-	if (isset($letter) && ($letter == 'num'))
-	$query = mysql_query("
-	SELECT
-	list_game.ID, list_game.name, list_game.released, list_game.version
-	FROM
-	list_game
-	WHERE
-	(list_game.first_char='1' OR list_game.first_char='2' OR list_game.first_char='3' OR list_game.first_char='4' OR list_game.first_char='5' OR list_game.first_char='6' OR list_game.first_char='7' OR list_game.first_char='8' OR list_game.first_char='9' OR list_game.first_char='0')
-	ORDER BY
-	list_game.name");
-	else
-	$query = mysql_query("
-	SELECT
-	list_game.ID, list_game.name, list_game.released, list_game.version
-	FROM
-	list_game
-	WHERE
-	list_game.first_char='$letter'
-	ORDER BY
-	list_game.name");
 	if (mysql_num_rows($query) == 0)
 	echo '<table cellspacing="0" cellpadding="0" width="100%"><tr><td>No games with the first letter "'.$letter.'" was found in the database!</td></tr></table>';
 	else
@@ -1103,13 +1105,10 @@ function comp_bar()
 
 	<td>
 	<form name="latest" method="GET" action="comp_list.php">
-	<input name="letter" type="hidden" value="'.$letter.'">
-	<select name="showID" onChange="submit(form.latest);">
-	<option value="0">-</option>';
+	<input name="letter" type="hidden" value="'.$letter.'">';
 	compat_list_latest();
-
+	compat_list_latest_comments();
 	echo '
-	</select>
 	</form>
 
 	</td>
@@ -1130,13 +1129,9 @@ function comp_bar()
 function count_firstchar($letter)
 {
 	$letter = mysql_real_escape_string(letter_check(stripslashes($letter)));
-
-	if ($letter == 'num')
-	$query = mysql_query("SELECT COUNT(*) FROM list_game WHERE first_char='1' OR first_char='2' OR first_char='3' OR first_char='4' OR first_char='5' OR first_char='6' OR first_char='7' OR first_char='8' OR first_char='9' OR first_char='0' OR first_char='#' OR first_char='!' OR first_char='$'");
-	else
-	$query = mysql_query("SELECT COUNT(*) FROM list_game WHERE first_char='$letter'");
-
-	$result = mysql_fetch_row($query);
+	$sql = "SELECT COUNT(*) FROM list_game WHERE first_char";
+	$sql.= $letter == 'num' ? " NOT RLIKE '[A-Z]'" : "='$letter'";
+	$result = mysql_fetch_row(mysql_query($sql));
 	return $result[0];
 }
 function return_status($percent)
@@ -1220,7 +1215,7 @@ function get_msg_threads($gameID, $msgID=null)
 		<td valign="top" align="left">
 		
 		';
-		echo wordwrap($result[4], 105, "\n", 1);;
+		echo nl2br($result[4]);
 
 		echo '</td>
 		</tr>
