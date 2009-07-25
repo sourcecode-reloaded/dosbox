@@ -53,10 +53,10 @@ function template_end()
 		</div>
 		<br>
 		<div class="gog">
-		<a href="http://www.gog.com/en/frontpage/pp/b3f0c7f6bb763af1be91d9e74eabfeb199dc1f1f" class="goglink"><center>
+		<a href="http://www.gog.com/en/frontpage/pp/b3f0c7f6bb763af1be91d9e74eabfeb199dc1f1f" class="goglink">
 		DRM-free PC classics - 
 		<span class="gog1">GOG</span><span class="gog2">.COM</span>
-		</center></a>
+		</a>
 		</div>
 		<br>
 

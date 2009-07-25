@@ -28,7 +28,9 @@ width: 120px;
 border: 1px solid;
 border-color: #000000;
 padding: 15px 0px 15px 0px;
+text-align: center;
 }
+
 .gog1 {
 color: #93be03;
 font-weight: bold; 
