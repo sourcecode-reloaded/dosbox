@@ -1262,8 +1262,7 @@ function write_comment()
 }
 function show_screenshots($limit)
 {
-	$page = mysql_real_escape_string(stripslashes(isset($_GET['page'])?(int)$_GET['page']:0));
-
+	$page = isset($_GET['page'])?abs((int)$_GET['page']):0;
 	$query = mysql_query("
 	SELECT
 	ID, text
