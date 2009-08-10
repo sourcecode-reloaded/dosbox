@@ -519,11 +519,12 @@ search_results($_GET['search']);
 
 if (isset($_GET['letter'])){
 	if(/*$_GET['letter'] == 'a' && */ !isset($_GET['showID'])){
-		echo '<div class="temp2">';
-		echo '<a href="http://www.dosbox.com">DOSBox</a> does NOT host these games. This list is a compatibilitylist. If you are looking for games, you can visit  
-<a href="http://www.classicdosgames.com" target=\'blank\'>www.classicdosgames.com</a> or 
- <a href="http://www.gog.com/en/frontpage/pp/b3f0c7f6bb763af1be91d9e74eabfeb199dc1f1f" class="goglink" target=\'_blank\'><span class="gog1">GOG</span><span class="gog2">.COM</span></a>.';
-echo '</div></br>';
+		echo <<<EOT
+<div style="width: 630px;" class="caption">
+ <p style="padding:6px;margin:0;"><a href="http://www.dosbox.com">DOSBox</a> does NOT host these games. This list is a compatibility list. If you are looking for games, you can visit <a href="http://www.classicdosgames.com" target="blank">www.classicdosgames.com</a> or <a href="http://www.gog.com/en/frontpage/pp/b3f0c7f6bb763af1be91d9e74eabfeb199dc1f1f" class="goglink" target="_blank"><span class="gog1">GOG</span><span class="gog2">.COM</span></a>.</p>
+</div>
+<br/>
+EOT;
 	}
 	comp_mainlist(letter_check($_GET['letter']));
 }

@@ -406,7 +406,7 @@ function show_status_db($priv)
 		$text = $result[1];
 
 
-		template_pagebox_start($text, 890);
+		template_pagebox_start($text, 690);
 		echo '
 		<table cellspacing="0" cellpadding="0" width="100%">';
 
@@ -598,15 +598,25 @@ function get_versions()
 	echo '</select>';
 }
 
-function letter_check($letter){
-	if(!isset($letter)) $letter = "A";
-	
-	if($letter != 'num') {
-		if(strlen($letter)>1) $letter=substr($letter,0,1);
-		$letter = ucfirst($letter);
-	}
-	return $letter;
-} 
+function letter_check( $letter )
+{
+    if ( ! isset( $letter ) )
+        $letter = "A";
+    else switch ( $letter )
+    {
+    case 'num' :
+    case 'broken' :
+    case 'runnable' :
+    case 'playable' :
+        break;
+    default :
+        $letter = ucfirst( $letter[ 0 ] );
+        break;
+    }
+
+    return $letter;
+}
+
 function change_version_compatibility_form($gameID)
 {
 	global $user;
@@ -733,237 +743,135 @@ function compat_list_latest_comments()
     compat_list_query($sql);
 }
 
-function comp_mainlist($letter)
+function compat_status_query( $min=0, $max=0, $order="version DESC, status, name, ID", $regexp="first_char RLIKE '.'" )
 {
-$letter = letter_check($letter);
-
-	echo '<table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#355787"><tr><td>
-	<table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">Game directory (browsing from <b>'; if($letter=='num') echo 'numerical'; else echo $letter; echo '</b>)</td></tr></table></td>
-	</tr></table></td></tr></table><table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#113466"><tr>
-	<td><table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">';
-
-
-	$letter = mysql_real_escape_string(stripslashes($letter));
-	$sql = "SELECT ID, name, released, version FROM list_game WHERE first_char";
-	$sql.= $letter == 'num' ? " NOT RLIKE '[A-Z]'" : "='$letter'";
-	$query = mysql_query($sql." ORDER BY name");
-
-	if (mysql_num_rows($query) == 0)
-	echo '<table cellspacing="0" cellpadding="0" width="100%"><tr><td>No games with the first letter "'.$letter.'" was found in the database!</td></tr></table>';
-	else
-	{
-
-
-		echo '<table cellspacing="0" cellpadding="0" class="tablecomp_min10">
-		<tr>
-		<td width="385">
-		<b>Game:</b>
-		</td>
-
-		<td width="6">
-		&nbsp;
-		</td>
-
-		<td width="70">
-		<b>Version:</b>
-		</td>
-
-		<td width="6">
-		&nbsp;
-		</td>
-
-		<td width="70">
-		<b>Status:</b>
-		</td>
-
-
-		<td width="6">
-		&nbsp;
-		</td>
-
-
-		<td width="275">
-		<b>runable&nbsp;&nbsp;-&nbsp;&nbsp;playable&nbsp;&nbsp;-&nbsp;&nbsp;supported</b>
-		</td>
-		</tr>';
-
-		while($result=mysql_fetch_row($query))
-		{
-
-			$status_query = mysql_query("SELECT status_games.status, versions.version FROM versions, status_games WHERE status_games.gameID=".$result[0]." AND status_games.versionID=versions.ID ORDER BY status_games.status DESC,status_games.versionID DESC LIMIT 1");
-			$status = mysql_fetch_row($status_query);
-			$percent_text = return_status($status[0]);
-
-
-			echo '<tr>
-			<td>
-<a href="comp_list.php?showID='.$result[0].'&amp;letter='.$letter.'">'.$result[1].'</a>'; if ($result[2] != 0) echo ' ('.$result[2].')'; 
-echo '
-			</td>
-
-			<td>
-			&nbsp;
-			</td>
-
-			<td>
-			'.$status[1].'
-			</td>
-
-			<td>
-			&nbsp;
-			</td>
-
-			<td>
-			'.$percent_text.'
-			</td>
-
-			<td>
-			&nbsp;
-			</td>
-
-
-			<td>';
-			if ($status[0] != 0) echo '<img src="site_images/progress.gif" border="1" width="'.$status[0].'%" height="8" alt="'.$status[0].'% ('.$percent_text.')">'; else echo '&nbsp;';
-			echo '</td>
-			</tr>';
-		}
-
-		echo '</table>';
-
-	}
-	echo '</td></tr></table></td></tr></table></td></tr></table><br>';
+    return <<<EOT
+SELECT g.ID, name, released, v.version, status, first_char
+FROM   list_game    g,
+       versions     v,
+       status_games s
+WHERE  g.ID = s.gameID
+AND    v.ID = s.versionID
+AND    s.versionID = (SELECT MAX(versionID) FROM status_games WHERE gameID = g.ID)
+AND    status >= $min
+AND    status <= $max
+AND    $regexp
+ORDER BY
+       $order
+EOT;
 }
-function stri_replace($searchFor, $replaceWith, $string, $offset = 0)
+
+function comp_list_header( )
 {
-	$lsearchFor = strtolower($searchFor);
-	if(strlen($lsearchFor) == 0)
-		return($string);
-	$lstring = strtolower($string);
-	$newPos = strpos($lstring, $lsearchFor, $offset);
-	if (strlen($newPos) == 0)
-	return($string);
-	else
-	{
-		$left = substr($string, 0, $newPos);
-		$right = substr($string, $newPos + strlen($searchFor));
-		$newStr = $left . $replaceWith . $right;
-		return stri_replace($searchFor, $replaceWith, $newStr, $newPos + strlen($replaceWith));
-	}
+    echo <<<EOT
+<table cellspacing="0" cellpadding="0" class="tablecomp_min10">
+ <tr>
+  <th width="240">Game:</th>
+  <th width="30">Year:</span></th>
+  <th width="5">&nbsp;</th>
+  <th width="40">Version:</th>
+  <th width="5">&nbsp;</th>
+  <th width="70">Status:</th>
+  <th width="210">
+   <span class="runnable">runnable</span> -
+   <span class="playable">playable</span> -
+   <span class="supported">supported</span>
+  </th>
+ </tr>
+EOT;
 }
+
+function comp_mainlist_item( $result, $class="content", $keyword=null )
+{
+    $id      = $result[ 0 ];
+    $name    = $result[ 1 ];
+    $year    = $result[ 2 ] == 0 ? "" : $result[ 2 ];
+    $version = $result[ 3 ];
+    $percent = $result[ 4 ];
+    $letter  = $result[ 5 ];
+    $status  = return_status( $percent );
+    $image   = <<<EOT
+<img class="status" src="site_images/$status.png" width="$percent%" height="8" alt="$percent% ($status)"/>
+EOT;
+    $image   = $percent != 0 ? $image : "&nbsp;";
+
+    if ( ! empty( $keyword ) )
+        $name = str_ireplace( $keyword, "<span class=\"bold hilite\">$keyword</span>", $name );
+
+    echo <<<EOT
+<tr class="$class">
+ <td><a href="comp_list.php?showID=$id&amp;letter=$letter">$name</a></td>
+ <td>$year</td>
+ <td>&nbsp;</td>
+ <td>$version</td>
+ <td>&nbsp;</td>
+ <td><span class="$status">$status</span></td>
+ <td>$image</td>
+</tr>
+
+EOT;
+}
+
+function comp_mainlist( $letter )
+{
+    $letter = letter_check( $letter );
+
+    switch ( $letter )
+    {
+    case 'num' :
+        $ltrstr = "Numerical";
+        $query = mysql_query( compat_status_query( 0, 100, "name, version DESC", "first_char NOT RLIKE '[A-Z]'" ) );
+        break;
+    case 'broken' :
+        $ltrstr = "Broken Games";
+        $query = mysql_query( compat_status_query( ) );
+        break;
+    case 'runnable' :
+        $ltrstr = "Runnable Games";
+        $query = mysql_query( compat_status_query( 1, 28 ) );
+        break;
+    case 'playable' :
+        $ltrstr = "Playable Games";
+        $query = mysql_query( compat_status_query( 29, 63 ) );
+        break;
+    default :
+        $ltrstr = htmlspecialchars( $letter );
+        $letter = mysql_real_escape_string( $letter );
+        $query = mysql_query( compat_status_query( 0, 100, "name, version DESC", "first_char='$letter'" ) );
+        break;
+    }
+
+    template_pagebox_start( "Game directory (browsing from <b>$ltrstr</b>)" );
+    if ( mysql_num_rows( $query ) )
+    {
+        comp_list_header( );
+        for ( $odd = 0 ; $result = mysql_fetch_row( $query ) ; $odd++ )
+            comp_mainlist_item( $result, $odd % 2 == 0 ? "content_odd" : "content" );
+        echo "</table>";
+    }
+    else
+	echo "<p>No games with a first letter of &quot;$ltrstr&quot; were found in the database!</p>";
+    template_pagebox_end( );
+}
+
 function search_results($keyword)
 {
-
-
-	$keyword = mysql_real_escape_string(stripslashes($keyword));
-
-	$query = mysql_query("
-	SELECT
-	list_game.ID, list_game.name, list_game.released, list_game.version, list_game.first_char
-	FROM
-	list_game
-	WHERE
-	list_game.name LIKE '%$keyword%'
-	ORDER BY
-	list_game.name");
-
-	$num = mysql_num_rows($query);
-	if ($num == 0)
-	{
-		echo '<table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#355787"><tr><td>
-		<table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">Searching game-database (keyword "<b>'.$keyword.'</b>")</td></tr></table></td>
-		</tr></table></td></tr></table><table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#113466"><tr>
-		<td><table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">';
-
-		echo '<table cellspacing="0" cellpadding="0" width="100%"><tr><td><i>0 hits found with the keyword "'.$keyword.'"</i></td></tr></table>';
-
-	}
-	else
-	{
-
-		echo '<table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#355787"><tr><td>
-		<table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">Searching: <b>'.$keyword.'</b> (<b>'.$num.'</b>'; if ($num ==1) echo ' result found'; else echo ' results found'; echo ')</td></tr></table></td>
-		</tr></table></td></tr></table><table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#113466"><tr>
-		<td><table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">';
-
-
-		echo '<table cellspacing="0" cellpadding="0" class="comp_min10">
-		<tr>
-		<td width="335">
-		<b>Game:</b>
-		</td>
-
-		<td width="6">
-		&nbsp;
-		</td>
-
-		<td width="70">
-		<b>Version:</b>
-		</td>
-
-		<td width="6">
-		&nbsp;
-		</td>
-
-		<td width="70">
-		<b>Status:</b>
-		</td>
-
-
-		<td width="6">
-		&nbsp;
-		</td>
-
-
-		<td width="225">
-		<b>runable&nbsp;&nbsp;-&nbsp;&nbsp;playable&nbsp;&nbsp;-&nbsp;&nbsp;supported
-		</td>
-		</tr>';
-
-		while($result=mysql_fetch_row($query))
-		{
-
-			$status_query = mysql_query("SELECT status_games.status, versions.version FROM versions, status_games WHERE status_games.gameID=".$result[0]." AND status_games.versionID=versions.ID ORDER BY status_games.status DESC LIMIT 1");
-			$status = mysql_fetch_row($status_query);
-			$percent_text = return_status($status[0]);
-
-			$name = stri_replace($keyword, "<b><font color=\"#90DEFF\">".$keyword."</b></font color>", $result[1]);
-			echo '<tr>
-			<td>
-			<a href="comp_list.php?showID='.$result[0].'&letter='.$result[4].'&search='.$keyword.'">'.$name.'</a>'; if ($result[2] != 0) echo ' ('.$result[2].')'; echo '
-			</td>
-
-			<td>
-			&nbsp;
-			</td>
-
-			<td>
-			'.$status[1].'
-			</td>
-
-			<td>
-			&nbsp;
-			</td>
-
-			<td>
-			'.$percent_text.'
-			</td>
-
-			<td>
-			&nbsp;
-			</td>
-
-
-			<td>';
-			if ($status[0] != 0) echo '<img src="site_images/progress.gif" border="1" width="'.$status[0].'%" height="8" alt="'.$status[0].'% ('.$percent_text.')">'; else echo '&nbsp;';
-			echo '</td>
-			</tr>';
-		}
-
-		echo '</table>';
-
-	}
-	echo '</td></tr></table></td></tr></table></td></tr></table><br>';
+    $keyword = mysql_real_escape_string(stripslashes($keyword));
+    $query = mysql_query( compat_status_query( 0, 100, "name, version DESC", "name LIKE '%$keyword%'" ) );
+    $num = mysql_num_rows( $query );
+    template_pagebox_start('Searching: <b>'.$keyword.'</b> (<b>'.$num.'</b> result'.($num>1?"s":"").' found)');
+    if ( $num )
+    {
+        comp_list_header( );
+        for ( $odd = 0 ; $result = mysql_fetch_row( $query ) ; $odd++ )
+            comp_mainlist_item( $result, $odd % 2 == 0 ? "content_odd" : "content", $keyword );
+        echo "</table>";
+    }
+    else
+        echo "<p><i>0 hits found with the keyword $keyword</i></p>";
+    template_pagebox_end( );
 }
+
 function comp_show_ID($showID)
 {
 	global $user;
@@ -1022,7 +930,7 @@ function comp_show_ID($showID)
 		<table cellspacing="0" cellpadding="0" width="262">
 		<tr>
 		<td width="237">
-		<b>runable&nbsp;&nbsp;-&nbsp;&nbsp;playable&nbsp;&nbsp;-&nbsp;&nbsp;supported
+		<b>runnable&nbsp;&nbsp;-&nbsp;&nbsp;playable&nbsp;&nbsp;-&nbsp;&nbsp;supported
 		</td>
 		</tr>';
 
@@ -1030,7 +938,9 @@ function comp_show_ID($showID)
 
 		echo '<tr>
 		<td width="237">';
-		if ($status[1] != 0) echo '<img src="site_images/progress.gif" border="1" width="'.$status[1].'%" height="8" alt="'.$status[1].'% ('.$status_text.')">'; else echo '0% supported';
+ if ($status[1] != 0) echo '<img src="site_images/'.$status_text.'.png" border="1" width="'.$status[1].'%" height="8" alt="'.$status[1].'% ('.$status_text.')">'; else echo '0% supported';
+ 
+//if ($status[1] != 0) echo '<img src="site_images/progress.gif" border="1" width="'.$status[1].'%" height="8" alt="'.$status[1].'% ('.$status_text.')">'; else echo '0% supported';
 		echo '</td>
 		</tr>';
 
@@ -1095,6 +1005,9 @@ function comp_bar()
 		echo "<option value='$ll'$selected>$ll (".count_firstchar($ll).")</option>";
 	}
 	echo '<option value="num"'; if ($letter =='num') echo ' selected'; echo '>0-9 ('; echo count_firstchar('num'); echo ')</option>
+	<option value="broken"'.($letter=="broken"?" selected":"").'>broken</option>
+	<option value="runnable"'.($letter=="runnable"?" selected":"").'>runnable</option>
+	<option value="playable"'.($letter=="playable"?" selected":"").'>playable</option>
 	</select>
 
 	</form>
@@ -1143,7 +1056,7 @@ function return_status($percent)
 	elseif ($percent >= 29)
 	return 'playable';	// game is playable but with some serius problems/errors/glitches
 	elseif ($percent <= 28 )
-	return 'runable';	// game starts in DOSBox but is not playable
+	return 'runnable';	// game starts in DOSBox but is not playable
 }
 
 function get_msg_threads($gameID, $msgID=null)
@@ -1165,7 +1078,7 @@ function get_msg_threads($gameID, $msgID=null)
 		list_comment.gameID=$gameID
 		AND list_comment.ownerID=userdb.ID
 
-		ORDER BY datetime ASC");
+		ORDER BY datetime DESC");
 	}
 
 	while ($result = mysql_fetch_row($query))
@@ -1318,23 +1231,25 @@ function get_support_stats()
 	<b>Version:</b></td>
 
 	<td valign="top">
-	<b>Games broken:</b></td>
+	<span class="bold"><a href="?letter=broken">Games broken</a>:</span></td>
 
 	<td valign="top">
-	<b>Games runable:</b></td>
+	<span class="bold runnable"><a href="?letter=runnable">Games runnable</a>:</span></td>
 
 	<td valign="top">
-	<b>Games playable:</b></td>
+	<span class="bold playable"><a href="?letter=playable">Games playable</a>:</span></td>
 
 	<td valign="top">
-	<b>Games supported:</b></td>
+	<span class="bold supported">Games supported:</span></td>
 	</tr>
 
 	';
 
 	$version_query = mysql_query("SELECT ID, version FROM versions ORDER BY version DESC");
+	$odd = false;
 	while ($version_result = mysql_fetch_row($version_query))
 	{
+		$odd = $odd == true ? false : true;
 		$v_query = mysql_query("SELECT COUNT(ID) FROM status_games WHERE status_games.versionID=".$version_result[0]);
 		$v_count = mysql_fetch_row($v_query);
 
@@ -1347,11 +1262,11 @@ function get_support_stats()
 		$playable_query = mysql_query("SELECT COUNT(ID) FROM status_games WHERE status_games.versionID=".$version_result[0]." AND status_games.status >= 29 AND status_games.status < 64");
 		$playable_result = mysql_fetch_row($playable_query);
 
-		$runable_query = mysql_query("SELECT COUNT(ID) FROM status_games WHERE status_games.versionID=".$version_result[0]." AND status_games.status <= 28 AND status_games.status > 0");
-		$runable_result = mysql_fetch_row($runable_query);
+		$runnable_query = mysql_query("SELECT COUNT(ID) FROM status_games WHERE status_games.versionID=".$version_result[0]." AND status_games.status <= 28 AND status_games.status > 0");
+		$runnable_result = mysql_fetch_row($runnable_query);
 
 		if( $v_count[0] )
-		echo '<tr>
+		echo '<tr '.($odd == true ? 'class="content_odd"' : '').'>
 		<td valign="top">
 		DOSBox '.$version_result[1].' ('.$v_count[0].')</td>
 
@@ -1359,7 +1274,7 @@ function get_support_stats()
 		'.$broken_result[0].' ('.number_format($broken_result[0]/$v_count[0]*100,2).'%)</td>
 
 		<td valign="top">
-		'.$runable_result[0].' ('.number_format($runable_result[0]/$v_count[0]*100,2).'%)</td>
+		'.$runnable_result[0].' ('.number_format($runnable_result[0]/$v_count[0]*100,2).'%)</td>
 
 		<td valign="top">
 		'.$playable_result[0].' ('.number_format($playable_result[0]/$v_count[0]*100,2).'%)</td>
