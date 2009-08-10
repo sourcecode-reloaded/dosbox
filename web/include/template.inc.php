@@ -13,6 +13,7 @@ function template_header()
  <link rel="shortcut icon" type="image/x-icon" href="site_images/favicon.ico"/>
  <link rel="stylesheet" type="text/css" href="test.css"/>
  <link rel="stylesheet" type="text/css" href="dosbox.css"/>
+ <!--[if IE]><link rel="stylesheet" type="text/css" href="IE.css"/><![endif]-->
 </head>	
 <body>
  <h1 id="logo">DOSBox</h1>
@@ -139,56 +140,17 @@ pageTracker._trackPageview();
 
 	';
 }
-function template_pagebox_start($text, $width=630)
-{
-$class="table_other";
-if ($width == 630) {$class="table630";}
-if ($width == 690) {$class="table690";}
-if ($width == 900) {$class="table900";}
-if ($width == 540) {$class="table540";}
-if ($width == 890) {$class = "table890";}	
-if ($width ==550) {$class = "table550";}
-	echo '
-<table class="'.$class.'" cellspacing="0" cellpadding="1" bgcolor="#000000">
-	<tr>
-		<td valign="top" align="left">
-			<table cellspacing="4" cellpadding="0" width="100%" bgcolor="#355787">
-				<tr>
-					<td>
-						<table cellspacing="0" cellpadding="0" width="100%">
-							<tr>
-								<td valign="top" align="left"><span class="c1">'.$text.'</span></td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-</table>
 
-<table class="'.$class.'" cellspacing="0" cellpadding="1" bgcolor="#000000">
-	<tr>
-		<td valign="top" align="left">
-			<table cellspacing="4" cellpadding="0" width="100%" bgcolor="#113466">
-				<tr>
-					<td>
-						<table cellspacing="0" cellpadding="0" width="100%">
-							<tr>
-								<td valign="top" align="left">';
+function template_pagebox_start( $text, $width=640 )
+{
+    $width -= 10; // compensate for 1px border and 4px padding on each side
+    echo <<<EOT
+<div style="width: ${width}px;" class="caption">$text</div>
+<div style="width: ${width}px;" class="content">
+EOT;
 }
 function template_pagebox_end()
 {
-	echo '
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-</table>
-<br>';
+    echo "</div>";
 }
 ?>

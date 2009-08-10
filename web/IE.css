@@ -1,0 +1,3 @@
+/* IE6/7 does not properly support the CSS inherit property */
+.runnable a:link, .runnable a:visited, .runnable a:active { color: red; }
+.playable a:link, .playable a:visited, .playable a:active { color: orange; }

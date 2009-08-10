@@ -10,6 +10,14 @@ body {
     font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
+a:link, a:visited, a:active {
+    color: inherit;
+}
+
+th {
+    text-align: left;
+}
+
 #logo {
     background-image: url( site_images/upper_logo.png );
     background-color: black;
@@ -39,6 +47,44 @@ body {
 
 #menu a {
     text-decoration: none;
+}
+
+.caption, .content {
+    padding: 4px;
+    border: 1px solid black;
+}
+
+.caption {
+    background-color: rgb( 53, 87, 135 );
+}
+
+.content {
+    margin-bottom: 14px;
+    background-color: rgb( 17, 52, 102 );
+}
+
+.content_odd {
+    background-color: rgb( 23, 56, 102 );
+}
+
+.status {
+    border: 1px solid white;
+}
+
+.runnable {
+    color: rgb( 255, 75, 75 );
+}
+
+.playable {
+    color: orange;
+}
+
+.supported {
+    color: lime;
+}
+
+.hilite {
+    color: rgb( 144, 222, 255 );
 }
 
 .bold {

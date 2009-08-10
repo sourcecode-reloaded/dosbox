@@ -60,7 +60,7 @@ if (isset($user) && $user['priv']['status_manage']==1)
 		template_header();
 		echo '<br><table width="100%"><tr><td width="14">&nbsp;</td><td>';// start of framespacing-table		
 		
-		template_pagebox_start("Changing DOSBox development status", 890);			
+		template_pagebox_start("Changing DOSBox development status", 690);			
 		
 		echo '<br>';
 		

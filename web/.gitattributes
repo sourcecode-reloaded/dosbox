@@ -1,5 +1,6 @@
 * text=auto !eol
 /COPYING -text
+/IE.css -text
 /comp_list.php -text
 /crew.php -text
 /dosbox.css -text

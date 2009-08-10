@@ -1,7 +1,3 @@
-A:link { color: #FFFFFF }
-A:visited { color: #FFFFFF }
-A:active { color: #FFFFFF }
-
 td,th,option,select {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px;}
 
 option,select {
@@ -49,21 +45,8 @@ text-align: center;
 font-family: monospace; 
 background-color: #355787;
 }
-div.temp2 {
-background-color: #355787;
-width: 610px;
-border: 1px solid;
-border-color: #000000;
-padding: 10px;
-}
 table.table630{
 width: 630px;
-}
-table.table_other{
-width: 1000px;
-}
-table.table690{
-width: 690px;
 }
 table.tablecomp{
 width: 630px;
@@ -75,16 +58,4 @@ width: 620px;
 table.main{
 width: 822px;
 margin-top: 1em;
-}
-table.table900{
-width: 800px;
-}
-table.table540{
-width: 540px;
-}
-table.table890{
-width: 690px;
-}
-table.table550{
-width: 550px;
 }

@@ -60,7 +60,7 @@ if (isset($user) && ($user['priv']['download_management']==1))
 	    $changeID=intval($_GET['changeID']);
 		template_header();
 		echo '<br><table width="100%"><tr><td width="14">&nbsp;</td><td>';// start of framespacing-table
-                template_pagebox_start("Add/change download-category", 890);
+                template_pagebox_start("Add/change download-category", 690);
 	
 			echo '<br><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><a href="download.php?main=1">Click here</a> to get back to the download page!<br><br>';
 			download_change($changeID);

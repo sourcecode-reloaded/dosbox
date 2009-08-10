@@ -58,14 +58,16 @@ echo '	<form action="login.php?login=1" method="POST">
 		echo '<a href="login.php?destroy=1">Click here</a> to logout this user ('.$user['nickname'].')<br><br>';
 		}
 	}
+	echo '</font>';
 		template_pagebox_end();
 template_pagebox_start("Info for returning users", 550);
+	echo '<font face="Verdana, Arial, Helvetica, sans-serif">';
 echo '
-<h3>Hackers have gained access to the useraccounts on DOSBox.com.</h3>
+<h3>Hackers have gained access to the user accounts on DOSBox.com.</h3>
 You should consider <b>your password</b> that you used on <a href="http://www.dosbox.com">DOSBox.com</a> as <b>compromised</b>, so if you used this password at other places you should update them with a new password. Once I fix the problem I will email all active users on DOSBox.com a new password for DOSBox.com. (accounts with no posts/games on DOSBox.com are purged on a regular basis and are thus unaffected by this hack)
 <br><br>
 The passwords for our <a href="http://vogons.zetafleet.com/index.php?c=7">forums</a> are <b>not</b> affected, however if you used the same password for both, then you should update your forum password.
-';
+</font>';
 template_pagebox_end();	
 		echo '</td></tr></table>';	// end of framespacing-table					
 		template_end();
