@@ -19,6 +19,9 @@ include/template.inc.php -text
 /register_account.php -text
 /screenshots.php -text
 site_images/background.png -text
+site_images/playable.png -text
+site_images/runnable.png -text
+site_images/supported.png -text
 /status.php -text
 /test.css -text
 /usermanagement.php -text
