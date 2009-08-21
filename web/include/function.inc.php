@@ -598,11 +598,11 @@ function get_versions()
 	echo '</select>';
 }
 
-function letter_check( $letter )
+function letter_check( )
 {
-    if ( ! isset( $letter ) )
-        $letter = "A";
-    else switch ( $letter )
+    $letter = isset( $_POST['letter'] ) ? $_POST['letter'] : isset( $_GET['letter'] ) ? $_GET['letter'] : "A";
+
+    switch ( $letter )
     {
     case 'num' :
     case 'broken' :
@@ -610,7 +610,7 @@ function letter_check( $letter )
     case 'playable' :
         break;
     default :
-        $letter = ucfirst( $letter[ 0 ] );
+        $letter = ucfirst( $letter[0] );
         break;
     }
 
@@ -630,7 +630,7 @@ function change_version_compatibility_form($gameID)
 	{
 		echo '
 
-		<form name="versionchange" method="POST" action="comp_list.php?changeversion=1"><input type="hidden" name="letter" value="'.letter_check($_GET['letter']).'"><input type="hidden" name="gameID" value="'.$change.'">
+		<form name="versionchange" method="POST" action="comp_list.php?changeversion=1"><input type="hidden" name="letter" value="'.letter_check().'"><input type="hidden" name="gameID" value="'.$change.'">
 		<input type="hidden" name="statusID" value="'.$result[0].'">
 
 
@@ -649,7 +649,7 @@ function change_version_compatibility_form($gameID)
 
 		echo '</select>&nbsp;&nbsp;';
 		if ($num != 1 AND $user['priv']['compat_list_manage']==1)
-		echo '<a href="comp_list.php?removeVERSION_ID='.$result[0].'&gameID='.$change.'&letter='.letter_check($_GET['letter']).'"><img src="site_images/delete_icon.gif" border="0"></a>';
+		echo '<a href="comp_list.php?removeVERSION_ID='.$result[0].'&gameID='.$change.'&letter='.letter_check().'"><img src="site_images/delete_icon.gif" border="0"></a>';
 		echo '</form>';
 	}
 
@@ -745,6 +745,9 @@ function compat_list_latest_comments()
 
 function compat_status_query( $min=0, $max=0, $order="version DESC, status, name, ID", $regexp="first_char RLIKE '.'" )
 {
+    $regexp = isset( $_GET['version'] ) ? "v.version = ".floatval( $_GET['version'] )." AND $regexp" :
+        "s.versionID = (SELECT MAX(versionID) FROM status_games WHERE gameID = g.ID) AND $regexp";
+
     return <<<EOT
 SELECT g.ID, name, released, v.version, status, first_char
 FROM   list_game    g,
@@ -752,7 +755,6 @@ FROM   list_game    g,
        status_games s
 WHERE  g.ID = s.gameID
 AND    v.ID = s.versionID
-AND    s.versionID = (SELECT MAX(versionID) FROM status_games WHERE gameID = g.ID)
 AND    status >= $min
 AND    status <= $max
 AND    $regexp
@@ -778,6 +780,7 @@ function comp_list_header( )
    <span class="supported">supported</span>
   </th>
  </tr>
+
 EOT;
 }
 
@@ -792,6 +795,7 @@ function comp_mainlist_item( $result, $class="content", $keyword=null )
     $status  = return_status( $percent );
     $image   = <<<EOT
 <img class="status" src="site_images/$status.png" width="$percent%" height="8" alt="$percent% ($status)"/>
+
 EOT;
     $image   = $percent != 0 ? $image : "&nbsp;";
 
@@ -814,8 +818,6 @@ EOT;
 
 function comp_mainlist( $letter )
 {
-    $letter = letter_check( $letter );
-
     switch ( $letter )
     {
     case 'num' :
@@ -872,103 +874,103 @@ function search_results($keyword)
     template_pagebox_end( );
 }
 
-function comp_show_ID($showID)
+function comp_show_ID( $showID )
 {
-	global $user;
-	//HACK THING ?
-	$showID = intval($showID);
-	$showID = mysql_real_escape_string(stripslashes($showID));
+    global $user;
+    $showID = intval($showID); // Restored by Qbix. Want to be extra safe with this one.
+    $letter = letter_check( );
+    $sql = <<<EOT
+SELECT l.ID, l.name, publisher, released, nickname, ownerID, status, v.version
+FROM   list_game l,
+       userdb u,
+       status_games s,
+       versions v
+WHERE  u.ID=ownerID
+AND    s.gameID=l.ID
+AND    s.versionID=v.ID
+AND    l.ID=$showID
+ORDER BY
+       version DESC
+EOT;
 
-	$query = mysql_query("
+    $query = mysql_query( $sql );
+    $result = mysql_fetch_row( $query );
+    if ( !$result )
+        return;
+    $html = "";
+    if ( isset( $_SESSION['userID'] ) )
+    {
+        $html = <<<EOT
+<a href="comp_list.php?changeID=$showID&letter=$letter">
+ <img src="site_images/change_icon.gif" border="0"/>
+</a>
 
-	SELECT
-	list_game.ID, list_game.name, list_game.publisher, list_game.released,
-	userdb.nickname, userdb.ID, ownerID
-	FROM
-	list_game, userdb
-	WHERE
-	list_game.ID=$showID AND list_game.ownerID=userdb.ID
-	");
+EOT;
+        if ( isset( $user ) && $user['priv']['manage_comment'] == 1 || $_SESSION['userID'] == $result[5] )
+        {
+            $html = <<<EOT
+$html
+<a href="comp_list.php?removeID=$showID&letter=$letter">
+ <img src="site_images/delete_icon.gif" border="0"/>
+</a>
 
-	$result=mysql_fetch_row($query);
+EOT;
+        }
+    }
+    $html = "Game details $html";
+    template_pagebox_start( $html );
+    echo "<span>$result[1] - $result[2]";
+    if ( $result[3] != 0 )
+        echo " ($result[3])";
+    echo "<br/><span class='bold'>Tested By:</span> $result[4]<br/><br/></span>";
 
-	echo '<table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#355787"><tr><td>
-	<table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">Game details';
+    do {
+        $status_text = return_status( $result[6] );
+        $status_html = $result[6] != 0 ? "<img class='status' src='site_images/$status_text.png' width='$result[6]%' height='8' alt='$result[6]% ($status_text)'>" : "0% supported";
+        echo <<<EOT
+<table cellspacing="0" cellpadding="0" width="480">
+ <tr>
+  <td>
+   <table cellspacing="0" cellpadding="0" width="262">
+    <tr>
+     <td width="237">
+      <span class="bold runnable">runnable</span> &nbsp;-&nbsp; <span class="bold playable">playable</span> &nbsp;-&nbsp; <span class="bold supported">supported</span>
+     </td>
+    </tr>
+    <tr>
+     <td width="237">$status_html</td>
+    </tr>
+   </table>
+  </td>
+  <td width="20">
+   &nbsp;
+  </td>
+  <td valign="middle" align="left" width="330">
+   <span class="bold">DOSBox version:</span> $result[7] (<span class="$status_text">$status_text</span>)<br/>
+  </td>
+ </tr>
+</table>
+<hr line color="white" width="525" align="left"/>
 
-	if (isset($_SESSION['userID']))
-	echo '&nbsp;&nbsp;<a href="comp_list.php?changeID='.$showID.'&letter='.letter_check($_GET['letter']).'"><img src="site_images/change_icon.gif" border="0"></a>&nbsp;';
-	if ((isset($_SESSION['userID']) && $result[6] == $_SESSION['userID']) || (isset($user) && $user['priv']['manage_comment']==1))
-	echo '<a href="comp_list.php?removeID='.$showID.'&letter='.letter_check($_GET['letter']).'"><img src="site_images/delete_icon.gif" border="0"></a>';
+EOT;
+        $result = mysql_fetch_row( $query );
+    } while ( $result );
 
-	echo '</td></tr></table></td>
-	</tr></table></td></tr></table><table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#113466"><tr>
-	<td><table cellspacing="0" cellpadding="0" width="100%"><tr><td valign="top" align="left">';
+    if ( isset( $_SESSION['userID'] ) && !isset( $_GET['post_new'] ) ||
+         isset( $_GET['post_new'] ) && $_GET['post_new'] != 1 )
+	echo <<<EOT
+<p>
+ <a class="bold" href="comp_list.php?post_newMSG=1&showID=$showID&letter=$letter#post_comment">Click here</a>
+ to post a new comment.
+</p>
 
-
-	echo ' '.$result[1].' - '.$result[2]; if ($result[3] != 0) echo ' ('.$result[3].')';
-	echo '<br><b>Tested By:</b> '.$result[4].'<br><br>';
-
-	$status_query=mysql_query("
-	SELECT
-	status_games.versionID, status_games.status, versions.version
-
-	FROM
-	status_games, versions
-	WHERE
-	status_games.gameID=$result[0] AND status_games.versionID=versions.ID
-	ORDER BY
-	versions.version DESC
-	");
-
-	while ($status_query && ($status = mysql_fetch_row($status_query)))
-	{
-		$status_text = return_status($status[1]);
-
-		echo '<table cellspacing="0" cellpadding="0" width="480">
-		<tr>
-		<td>
-		<table cellspacing="0" cellpadding="0" width="262">
-		<tr>
-		<td width="237">
-		<b>runnable&nbsp;&nbsp;-&nbsp;&nbsp;playable&nbsp;&nbsp;-&nbsp;&nbsp;supported
-		</td>
-		</tr>';
-
-
-
-		echo '<tr>
-		<td width="237">';
- if ($status[1] != 0) echo '<img src="site_images/'.$status_text.'.png" border="1" width="'.$status[1].'%" height="8" alt="'.$status[1].'% ('.$status_text.')">'; else echo '0% supported';
- 
-//if ($status[1] != 0) echo '<img src="site_images/progress.gif" border="1" width="'.$status[1].'%" height="8" alt="'.$status[1].'% ('.$status_text.')">'; else echo '0% supported';
-		echo '</td>
-		</tr>';
-
-		echo '</table>
-		</td>
-		<td width="20">
-		&nbsp;
-		</td>
-		<td valign="middle" align="left" width="330">
-		<b>DOSBox version:</b> '.$status[2].'</b> ('.$status_text.')<br>
-		</td>
-
-		</tr>
-		</table>
-		<hr line color="#FFFFFF" width="525" align="left">
-		';
-
-
-
-	}
-
-	if (isset($_SESSION['userID']) AND (!isset($_GET['post_new'])|| ($_GET['post_new']!=1)))
-	echo '<a href="comp_list.php?post_newMSG=1&showID='.$showID.'&letter='.letter_check($_GET['letter']).'#post_comment">Click here</a> to post new comment<br>';
-	echo '</td></tr></table></td></tr></table></td></tr></table>';
+EOT;
+    template_pagebox_end( );
 }
+
 function comp_bar()
 {
-	$letter = letter_check(isset($_GET['letter'])?$_GET['letter']:'a');
+	$letter = letter_check();
 	echo '
 
 	<table cellspacing="0" cellpadding="0">
@@ -1041,7 +1043,6 @@ function comp_bar()
 }
 function count_firstchar($letter)
 {
-	$letter = mysql_real_escape_string(letter_check(stripslashes($letter)));
 	$sql = "SELECT COUNT(*) FROM list_game WHERE first_char";
 	$sql.= $letter == 'num' ? " NOT RLIKE '[A-Z]'" : "='$letter'";
 	$result = mysql_fetch_row(mysql_query($sql));
@@ -1096,7 +1097,7 @@ function get_msg_threads($gameID, $msgID=null)
 		'.$result[3].' ('.$result[6].')';
 
 		if (isset($user) && $user['priv']['compat_list_manage']==1){
-			$letter = letter_check($_GET['letter']);
+			$letter = letter_check();
 			$show = isset($_GET['showID'])?intval($_GET['showID']):0;
 		echo '&nbsp;<a href="comp_list.php?removeMSG_ID='.$result[0].'&letter='.$letter.'&gameID='.$show.'"><img src="site_images/msgboard_remove.gif" alt="Remove this comment" border="0"></a>';
 }
@@ -1146,7 +1147,7 @@ function get_msg_threads($gameID, $msgID=null)
 }
 function write_comment()
 {
-	$letter = letter_check($_GET['letter']);
+	$letter = letter_check();
     $show = isset($_GET['showID'])?intval($_GET['showID']):0;
 
 	echo '<table class="tablecomp" cellspacing="0" cellpadding="1" bgcolor="#000000"><tr><td valign="top" align="left"><table cellspacing="4" cellpadding="0" width="100%" bgcolor="#355787"><tr><td>
@@ -1269,15 +1270,14 @@ function get_support_stats()
 		echo '<tr '.($odd == true ? 'class="content_odd"' : '').'>
 		<td valign="top">
 		DOSBox '.$version_result[1].' ('.$v_count[0].')</td>
+		<td valign="top">
+		<a class="nodecor" href="?letter=broken&version='.$version_result[1].'">'.$broken_result[0].'</a> ('.number_format($broken_result[0]/$v_count[0]*100,2).'%)</td>
 
 		<td valign="top">
-		'.$broken_result[0].' ('.number_format($broken_result[0]/$v_count[0]*100,2).'%)</td>
+		<a class="nodecor" href="?letter=runnable&version='.$version_result[1].'">'.$runnable_result[0].'</a> ('.number_format($runnable_result[0]/$v_count[0]*100,2).'%)</td>
 
 		<td valign="top">
-		'.$runnable_result[0].' ('.number_format($runnable_result[0]/$v_count[0]*100,2).'%)</td>
-
-		<td valign="top">
-		'.$playable_result[0].' ('.number_format($playable_result[0]/$v_count[0]*100,2).'%)</td>
+		<a class="nodecor" href="?letter=playable&version='.$version_result[1].'">'.$playable_result[0].'</a> ('.number_format($playable_result[0]/$v_count[0]*100,2).'%)</td>
 
 		<td valign="top">
 		'.$supported_result[0].' ('.number_format($supported_result[0]/$v_count[0]*100,2).'%)</td>

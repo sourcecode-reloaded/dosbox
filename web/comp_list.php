@@ -9,7 +9,7 @@ if (isset($_GET['changeversion']) && $_GET['changeversion']==1)
 	if (isset($_SESSION['userID'],$_POST['statusID'],$_POST['percent']))
 	mysql_query("UPDATE status_games SET status=".intval($_POST['percent'])." WHERE status_games.ID=".intval($_POST['statusID']));
 
-	Header("Location: comp_list.php?changeID=".intval($_POST['gameID'])."&letter=".letter_check($_POST['letter']));
+	Header("Location: comp_list.php?changeID=".intval($_POST['gameID'])."&letter=".letter_check());
 }
 if (isset($_GET['removeMSG_ID']))
 {
@@ -18,15 +18,15 @@ if (isset($_GET['removeMSG_ID']))
 		$msgID =mysql_real_escape_string(intval(stripslashes($_GET['removeMSG_ID'])));
 		mysql_query("DELETE FROM list_comment WHERE ID=$msgID");
 	}
-	Header("Location: comp_list.php?showID=".intval($_GET['gameID'])."&letter=".letter_check($_GET['letter']));
+	Header("Location: comp_list.php?showID=".intval($_GET['gameID'])."&letter=".letter_check());
 }
 if (isset($_GET['showID1']) && $_GET['showID1'] != 0)
-	header("Location: comp_list.php?showID=".intval($_GET['showID1'])."&letter=".letter_check($_GET['letter']));
+	header("Location: comp_list.php?showID=".intval($_GET['showID1'])."&letter=".letter_check());
 if (isset($_GET['removeVERSION_ID'],$_GET['gameID'],$_SESSION['userID']))
 {
 	$versionID	=mysql_real_escape_string(intval(stripslashes($_GET['removeVERSION_ID'])));
 	$gameID		=intval($_GET['gameID']);
-	$letter		=letter_check($_GET['letter']);
+	$letter		=letter_check();
 	$userID		=$_SESSION['userID'];
 
 	if (isset($user) && $user['priv']['compat_list_manage']==1)
@@ -52,7 +52,7 @@ if (isset($_GET['addVersion'],$_POST['gameID'],$_POST['versionID'],$_POST['perce
 
 		#mysql_query("UPDATE list_game SET ownerID=$userID WHERE ID=$gameID");
 	}
-	Header("Location: comp_list.php?changeID=".$gameID."&letter=".letter_check($_POST['letter']));
+	Header("Location: comp_list.php?changeID=".$gameID."&letter=".letter_check());
 }
 if (isset($_GET['post_comment'],$_POST['gameID'],$_SESSION['userID']) && $_GET['post_comment']==1)
 {
@@ -64,7 +64,7 @@ if (isset($_GET['post_comment'],$_POST['gameID'],$_SESSION['userID']) && $_GET['
 	if (isset($_SESSION['userID']))
 	{
 		if ($_POST['subject'] == '' || $_POST['text'] == '' || strlen($_POST['subject'])>60 || strlen($_POST['text'])>1024)
-		Header("Location: comp_list.php?problem=1&post_newMSG=1&showID=".$gameID."&letter=".letter_check($_POST['letter'])."#post_comment");
+		Header("Location: comp_list.php?problem=1&post_newMSG=1&showID=".$gameID."&letter=".letter_check()."#post_comment");
 		else
 		{
 			mysql_query("
@@ -75,7 +75,7 @@ if (isset($_GET['post_comment'],$_POST['gameID'],$_SESSION['userID']) && $_GET['
 			($gameID, $userID, '$subject', '$text', NOW())
 			");
 
-			Header("Location: comp_list.php?showID=".$gameID."&letter=".letter_check($_POST['letter']));
+			Header("Location: comp_list.php?showID=".$gameID."&letter=".letter_check());
 		}
 	}
 
@@ -84,7 +84,7 @@ if (isset($_GET['changing'],$_POST['ID'],$_POST['name'],$_POST['publisher'],$_PO
 {
 
 	$changeID	= intval($_POST['ID']);
-	$letter		= letter_check($_POST['letter']);
+	$letter		= letter_check();
 	$name 		= mysql_real_escape_string(stripslashes(htmlspecialchars($_POST['name'])));
 	$publisher 	= mysql_real_escape_string(stripslashes(htmlspecialchars($_POST['publisher'])));
 	$released 	= mysql_real_escape_string(stripslashes(htmlspecialchars($_POST['year'])));
@@ -119,10 +119,10 @@ if (isset($_GET['removeID'],$_SESSION['userID']) && $_GET['removeID'])
 		mysql_query("DELETE FROM status_games WHERE gameID=$gameID");
 		mysql_query("DELETE FROM list_comment WHERE gameID=$gameID");
 
-		if (is_numeric(letter_check($_GET['letter'])))
+		if ( isset( $_GET['letter'] ) && is_numeric( $_GET['letter'] ) )
 		Header("Location: comp_list.php?letter=num");
 		else
-		Header("Location: comp_list.php?letter=".letter_check($_GET['letter']));
+		Header("Location: comp_list.php?letter=".letter_check());
 	}
 }
 if (isset($_SESSION['userID']) && $_SESSION['userID'])
@@ -138,7 +138,7 @@ if (isset($_SESSION['userID']) && $_SESSION['userID'])
 		$moby 		= mysql_real_escape_string(stripslashes(htmlspecialchars($_POST['moby'])));
 		$userID		= $_SESSION['userID'];
 		$first_char 	= $name{0};
-		$letter = letter_check($_POST['letter']);
+		$letter = letter_check();
 		$query = mysql_query("Select name from list_game where name='$name'");
 		$num = mysql_num_rows($query);
 
@@ -198,7 +198,7 @@ if (isset($_GET['showID']) && intval($_GET['showID']) > 0 AND (!isset($_GET['pos
 
 	comp_show_ID(intval($_GET['showID']));
 }
-echo '<br><br>';
+echo '<br/>';
 if (isset($_GET['showID'])  && intval($_GET['showID']) > 0 AND (!isset($_GET['post_new']) || $_GET['post_new'] != 1))
 {
 	get_msg_threads(intval($_GET['showID']));
@@ -247,7 +247,7 @@ if (isset($_GET['changeID']) && $_GET['changeID'])
 		echo '<form action="comp_list.php?changing=1" method="POST">
 		<input type="hidden" name="ID" value="'.$result[0].'">
 		<input type="hidden" name="ownerID" value='.$result[1].'>
-		<input type="hidden" name="letter" value="'.letter_check($_GET['letter']).'">
+		<input type="hidden" name="letter" value="'.letter_check().'">
 		<table cellspacing="0" cellpadding="0" width="100%">
 		<tr>
 		<td valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
@@ -387,8 +387,8 @@ if (isset($_GET['changeID']) && $_GET['changeID'])
 
 	add_version_compatibility_form($result[0]);
 	choose_percentage();
-	echo '&nbsp;<input type="hidden" name="letter" value="'.letter_check($_GET['letter']).'"><input type="submit" value="Add version-support"><br><br>
-	<br><a href="comp_list.php?showID='.intval($_GET['changeID']).'&letter='.letter_check($_GET['letter']).'">Click here to get back!<br></form>';
+	echo '&nbsp;<input type="hidden" name="letter" value="'.letter_check().'"><input type="submit" value="Add version-support"><br><br>
+	<br><a href="comp_list.php?showID='.intval($_GET['changeID']).'&letter='.letter_check().'">Click here to get back!<br></form>';
 
 
 	echo '</td></tr></table></td></tr></table></td></tr></table><br>';
@@ -408,7 +408,7 @@ if (isset($_GET['post_new']) AND $_GET['post_new']==1 AND isset($_SESSION['userI
 	select that game and press the little <b>square</b> next to its name to add a new
 	version or another comment';
 	echo '<form action="comp_list.php?posting_new=1" method="POST">
-	<input type="hidden" name="letter" value="'.letter_check($_GET['letter']).'">
+	<input type="hidden" name="letter" value="'.letter_check().'">
 	<table cellspacing="0" cellpadding="0" width="100%">
 	<tr>
 	<td valign="top"><font face="Verdana, Arial, Helvetica, sans-serif" size="2">
@@ -526,7 +526,7 @@ if (isset($_GET['letter'])){
 <br/>
 EOT;
 	}
-	comp_mainlist(letter_check($_GET['letter']));
+	comp_mainlist(letter_check());
 }
 
 
