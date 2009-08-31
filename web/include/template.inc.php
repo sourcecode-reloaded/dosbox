@@ -118,7 +118,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 					src="http://t0.extreme-dm.com/0.gif?tag=harekiet&amp;j=n"></noscript>	
 					&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.sourceforge.net/projects/dosbox" target="_blank"><img src="http://sourceforge.net/sflogo.php?group_id=52551&amp;type=1" width="88" height="31" border="0" alt="SourceForge.net Logo"></a>
 					&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://sourceforge.net/donate/index.php?group_id=52551"><img src="http://images.sourceforge.net/images/project-support.jpg" width="88" height="32" border="0" alt="Support This Project"></a></form>
-					<img src="site_images/copyright.gif" alt="Copyright 2008 DOSBox">
+					<span class="bold" style="margin-left: 1em; line-height: 2em;">Copyright </span>&copy; <span class="bold">2009 DOSBox</span>
 				</td>
 			</tr>
 		</table><br><br><br><br><br><br>
