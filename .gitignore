@@ -81,6 +81,9 @@ src/shell/.deps
 src/shell/Makefile
 src/shell/Makefile.in
 /stamp-h1
+visualc_net/*.conf
+visualc_net/*.ncb
+visualc_net/*.suo
 visualc_net/.deps
 visualc_net/Debug
 visualc_net/Makefile
