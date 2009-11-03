@@ -189,8 +189,6 @@ src/hardware/dbopl.cpp -text
 src/hardware/dbopl.h -text
 src/hardware/disney.cpp -text
 src/hardware/dma.cpp -text
-src/hardware/fmopl.c -text
-src/hardware/fmopl.h -text
 src/hardware/gameblaster.cpp -text
 src/hardware/gus.cpp -text
 src/hardware/hardware.cpp -text
@@ -237,8 +235,6 @@ src/hardware/vga_s3.cpp -text
 src/hardware/vga_seq.cpp -text
 src/hardware/vga_tseng.cpp -text
 src/hardware/vga_xga.cpp -text
-src/hardware/ymf262.c -text
-src/hardware/ymf262.h -text
 src/ints/Makefile.am -text
 src/ints/bios.cpp -text
 src/ints/bios_disk.cpp -text
