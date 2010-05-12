@@ -52,9 +52,13 @@ include/support.h -text
 include/timer.h -text
 include/vga.h -text
 include/video.h -text
+scripts/captures.bat -text
 scripts/dosbox-installer.nsi -text
+scripts/editconf.bat -text
 scripts/ega-switch.pl -text
 scripts/font-switch.pl -text
+scripts/resetconf.bat -text
+scripts/resetmapper.bat -text
 src/Makefile.am -text
 src/cpu/Makefile.am -text
 src/cpu/callback.cpp -text
