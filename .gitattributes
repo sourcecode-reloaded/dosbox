@@ -41,7 +41,7 @@ include/mixer.h svneol=native#text/plain
 include/modules.h svneol=native#text/plain
 include/mouse.h svneol=native#text/plain
 include/paging.h svneol=native#text/plain
-include/pci_bus.h -text
+include/pci_bus.h svneol=native#text/plain
 include/pic.h svneol=native#text/plain
 include/programs.h svneol=native#text/plain
 include/regs.h svneol=native#text/plain
@@ -207,8 +207,8 @@ src/hardware/mixer.cpp svneol=native#text/plain
 src/hardware/mpu401.cpp svneol=native#text/plain
 src/hardware/opl.cpp svneol=native#text/plain
 src/hardware/opl.h svneol=native#text/plain
-src/hardware/pci_bus.cpp -text
-src/hardware/pci_devices.h -text
+src/hardware/pci_bus.cpp svneol=native#text/plain
+src/hardware/pci_devices.h svneol=native#text/plain
 src/hardware/pcspeaker.cpp svneol=native#text/plain
 src/hardware/pic.cpp svneol=native#text/plain
 src/hardware/sblaster.cpp svneol=native#text/plain
