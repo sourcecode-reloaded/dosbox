@@ -10,7 +10,7 @@
 /VERSION svneol=native#text/plain
 /acinclude.m4 svneol=native#text/plain
 /autogen.sh svneol=native#text/plain
-/configure.in svneol=native#text/plain
+/configure.ac svneol=native#text/plain
 docs/Makefile.am svneol=native#text/plain
 docs/PORTING svneol=native#text/plain
 docs/README.video svneol=native#text/plain
