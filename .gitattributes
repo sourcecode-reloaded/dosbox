@@ -37,6 +37,7 @@ include/keyboard.h svneol=native#text/plain
 include/logging.h svneol=native#text/plain
 include/mapper.h svneol=native#text/plain
 include/mem.h svneol=native#text/plain
+include/midi.h svneol=native#text/plain
 include/mixer.h svneol=native#text/plain
 include/modules.h svneol=native#text/plain
 include/mouse.h svneol=native#text/plain
