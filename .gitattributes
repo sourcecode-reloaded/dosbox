@@ -83,7 +83,6 @@ src/cpu/core_dynrec/dyn_fpu.h svneol=native#text/plain
 src/cpu/core_dynrec/operators.h svneol=native#text/plain
 src/cpu/core_dynrec/risc_armv4le-common.h svneol=native#text/plain
 src/cpu/core_dynrec/risc_armv4le-o3.h svneol=native#text/plain
-src/cpu/core_dynrec/risc_armv4le-s3.h svneol=native#text/plain
 src/cpu/core_dynrec/risc_armv4le-thumb-iw.h svneol=native#text/plain
 src/cpu/core_dynrec/risc_armv4le-thumb-niw.h svneol=native#text/plain
 src/cpu/core_dynrec/risc_armv4le-thumb.h svneol=native#text/plain
