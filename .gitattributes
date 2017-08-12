@@ -202,6 +202,16 @@ src/hardware/ipx.cpp svneol=native#text/plain
 src/hardware/ipxserver.cpp svneol=native#text/plain
 src/hardware/joystick.cpp svneol=native#text/plain
 src/hardware/keyboard.cpp svneol=native#text/plain
+src/hardware/mame/fmopl.cpp -text
+src/hardware/mame/fmopl.h -text
+src/hardware/mame/saa1099.cpp -text
+src/hardware/mame/saa1099.h -text
+src/hardware/mame/sn76496.cpp -text
+src/hardware/mame/sn76496.h -text
+src/hardware/mame/ymdeltat.cpp -text
+src/hardware/mame/ymdeltat.h -text
+src/hardware/mame/ymf262.cpp -text
+src/hardware/mame/ymf262.h -text
 src/hardware/memory.cpp svneol=native#text/plain
 src/hardware/mixer.cpp svneol=native#text/plain
 src/hardware/mpu401.cpp svneol=native#text/plain
