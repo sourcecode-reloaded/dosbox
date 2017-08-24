@@ -202,6 +202,7 @@ src/hardware/ipx.cpp svneol=native#text/plain
 src/hardware/ipxserver.cpp svneol=native#text/plain
 src/hardware/joystick.cpp svneol=native#text/plain
 src/hardware/keyboard.cpp svneol=native#text/plain
+src/hardware/mame/Makefile.am -text
 src/hardware/mame/emu.h -text
 src/hardware/mame/fmopl.cpp -text
 src/hardware/mame/fmopl.h -text
