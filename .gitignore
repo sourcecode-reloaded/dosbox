@@ -85,6 +85,7 @@ visualc_net/*.conf
 visualc_net/*.ncb
 visualc_net/*.suo
 visualc_net/.deps
+visualc_net/.vs
 visualc_net/Debug
 visualc_net/Makefile
 visualc_net/Makefile.in
