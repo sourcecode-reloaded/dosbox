@@ -53,6 +53,9 @@ src/gui/Makefile.in
 src/hardware/.deps
 src/hardware/Makefile
 src/hardware/Makefile.in
+src/hardware/mame/.deps
+src/hardware/mame/Makefile
+src/hardware/mame/Makefile.in
 src/hardware/serialport/.deps
 src/hardware/serialport/Makefile
 src/hardware/serialport/Makefile.in
