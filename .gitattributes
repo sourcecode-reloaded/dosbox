@@ -87,6 +87,7 @@ src/cpu/core_dynrec/risc_armv4le-thumb-iw.h svneol=native#text/plain
 src/cpu/core_dynrec/risc_armv4le-thumb-niw.h svneol=native#text/plain
 src/cpu/core_dynrec/risc_armv4le-thumb.h svneol=native#text/plain
 src/cpu/core_dynrec/risc_armv4le.h svneol=native#text/plain
+src/cpu/core_dynrec/risc_armv8le.h svneol=native#text/plain
 src/cpu/core_dynrec/risc_mipsel32.h svneol=native#text/plain
 src/cpu/core_dynrec/risc_x64.h svneol=native#text/plain
 src/cpu/core_dynrec/risc_x86.h svneol=native#text/plain
