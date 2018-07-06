@@ -10,7 +10,7 @@
 /VERSION -text
 /acinclude.m4 -text
 /autogen.sh -text
-/configure.in -text
+/configure.ac -text
 docs/Makefile.am -text
 docs/PORTING -text
 docs/README.video -text
