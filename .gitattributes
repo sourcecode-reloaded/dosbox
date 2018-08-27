@@ -201,6 +201,12 @@ src/hardware/ipx.cpp -text
 src/hardware/ipxserver.cpp -text
 src/hardware/joystick.cpp -text
 src/hardware/keyboard.cpp -text
+src/hardware/mame/Makefile.am svneol=native#text/plain
+src/hardware/mame/emu.h svneol=native#text/plain
+src/hardware/mame/saa1099.cpp svneol=native#text/plain
+src/hardware/mame/saa1099.h svneol=native#text/plain
+src/hardware/mame/sn76496.cpp svneol=native#text/plain
+src/hardware/mame/sn76496.h svneol=native#text/plain
 src/hardware/memory.cpp -text
 src/hardware/mixer.cpp -text
 src/hardware/mpu401.cpp -text
