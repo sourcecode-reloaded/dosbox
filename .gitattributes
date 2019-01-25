@@ -39,7 +39,6 @@ include/mapper.h svneol=native#text/plain
 include/mem.h svneol=native#text/plain
 include/midi.h svneol=native#text/plain
 include/mixer.h svneol=native#text/plain
-include/modules.h svneol=native#text/plain
 include/mouse.h svneol=native#text/plain
 include/paging.h svneol=native#text/plain
 include/pci_bus.h svneol=native#text/plain
