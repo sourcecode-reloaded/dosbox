@@ -281,13 +281,16 @@ src/libs/gui_tk/gui_tk.cpp svneol=native#text/plain
 src/libs/gui_tk/gui_tk.h svneol=native#text/plain
 src/libs/zmbv/Makefile.am svneol=native#text/plain
 src/libs/zmbv/drvproc.cpp svneol=native#text/plain
+src/libs/zmbv/makedll.mk -text
 src/libs/zmbv/resource.h svneol=native#text/plain
+src/libs/zmbv/resource.rc -text
 src/libs/zmbv/zmbv.cpp svneol=native#text/plain
 src/libs/zmbv/zmbv.def svneol=native#text/plain
 src/libs/zmbv/zmbv.h svneol=native#text/plain
 src/libs/zmbv/zmbv.inf svneol=native#text/plain
 src/libs/zmbv/zmbv.sln svneol=native#text/plain
 src/libs/zmbv/zmbv.vcproj svneol=native#text/plain
+src/libs/zmbv/zmbv_mingw.def -text
 src/libs/zmbv/zmbv_vfw.cpp svneol=native#text/plain
 src/libs/zmbv/zmbv_vfw.h svneol=native#text/plain
 src/libs/zmbv/zmbv_vfw.rc svneol=native#text/plain
