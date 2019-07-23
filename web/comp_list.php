@@ -212,17 +212,6 @@ if (isset($_GET['showID'])  && intval($_GET['showID']) > 0 AND (!isset($_GET['po
 
 		echo '<br>';
 	}
-echo '
-<script type="text/javascript"><!--
-google_ad_client = "pub-0841681205384106";
-//games
-google_ad_slot = "0465956936";
-google_ad_width = 468;
-google_ad_height = 60;
-//--></script>
-<script type="text/javascript"
-src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-</script><br><br>';
 
 }
 
@@ -521,7 +510,7 @@ if (isset($_GET['letter'])){
 	if(/*$_GET['letter'] == 'a' && */ !isset($_GET['showID'])){
 		echo <<<EOT
 <div style="width: 630px;" class="caption">
- <p style="padding:6px;margin:0;"><a href="http://www.dosbox.com">DOSBox</a> does NOT host these games. This list is a compatibility list. If you are looking for games, you can visit <a href="http://www.classicdosgames.com" target="blank">www.classicdosgames.com</a> or <a href="http://www.gog.com/en/frontpage/pp/b3f0c7f6bb763af1be91d9e74eabfeb199dc1f1f" class="goglink" target="_blank"><span class="gog1">GOG</span><span class="gog2">.COM</span></a>.</p>
+ <p style="padding:6px;margin:0;"><a href="http://www.dosbox.com">DOSBox</a> does NOT host these games. This list is a compatibility list. If you are looking for games, you can visit <a href="http://www.classicdosgames.com" target="blank">www.classicdosgames.com</a> or <a href="http://www.gog.com/?pp=b3f0c7f6bb763af1be91d9e74eabfeb199dc1f1f" class="goglink" target="_blank"><span class="gog1">GOG</span><span class="gog2">.COM</span></a>.</p>
 </div>
 <br/>
 EOT;

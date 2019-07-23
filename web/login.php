@@ -59,7 +59,9 @@ echo '	<form action="login.php?login=1" method="POST">
 		}
 	}
 	echo '</font>';
+
 		template_pagebox_end();
+/*
 template_pagebox_start("Info for returning users", 550);
 	echo '<font face="Verdana, Arial, Helvetica, sans-serif">';
 echo '
@@ -69,6 +71,7 @@ You should consider <b>your password</b> that you used on <a href="http://www.do
 The passwords for our <a href="http://vogons.zetafleet.com/index.php?c=7">forums</a> are <b>not</b> affected, however if you used the same password for both, then you should update your forum password.
 </font>';
 template_pagebox_end();	
+*/
 		echo '</td></tr></table>';	// end of framespacing-table					
 		template_end();
 ?>

@@ -22,12 +22,11 @@ function template_header()
   <li><a href="crew.php">Crew</a></li>
   <li><a href="information.php?page=0">Information</a></li>
   <li><a href="status.php?show_status=1">Status</a></li>
-  <li><a href="wiki/">FAQ</a></li>
   <li><a href="download.php?main=1">Downloads</a></li>
   <li><a href="comp_list.php?letter=a">Compatibility</a></li>
-  <li><a href="http://vogons.zetafleet.com/index.php?c=7" target="_blank">Forum</a></li>
+  <li><a href="https://www.vogons.org/viewforum.php?f=53" target="_blank">Forum</a></li>
   <li><a href="links.php">Links</a></li>
-  <li><a href="login.php">Login</a></li>
+  <li><a href="https://www.dosbox.com/login.php">Login</a></li>
  </ul>
  <span class="indent top">Latest version:
   <a class="bold" href="download.php?main=1">$latest_version</a>
@@ -46,32 +45,19 @@ function template_end()
 		<br>
 		<br>
 		<div class="temp">
-		<center><a href="/wiki/Basic_Setup_and_Installation_of_DosBox">DOSBox tutorial</a></center>
+		<center><a href="/wiki/Basic_Setup_and_Installation_of_DosBox">DOSBox Tutorial</a></center>
 		</div>
 		<br>
 		<div class="temp">
-		<center><a href="/wiki/Dosbox_and_Vista">DOSBox and Vista</a></center>
+		<center><a href="/DOSBoxManual.html">DOSBox Manual</a></center>
 		</div>
 		<br>
 		<div class="gog">
-		<a href="http://www.gog.com/en/frontpage/pp/b3f0c7f6bb763af1be91d9e74eabfeb199dc1f1f" class="goglink">
-		DRM-free PC classics - 
-		<span class="gog1">GOG</span><span class="gog2">.COM</span>
-		</a>
+Looking for classic PC games?<br><br><a href="https://www.gog.com/?pp=b3f0c7f6bb763af1be91d9e74eabfeb199dc1f1f&amp;utm_medium=display" class="goglink_side">Get them at<br> <span class="gog1">GOG</span><span class="gog2">.COM</span></a>.<br><br>Cheap and<br>DRM-free!
 		</div>
 		<br>
 
 
-<script type="text/javascript"><!--
-google_ad_client = "pub-0841681205384106";
-//rechts
-google_ad_slot = "5563129217";
-google_ad_width = 120;
-google_ad_height = 240;
-//--></script>
-<script type="text/javascript"
-src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-</script>
 		</td>
 	</tr>
 </table>
@@ -81,17 +67,7 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
  					&nbsp;
 				</td>
 				<td valign="top">
-<script type="text/javascript"><!--
-google_ad_client = "pub-0841681205384106";
-/* Regular pages 468x15,  bottom */
-google_ad_slot = "6666539821";
-google_ad_width = 468;
-google_ad_height = 15;
-//--></script>
-<script type="text/javascript"
-src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-</script>
-</br>&nbsp;</br>
+<br>&nbsp;<br>
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 <input type="hidden" name="cmd" value="_s-xclick">
 <input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but11.gif" border="0" name="submit" alt="Make payments with PayPal - it\'s fast, free and secure!">
@@ -100,25 +76,22 @@ src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 ">
 
 					&nbsp;&nbsp;&nbsp;<img src="site_images/compilations.jpg" alt="Compilations">&nbsp;&nbsp;&nbsp;
-					<a href="http://www.gog.com/en/frontpage/pp/b3f0c7f6bb763af1be91d9e74eabfeb199dc1f1f"><img src="gog.jpg" alt="DRM-free PC classics - GOG.com"></a>&nbsp;&nbsp;&nbsp;
-					<a target="_blank" href="http://t.extreme-dm.com/?login=harekiet">
-					<img name=im src="http://t1.extreme-dm.com/i.gif" height=38
-					border=0 width=41 alt=""></a><script language="javascript" type="text/javascript"><!--
-					an=navigator.appName;d=document;function
-					pr(){d.write("<img src=\"http://t0.extreme-dm.com",
-					"/0.gif?tag=harekiet&j=y&srw="+srw+"&srb="+srb+"&",
-					"rs="+r+"&l="+escape(parent.document.referrer)+"\" height=1 ",
-					"width=1>");}srb="na";srw="na";//-->
-					</script><script language="javascript1.2" type="text/javascript"><!--
-					s=screen;srw=s.width;an!="Netscape"?
-					srb=s.colorDepth:srb=s.pixelDepth;//-->
-					</script><script language="javascript" type="text/javascript"><!--
-					r=41;d.images?r=d.im.width:z=0;pr();//-->
-					</script><noscript><img height=1 width=1 alt="" 
-					src="http://t0.extreme-dm.com/0.gif?tag=harekiet&amp;j=n"></noscript>	
-					&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.sourceforge.net/projects/dosbox" target="_blank"><img src="http://sourceforge.net/sflogo.php?group_id=52551&amp;type=1" width="88" height="31" border="0" alt="SourceForge.net Logo"></a>
-					&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://sourceforge.net/donate/index.php?group_id=52551"><img src="http://images.sourceforge.net/images/project-support.jpg" width="88" height="32" border="0" alt="Support This Project"></a></form>
-					<span class="bold" style="margin-left: 1em; line-height: 2em;">Copyright </span>&copy; <span class="bold">2009 DOSBox</span>
+					<a href="https://www.gog.com/?pp=b3f0c7f6bb763af1be91d9e74eabfeb199dc1f1f"><img src="gog.jpg" alt="DRM-free PC classics - GOG.com"></a>&nbsp;&nbsp;&nbsp;
+					<a target="_blank" href="http://extremetracking.com/open?login=harekiet">
+					<img src="//t1.extreme-dm.com/i.gif" height=38
+					border=0 width=41 alt=""></a><script language="javascript1.2"><!--
+					EXs=screen;EXw=EXs.width;navigator.appName!="Netscape"?
+					EXb=EXs.colorDepth:EXb=EXs.pixelDepth;//-->
+					</script><script language="javascript"><!--
+					EXd=document;EXw?"":EXw="na";EXb?"":EXb="na";
+					EXd.write("<img src=\"//t0.extreme-dm.com",
+					"/0.gif?tag=harekiet&j=y&srw="+EXw+"&srb="+EXb+"&",
+					"l="+escape(EXd.referrer)+"\" height=1 width=1>");//-->
+					</script><noscript><img height=1 width=1 alt=""
+					src="//t0.extreme-dm.com/0.gif?tag=harekiet&j=n"></noscript>
+					&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.sourceforge.net/projects/dosbox" target="_blank"><img src="https://sourceforge.net/sflogo.php?group_id=52551&amp;type=1" width="88" height="31" border="0" alt="SourceForge.net Logo"></a>
+					&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://sourceforge.net/donate/index.php?group_id=52551"><img src="https://images.sourceforge.net/images/project-support.jpg" width="88" height="32" border="0" alt="Support This Project"></a></form>
+					<span class="bold" style="margin-left: 1em; line-height: 2em;">Copyright </span>&copy; <span class="bold">2019 DOSBox</span>
 				</td>
 			</tr>
 		</table><br><br><br><br><br><br>
@@ -135,9 +108,6 @@ pageTracker._trackPageview();
 </body>
 
 	</html>
-
-
-
 	';
 }
 

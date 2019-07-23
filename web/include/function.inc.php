@@ -558,7 +558,7 @@ function show_downloads($priv)
 				<a href="'.$result[2].'" target="_blank">'.$result[1].'</a>
 				</td>
 
-				<td width="110">
+				<td width="150">
 				'.$result[4].'
 				</td>
 				<td>
@@ -858,6 +858,7 @@ function comp_mainlist( $letter )
 
 function search_results($keyword)
 {
+    $keyword = filter_var($keyword,FILTER_SANITIZE_STRING,FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
     $keyword = mysql_real_escape_string(stripslashes($keyword));
     $query = mysql_query( compat_status_query( 0, 100, "name, version DESC", "name LIKE '%$keyword%'" ) );
     $num = mysql_num_rows( $query );

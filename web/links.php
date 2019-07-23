@@ -11,13 +11,16 @@ template_pagebox_start("DOSBox related links", 800);
 			<a href="http://www.sourceforge.net/projects/dosbox" target="_blank">Sourceforge</a> - DOSBox project page,  submit bugs and patches here. 
 			</li>
 			<li>
-			<a href="http://vogons.zetafleet.com" target="_blank">VOGONS</a> - Official DOSBox Forum, look here for solutions for your problems.
+			<a href="http://www.vogons.org" target="_blank">VOGONS</a> - Official DOSBox Forum, look here for solutions for your problems.
 			</li>
 			<li>
 			<a href="http://pain.scene.org/service_dosbox.php" target="_blank">pain.scene.org</a> - Unofficial DOSBox Demo Compatibility List.
 			</li>							    
 			<li>
 			<a href="http://cvscompile.aep-emu.de/" target="_blank">cvscompile.aep-emu.de</a> - CVS builds kindly provided by the people of AEP-Emulation.
+			</li>
+			<li>
+			<a href="http://www.pixelships.com/adg/index.html" target="_blank">Ancient DOS Games</a> - Great game reviews made by Kris Asick using DOSBox.
 			</li>
 			</ul>';
 template_pagebox_end();
@@ -27,7 +30,7 @@ template_pagebox_end();
 			<a href="http://www.classicdosgames.com">Classic DOS Games</a> - has free downloads of over 300 games.
 			</li>
 			<li>
-			<a href="http://www.gog.com/en/frontpage/pp/b3f0c7f6bb763af1be91d9e74eabfeb199dc1f1f">GOG.com</a> - DRM-free PC classics.
+			<a href="http://www.gog.com/?pp=b3f0c7f6bb763af1be91d9e74eabfeb199dc1f1f">GOG.com</a> - DRM-free PC classics.
 			</li>
 			<li>
 			<a href="http://www.3drealms.com/downloads.html">Apogee/3D Realms</a> -  is an industry veteran who has a rich history in DOS gaming, going back to the mid 80\'s.

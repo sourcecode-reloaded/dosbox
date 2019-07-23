@@ -19,11 +19,20 @@ border-color: #000000;
 padding: 20px 0px 20px 0px;
 }
 div.gog {
-background-color: #113466;
+background-color: #303840;
 width: 120px;
 border: 1px solid;
 border-color: #000000;
 padding: 15px 0px 15px 0px;
+text-align: center;
+}
+
+div.gogimage { 
+background-color: #303840;
+width: 120px;
+border: 1px solid;
+border-color: #000000;
+padding: 0x 0px 0px 0px;
 text-align: center;
 }
 
@@ -32,6 +41,7 @@ color: #93be03;
 font-weight: bold; 
 }
 
+
 .gog2 {
 color: #fcb70a;
 font-weight: bold; 
@@ -39,6 +49,11 @@ font-weight: bold;
 a.goglink {
 color: #a1a1ff;
 text-align: center;
+}
+a.goglink_side {
+color: #a1a1ff;
+text-align: center;
+font-size: 105%;
 }
 
 .code {

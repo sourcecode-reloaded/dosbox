@@ -42,7 +42,7 @@ echo '
 echo '</td></tr><tr><td>&nbsp;</td><td>
       If you want to communicate with us feel free to use the following: 
 <IMG SRC="site_images/nothing.png" width="200" height="20"alt="Nothing"><br>
-<em>If you have questions on how to use DOSBox or how to run a specific game; please use the <a href="http://vogons.zetafleet.com/index.php?c=7">forum</a> instead</em><br>
+<em>If you have questions on how to use DOSBox or how to run a specific game; please use the <a href="https://www.vogons.org/viewforum.php?f=53">forum</a> instead</em><br>
 ';
 echo '</td></tr></table>';	// end of framespacing-table
 
