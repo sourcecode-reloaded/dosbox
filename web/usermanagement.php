@@ -1,69 +1,70 @@
 <?php
 // this src is written under the terms of the GPL-licence, see gpl.txt for futher details
-	include("include/standard.inc.php");
-	sstart();
+include("include/standard.inc.php");
+global $db;
+sstart();
 
 if (isset($user) && $user['priv']['user_management']==1)
 {
 	
 	if (isset($_GET['obsolute_delID']))
 	{
-		$ID = mysql_escape_string(stripslashes($_GET['obsolute_delID']));
+		$ID = mysqli_escape_string( $db, stripslashes($_GET['obsolute_delID']));
 		
 		
-		$query = mysql_query("SELECT ID FROM list_game WHERE ownerID=$ID");
-		while($result = mysql_fetch_row($query))
+		$query = mysqli_query( $db, "SELECT ID FROM list_game WHERE ownerID=$ID");
+		while($result = mysqli_fetch_row($query))
 		{
-			mysql_query("DELETE FROM status_games WHERE gameID = ".$result[0]);
+			mysqli_query( $db, "DELETE FROM status_games WHERE gameID = ".$result[0]);
 		}
 		
-		mysql_query("DELETE FROM list_game WHERE ownerID = $ID");
-		mysql_query("DELETE FROM user_session WHERE userID = $ID");
-		mysql_query("DELETE FROM userdb WHERE userdb.ID = $ID");
-		mysql_query("DELETE FROM list_comment WHERE ownerID = $ID");		
-		mysql_query("DELETE FROM news WHERE ownerID = $ID");
+		mysqli_query( $db, "DELETE FROM list_game WHERE ownerID = $ID");
+		mysqli_query( $db, "DELETE FROM user_session WHERE userID = $ID");
+		mysqli_query( $db, "DELETE FROM userdb WHERE userdb.ID = $ID");
+		mysqli_query( $db, "DELETE FROM list_comment WHERE ownerID = $ID");		
+		mysqli_query( $db, "DELETE FROM news WHERE ownerID = $ID");
 		
 		
 		Header("Location: usermanagement.php?show=1");
 	}
 	if (isset($_GET['delID']))
 	{
-		$ID = mysql_escape_string(stripslashes($_GET['delID']));
+		$ID = mysqli_escape_string( $db, stripslashes($_GET['delID']));
 		
-		mysql_query("UPDATE userdb SET active=0, chg_passwd='' WHERE userdb.ID = $ID");
+		mysqli_query( $db, "UPDATE userdb SET active=0, chg_passwd='' WHERE userdb.ID = $ID");
 		Header("Location: usermanagement.php?show=1");
 	}
 	
 	if (isset($_GET['reactivateID']))
 	{
-		$ID = mysql_escape_string(stripslashes($_GET['reactivateID']));
+		$ID = mysqli_escape_string( $db ,stripslashes($_GET['reactivateID']));
 		/*
 			$reactivateID 	= mysql_escape_string(stripslashes($_GET['reactivateID']));
 			$temp_passwd	= md5(rand(0, 1999999999999999));
 			mysql_query("UPDATE userdb SET chg_passwd='$temp_passwd', active=0 WHERE ID=$ID");		
 			send_activate_email($temp_passwd); 
 		*/
-					mysql_query("UPDATE userdb SET active=1 WHERE ID=$ID");
+					mysqli_query( $db, "UPDATE userdb SET active=1 WHERE ID=$ID");
 		Header("Location: usermanagement.php?show=1");
 	}
 	if (isset($_GET['updatingID']))
 	{	
-		$ID = mysql_escape_string(stripslashes($_GET['updatingID']));
+		$ID = mysqli_escape_string( $db, stripslashes($_GET['updatingID']));
 		
-		$nickname 	= mysql_escape_string(stripslashes($_POST['nickname']));
-		$name 		= mysql_escape_string(stripslashes($_POST['name']));
-		$email 		= mysql_escape_string(stripslashes($_POST['email']));
-		$website 	= mysql_escape_string(stripslashes($_POST['website']));
-		$admin 		= mysql_escape_string(stripslashes($_POST['usergroup']));
-		$crew		= mysql_escape_string(stripslashes($_POST['crew']));
-		$active		= mysql_escape_string(stripslashes($_POST['active']));
-		$temp_passwd	= mysql_escape_string(stripslashes($_POST['temp_passwd']));
+		$nickname 	= mysqli_escape_string( $db, htmlspecialchars($_POST['nickname']));
+		$name 		= mysqli_escape_string( $db, htmlspecialchars($_POST['name']));
+		$email 		= mysqli_escape_string( $db, htmlspecialchars($_POST['email']));
+		$website 	= mysqli_escape_string( $db, htmlspecialchars($_POST['website']));
+		$admin 		= mysqli_escape_string( $db, stripslashes($_POST['usergroup']));
+		$crew		= mysqli_escape_string( $db, stripslashes($_POST['crew']));
+		$active		= mysqli_escape_string( $db, stripslashes($_POST['active']));
+		$temp_passwd	= mysqli_escape_string( $db, stripslashes($_POST['temp_passwd']));
 		
 	
 		if ($active == 1)
-			mysql_query("UPDATE userdb SET nickname='$nickname', name='$name', email='$email', website='$website', grpID=$admin, active=1, chg_passwd='',part_of_crew=$crew WHERE userdb.ID=$ID");
+			mysqli_query( $db, "UPDATE userdb SET nickname='$nickname', name='$name', email='$email', website='$website', grpID=$admin, active=1, chg_passwd='',part_of_crew=$crew WHERE userdb.ID=$ID");
 		else
-			mysql_query("UPDATE userdb SET nickname='$nickname', name='$name', email='$email', website='$website', admin=$admin, active=0, chg_passwd='$temp_passwd',part_of_crew=$crew WHERE userdb.ID=$ID");
+			mysqli_query( $db, "UPDATE userdb SET nickname='$nickname', name='$name', email='$email', website='$website', grpID=$admin, active=0, chg_passwd='$temp_passwd',part_of_crew=$crew WHERE userdb.ID=$ID");
 		
 		Header("Location: usermanagement.php?show=1");
 	}
@@ -72,7 +73,7 @@ if (isset($user) && $user['priv']['user_management']==1)
 	template_header();
 	echo '<br><table width="100%"><tr><td width="14">&nbsp;</td><td>';// start of framespacing-table		
 	
-	template_pagebox_start("Register account", 980);			
+	template_pagebox_start("Accounts", 1080);			
 	
 	echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><br>';
 
@@ -83,9 +84,9 @@ if (isset($user) && $user['priv']['user_management']==1)
 		if (isset($_GET['editID']))
 		{
 		
-			$editID=mysql_escape_string(intval(stripslashes($_GET['editID'])));
+			$editID=mysqli_escape_string( $db, intval(stripslashes($_GET['editID'])));
 
-			$query = mysql_query("
+			$query = mysqli_query( $db, "
 			
 			SELECT 
 				userdb.ID, userdb.name, userdb.nickname, userdb.email, userdb.website,
@@ -95,7 +96,7 @@ if (isset($user) && $user['priv']['user_management']==1)
 			WHERE
 				userdb.ID = $editID AND userdb.grpID=usergrp.ID");
 			
-			$result = mysql_fetch_row($query);
+			$result = mysqli_fetch_row($query);
 			
 			
 			
@@ -206,7 +207,7 @@ if (isset($user) && $user['priv']['user_management']==1)
 }
 
 else
-	template_header($page);
+	template_header();
 	
 	
 	template_pagebox_end();	
@@ -219,7 +220,8 @@ else
 
 function show_users($limit)
 {
-	$query = mysql_query("
+	global $db;
+	$query = mysqli_query( $db,"
 	SELECT
 		userdb.ID, userdb.name, userdb.nickname, userdb.email, DATE_FORMAT(userdb.added, '%Y-%m-%d'),
 		userdb.active, userdb.chg_passwd, usergrp.groupname
@@ -236,29 +238,29 @@ function show_users($limit)
 	echo '<table cellspacing="0" cellpadding="0" width="100%">
 	<tr valign="top">
 		<td>
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Fullname:</b>
+			<b>Fullname:</b>
 		</td>
 		<td>
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Nickname:</b>
+			<b>Nickname:</b>
 		</td>
 		<td>
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>E-mail:</b>
+			<b>E-mail:</b>
 		</td>
 		<td>
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Added:</b>
+			<b>Added:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
 		</td>
 		<td>
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Priviliges:</b>
+			<b>Priviliges:</b>
 		</td>
 		<td>
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><b>Status:</b>
+			<b>Status:&nbsp;&nbsp;&nbsp;</b>
 		</td>
 		<td>
-			&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		</td>		
 	</tr>';
 	
-	while ($result = mysql_fetch_row($query))
+	while ($result = mysqli_fetch_row($query))
 	{
 		echo '
 		<tr valign="top">

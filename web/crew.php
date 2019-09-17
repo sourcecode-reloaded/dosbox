@@ -3,7 +3,7 @@
 	include("include/standard.inc.php");
 	sstart();
 	template_header();
-
+	global $db;
 	echo '<br><table width="100%"><tr><td width="14">&nbsp;</td><td valign="top">';// start of framespacing-table
 
 	template_pagebox_start("The people behind DOSBox");
@@ -19,9 +19,9 @@ echo '
 		</td>
 
 	</tr>';
-	$query = mysql_query("SELECT name, nickname, email, website FROM userdb WHERE userdb.part_of_crew =1 ORDER BY userdb.name");
+	$query = mysqli_query($db,"SELECT name, nickname, email, website FROM userdb WHERE userdb.part_of_crew =1 ORDER BY userdb.name");
 	
-	while ($result=mysql_fetch_row($query))
+	while ($result=mysqli_fetch_row($query))
 	{
 		echo '
 		<tr>

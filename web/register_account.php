@@ -3,28 +3,34 @@
 // this src is written under the terms of the GPL-licence, see gpl.txt for futher details
 	include("include/standard.inc.php");
 	$page = 'page_register.gif';
+	global $db;
 	sstart();
 
 	if (isset($_POST['nickname'],$_POST['password1'],$_POST['password2']) && $_GET['adding']==1)
 	{
-		$nickname 	= mysql_real_escape_string(stripslashes($_POST['nickname']));
-		$password_plain	= mysql_real_escape_string(stripslashes($_POST['password1']));
-		$password1 	= mysql_real_escape_string(stripslashes(scramble($_POST['password1'])));
-		$password2 	= mysql_real_escape_string(stripslashes(scramble($_POST['password2'])));
-		$name 		= mysql_real_escape_string(stripslashes($_POST['name']));
-		$email 		= mysql_real_escape_string(stripslashes($_POST['email']));
-		$website 	= mysql_real_escape_string(stripslashes($_POST['website']));
-		$temp_passwd	= md5(rand(0, 1999999999999999));
-	
+		$nickname 	= mysqli_real_escape_string( $db, htmlspecialchars($_POST['nickname']));
+		$password_plain	= mysqli_real_escape_string( $db, stripslashes($_POST['password1']));
+		$password1 	= mysqli_real_escape_string( $db, stripslashes(scramble($_POST['password1'])));
+		$password2 	= mysqli_real_escape_string( $db, stripslashes(scramble($_POST['password2'])));
+		$name 		= mysqli_real_escape_string( $db, htmlspecialchars($_POST['name']));
+		$email 		= mysqli_real_escape_string( $db, htmlspecialchars($_POST['email']));
+		$website 	= mysqli_real_escape_string( $db, htmlspecialchars($_POST['website']));
+		$temp_passwd	= md5(rand());
+
+		$problem = 0;	
 		if ($nickname == '' || $name == '' || $password2 == '' || $password_plain == '' || $email == '')
 			$problem = 1;
 		
+		$passwd = 0;
 		if ($password1 != $password2)
 			$passwd = 1;
 		
+		$error_mail = 0;
 		if (verify_mail($email) == 0)
 			$error_mail = 1;
 		
+		$email_exists = '';
+		$occupied = '';
 		if (check_mail_db($email))
 			$email_exists = $email;
 			
@@ -32,10 +38,10 @@
 				$occupied = $nickname;
 		
 		if ($problem == 1 || $occupied != '' || $passwd == 1 || $error_mail == 1 || $email_exists != '')
-			Header("Location: register_account.php?main_form=1&email_exists=".$email_exists."&error_mail=".$error_mail."&passwd=".$passwd."&problem=".$problem."&occupied=".$occupied."");
+			Header("Location: register_account.php?main_form=1&amp;email_exists=".$email_exists."&amp;error_mail=".$error_mail."&amp;passwd=".$passwd."&amp;problem=".$problem."&amp;occupied=".$occupied."");
 		else
 		{
-			mysql_query("INSERT INTO userdb (name,nickname,password,email,website, added, chg_passwd, active) VALUES ('$name', '$nickname', '$password1', '$email', '$website', NOW(), '', 1)");
+			mysqli_query( $db, "INSERT INTO userdb (name,nickname,password,email,website, added, chg_passwd, active) VALUES ('$name', '$nickname', '$password1', '$email', '$website', NOW(), '', 1)");
 			
 
 			/* 	
@@ -67,90 +73,97 @@
 	
 	template_pagebox_start("Register account", 550);			
 	
-	echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><br>';
+	echo '<br>';
 
 
-	
-	if ($_GET['problem']==1 || $_GET['occupied'] || $_GET['passwd']==1 || $_GET['error_mail'] == 1)
-		echo '<b>Registration failed!</b><br>';
-	
-	if ($_GET['problem']==1)
-		echo '<li>You must fill in all the boxes that is marked with a <b class="boldred">(*)</b></li>';	
-	if ($_GET['error_mail'] == 1)
+	$e = false;
+	if ((isset($_GET['problem']) && $_GET['problem']==1) || 
+	     isset($_GET['occupied']) || 
+	     (isset($_GET['passwd']) && $_GET['passwd']==1) || 
+	     (isset($_GET['error_mail']) && $_GET['error_mail'] == 1)) {
+		$e = true;
+		echo '<b>Registration failed!</b><br><ul>';
+	}
+	if (isset($_GET['problem']) && $_GET['problem']==1)
+		echo '<li>You must fill in all the boxes that are marked with a (<span class="bold red">*</span>)</li>';	
+	if (isset($_GET['error_mail']) && $_GET['error_mail'] == 1)
 		echo '<li>You must type a valid email adress (you will get the activation-code by email)</li>';			
-	if ($_GET['passwd']==1)
-		echo '<li>The "password" and "Retype password" is not desame, please try again!</li>';	
-	if ($_GET['occupied'])
-		echo '<li>The nickname "<b class="boldred">'.$_GET['occupied'].'</b>" does already exist, please choose another.</li>';
-	if ($_GET['email_exists'])
-		echo '<li>The email "<b class="boldred">'.$_GET['email_exists'].'</b>" is already in use by another member, please choose another.</li>';
-	if ($_GET['success'])
-		echo 'The user <b class="boldblue">'.$_GET['success'].'</b> has succesfully been created!<br><a href="login.php?mainform=1" target="_top">Click here</a> to login!<br><br>Regards, DOSBox crew!<br><br>';
+	if (isset($_GET['passwd']) && $_GET['passwd']==1)
+		echo '<li>The "password" and "Retype password" are not the same, please try again!</li>';	
+	if (!empty($_GET['occupied']))
+		echo '<li>The nickname "<b class="bold red">'.htmlspecialchars($_GET['occupied']).'</b>" does already exist, please choose another.</li>';
+	if (!empty($_GET['email_exists']))
+		echo '<li>The email "<b class="bold red">'.htmlspecialchars($_GET['email_exists']).'</b>" is already in use by another member, please choose another.</li>';
+
+	if ($e)
+		echo '</ul>';
+	if (isset($_GET['success']) && $_GET['success'])
+		echo 'The user <b class="bold blue">'.htmlspecialchars($_GET['success']).'</b> has succesfully been created!<br><a href="login.php?mainform=1" target="_top">Click here</a> to login!<br><br>Regards, DOSBox crew!<br><br>';
 
 
-	if ($_GET['main_form']==1)
+	if (isset($_GET['main_form']) && $_GET['main_form']==1)
 	{
 		echo '
 			<form action="register_account.php?adding=1" method="POST">
-				<b class=boldblue>Fill in the boxes below:</b> (the boxes that isn\'t marked are optional)<br><br>
-				<b class=boldblue>Please note:</b>Registering will <b class=coldblue>only</b> allow you to make comments or <br>add compatibility reports about games.<b class=coldblue>
-			   Nothing more!</b><br><br><br>
+				<span class="bold blue">Fill in the boxes below:</span> (the box that isn\'t marked is optional)<br><br>
+				<span class="bold blue">Please note: </span>Registering will <span class="bold blue">only</span> allow you to make comments or <br>add compatibility reports about games.<span class="bold blue">
+			   Nothing more!</span><br><br><br>
 				<table cellspacing="0" cellpadding="0">
 				<tr valign="top"> 
 					<td>
-						<font face="Verdana, Arial, Helvetica, sans-serif" size="2">Nickname:</b> <b class="boldred">*</b>
+						<b>Nickname:</b> <span class="bold red">*</span>
 					</td>
 					<td width="15">
 						&nbsp;
 					</td>
-					<td>
-						<font face="Verdana, Arial, Helvetica, sans-serif" size="2">Website:</b>
+				<td>
+					<b>Website:</b>
 					</td>
 				</tr>
 				<tr valign="top"> 
 					<td>
-						<input name="nickname" type="text" size="25"  maxlength="25" value="'.$result[2].'">
+						<input name="nickname" type="text" size="25"  maxlength="25">
 					</td>
 					<td width="5">
 						&nbsp;
 					</td>
 					<td>
-						<input name="website" type="text" size="45" maxlength="60" value="'.$result[4].'">
+						<input name="website" type="text" size="45" maxlength="60">
 						
 					</td>
 				</tr>
 				<tr valign="top"> 
 					<td>
-						<font face="Verdana, Arial, Helvetica, sans-serif" size="2">Name:</b> <b class="boldred">*</b>
+						<b>Name:</b> <span class="bold red">*</span>
 					</td>
 					<td width="15">
 						&nbsp;
 					</td>
 					<td>
-						<font face="Verdana, Arial, Helvetica, sans-serif" size="2">Email:</b> <b class="boldred">*</b>
+						<b>Email:</b> <span class="bold red">*</span>
 					</td>
 				</tr>
 				<tr valign="top"> 
 					<td>
-						<input name="name" type="text" size="25" maxlength="60" value="'.$result[1].'">
+						<input name="name" type="text" size="25" maxlength="60">
 					</td>
 					<td width="5">
 						&nbsp;
 					</td>
 					<td>
-						<input name="email" type="text" size="45" maxlength="50" value="'.$result[3].'">
+						<input name="email" type="text" size="45" maxlength="50">
 					</td>
 				</tr>
 				
 				<tr valign="top"> 
 					<td>
-						<font face="Verdana, Arial, Helvetica, sans-serif" size="2">Password:</b> <b class="boldred">*</b>
+						<b>Password:</b> <span class="bold red">*</span>
 					</td>
 					<td width="15">
 						&nbsp;
 					</td>
 					<td>
-						<font face="Verdana, Arial, Helvetica, sans-serif" size="2">Retype password:</b> <b class="boldred">*</b>
+						<b>Retype password:</b> <span class="bold red">*</span>
 					</td>
 				</tr>
 				<tr valign="top"> 

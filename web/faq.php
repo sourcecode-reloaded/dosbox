@@ -8,7 +8,7 @@
 
 	template_pagebox_start("DOSBox FAQ (Frequently Asked Questions)");
 ?>	
-			<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><br>
+<br>
 
 				
 					<b>What is DOSBox?</b>
@@ -36,7 +36,7 @@
 
 					<b>Will DOSBox be open source?</b>
 					<ul>
-						It is, check our <a href="http://www.sourceforge.net/projects/dosbox">sourceforge site</a>.
+						It is, check our <a href="https://www.sourceforge.net/projects/dosbox">sourceforge site</a>.
 					</ul>
 					
 					<b>Does Duke Nukem 3D Run?</b>

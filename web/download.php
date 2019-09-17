@@ -3,31 +3,31 @@
 	include("include/standard.inc.php");
 	sstart();
 //Currently assuming that users with download_management abilities can be trusted. Should be changed in the future
-
+global $db;
 if (isset($user) && ($user['priv']['download_management']==1))
 {
 
 	if (isset($_GET['removeID'],$_GET['catID']))
 
 	{
-		$removeID = mysql_real_escape_string(intval(stripslashes($_GET['removeID'])));
-		$catID = mysql_real_escape_string(intval(stripslashes($_GET['catID'])));
+		$removeID = mysqli_real_escape_string($db,intval(stripslashes($_GET['removeID'])));
+		$catID = mysqli_real_escape_string($db,intval(stripslashes($_GET['catID'])));
 
-		mysql_query("DELETE FROM download WHERE download.ID=$removeID");
+		mysqli_query($db,"DELETE FROM download WHERE download.ID=$removeID");
 
 		Header("Location: download.php?changeID=".$catID);
 	}
 	if (isset($_GET['adding']) &&$_GET['adding'] ==1)
 	{
-		$name = mysql_real_escape_string(stripslashes($_POST['name']));
-		$version = mysql_real_escape_string(stripslashes($_POST['version']));
-		$desc = mysql_real_escape_string(stripslashes($_POST['description']));
-		$url = mysql_real_escape_string(stripslashes($_POST['url']));
-		$catID = mysql_real_escape_string(intval(stripslashes($_GET['catID'])));
+		$name = mysqli_real_escape_string($db,stripslashes($_POST['name']));
+		$version = mysqli_real_escape_string($db,stripslashes($_POST['version']));
+		$desc = mysqli_real_escape_string($db,stripslashes($_POST['description']));
+		$url = mysqli_real_escape_string($db, stripslashes($_POST['url']));
+		$catID = mysqli_real_escape_string($db, intval(stripslashes($_GET['catID'])));
 		
 		if ($name != '' AND $version != '' AND $url != '' AND $catID != '')
 		{
-			mysql_query("
+			mysqli_query($db,"
 			INSERT INTO download (name, url, description, version, catID, added)
 			VALUES ('$name', '$url', '$desc', '$version', $catID, NOW())
 			");
@@ -39,16 +39,16 @@ if (isset($user) && ($user['priv']['download_management']==1))
 	}
 	if (isset($_GET['changing']) && $_GET['changing']==1)
 	{
-		$updateID = mysql_real_escape_string(intval(stripslashes($_POST['updateID'])));
-		$name = mysql_real_escape_string(stripslashes($_POST['name']));
-		$version = mysql_real_escape_string(stripslashes($_POST['version']));
-		$desc = mysql_real_escape_string(stripslashes($_POST['description']));
-		$url = mysql_real_escape_string(stripslashes($_POST['url']));
-		$catID = mysql_real_escape_string(intval(stripslashes($_GET['catID'])));
+		$updateID = mysqli_real_escape_string($db,intval(stripslashes($_POST['updateID'])));
+		$name = mysqli_real_escape_string($db,stripslashes($_POST['name']));
+		$version = mysqli_real_escape_string($db,stripslashes($_POST['version']));
+		$desc = mysqli_real_escape_string($db,stripslashes($_POST['description']));
+		$url = mysqli_real_escape_string($db,stripslashes($_POST['url']));
+		$catID = mysqli_real_escape_string($db,intval(stripslashes($_GET['catID'])));
 		
 		if ($name != '' AND $version != '' AND $url != '' AND $catID != '')
 		{
-			mysql_query("UPDATE download SET name='$name', version='$version', description='$desc', url='$url' WHERE ID=$updateID");
+			mysqli_query($db,"UPDATE download SET name='$name', version='$version', description='$desc', url='$url' WHERE ID=$updateID");
 			
 		    Header("Location: download.php?changeID=".(isset($_GET['catID'])?intval($_GET['catID']):"0"));
 		}
@@ -60,14 +60,14 @@ if (isset($user) && ($user['priv']['download_management']==1))
 	    $changeID=intval($_GET['changeID']);
 		template_header();
 		echo '<br><table width="100%"><tr><td width="14">&nbsp;</td><td>';// start of framespacing-table
-                template_pagebox_start("Add/change download-category", 690);
+                template_pagebox_start("Add/change download-category", 640);
 	
-			echo '<br><font face="Verdana, Arial, Helvetica, sans-serif" size="2"><a href="download.php?main=1">Click here</a> to get back to the download page!<br><br>';
+			echo '<br><a href="download.php?main=1">Click here</a> to get back to the download page!<br><br>';
 			download_change($changeID);
 				
 			echo '<br><br>
 			
-			<b>Add new item</b><font size="2"><br>
+			<b>Add new item</b><br>
 			
 
 			<table cellspacing="0" cellpadding="0">

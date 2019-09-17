@@ -6,6 +6,7 @@
 	if (isset($_GET['destroy']) && $_GET['destroy']==1)
 	{
 		SESSION_DESTROY();
+		session_unset();
 		Header("Location: login.php");
 	}
 		
@@ -19,9 +20,9 @@
 	
 	template_pagebox_start("Login", 550);			
 	
-	echo '<font face="Verdana, Arial, Helvetica, sans-serif" size="2"><br>';
+	echo '<br>';
 	if (isset($_GET['failed']) && $_GET['failed']==1)
-		echo '<b class=boldred>The username/password you tried to use is incorrect, please try again!</b>';
+		echo '<span class="bold red">The username/password you tried to use is incorrect, please try again!</span>';
 
 
 	if (!isset($_SESSION['userID']))

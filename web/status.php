@@ -1,6 +1,7 @@
 <?php
 // this src is written under the terms of the GPL-licence, see gpl.txt for futher details
 	include("include/standard.inc.php");
+	global $db;
 	sstart();
 if (isset($user) && $user['priv']['status_manage']==1)
 {
@@ -11,12 +12,12 @@ if (isset($user) && $user['priv']['status_manage']==1)
 		if (is_numeric($_POST['status']) AND $_POST['status'] < 101 AND $_POST['name'] != '' AND $_POST['note'] != '')
 		{
 			
-			$updateID	= mysql_real_escape_string(stripslashes($_POST['updateID']));
-			$name 		= mysql_real_escape_string(stripslashes($_POST['name']));
-			$status 	= mysql_real_escape_string(stripslashes($_POST['status']));
-			$note 		= mysql_real_escape_string(stripslashes($_POST['note']));
+			$updateID	= mysqli_real_escape_string( $db, stripslashes($_POST['updateID']));
+			$name 		= mysqli_real_escape_string( $db, stripslashes($_POST['name']));
+			$status 	= mysqli_real_escape_string( $db, stripslashes($_POST['status']));
+			$note 		= mysqli_real_escape_string( $db, stripslashes($_POST['note']));
 			
-			mysql_query("UPDATE status_items SET name='$name', percent=$status, note='$note' WHERE ID=$updateID");
+			mysqli_query( $db, "UPDATE status_items SET name='$name', percent=$status, note='$note' WHERE ID=$updateID");
 			
 			Header("Location: status.php?changeID=".intval($_GET['catID']));
 		}
@@ -29,12 +30,12 @@ if (isset($user) && $user['priv']['status_manage']==1)
 	{
 		if (is_numeric($_POST['status']) AND $_POST['status'] < 101 AND $_POST['name'] != '' AND $_POST['note'] != '')
 		{
-			$catID		= mysql_real_escape_string(stripslashes($_GET['catID']));
-			$name 		= mysql_real_escape_string(stripslashes($_POST['name']));
-			$status 	= mysql_real_escape_string(stripslashes($_POST['status']));
-			$note 		= mysql_real_escape_string(stripslashes($_POST['note']));
+			$catID		= mysqli_real_escape_string( $db, stripslashes($_GET['catID']));
+			$name 		= mysqli_real_escape_string( $db, stripslashes($_POST['name']));
+			$status 	= mysqli_real_escape_string( $db, stripslashes($_POST['status']));
+			$note 		= mysqli_real_escape_string( $db, stripslashes($_POST['note']));
 			
-			mysql_query("
+			mysqli_query($db,"
 					INSERT INTO 
 						status_items (catID, name, percent, note)
 					VALUES ($catID, '$name', $status, '$note')
@@ -47,10 +48,10 @@ if (isset($user) && $user['priv']['status_manage']==1)
 	}
 	if (isset($_GET['removeID']))
 	{
-		$removeID = mysql_escape_string(stripslashes($_GET['removeID']));
-		$catID = mysql_escape_string(stripslashes($_GET['catID']));
+		$removeID = mysqli_escape_string( $db, stripslashes($_GET['removeID']));
+		$catID = mysqli_escape_string( $db, stripslashes($_GET['catID']));
 
-		mysql_query("DELETE FROM status_items WHERE status_items.ID=$removeID");
+		mysqli_query( $db, "DELETE FROM status_items WHERE status_items.ID=$removeID");
 
 		Header("Location: status.php?changeID=".$catID);
 

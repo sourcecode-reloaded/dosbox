@@ -5,9 +5,9 @@ include "include/session.inc.php";
 include "include/function.inc.php";
 include "include/template.inc.php";
 db_connect();
-
 # erase sessions that are out of date
-mysql_query("DELETE FROM user_session WHERE lifetime < ".(time()-$settings['lifetime'])); 
+global $db;
+if (idate('i') > 55) mysqli_query( $db, "DELETE FROM user_session WHERE lifetime < ".(time()-$settings['lifetime'])); 
 
 
 ?>

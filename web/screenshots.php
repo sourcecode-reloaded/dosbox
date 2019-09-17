@@ -1,7 +1,9 @@
 <?php
 // this src is written under the terms of the GPL-licence, see gpl.txt for futher details
 include("include/standard.inc.php");
+global $db;
 sstart();
+
 exit();	
 if (isset($user) && $user['priv']['screen_manage']==1)
 {
@@ -24,18 +26,18 @@ if (isset($user) && $user['priv']['screen_manage']==1)
 	if (isset($_GET['removeID']))
 	{
 		
-		$removeID	= mysql_escape_string(stripslashes($_GET['removeID']));
+		$removeID	= mysqli_escape_string($db,stripslashes($_GET['removeID']));
 
                 
-		$query = mysql_query("SELECT COUNT(ID) FROM screenshots WHERE screenshots.ID=$removeID");
-		$result = mysql_fetch_row($query);
+		$query = mysqli_query($db,"SELECT COUNT(ID) FROM screenshots WHERE screenshots.ID=$removeID");
+		$result = mysqli_fetch_row($query);
 		
 		if ($result[0] == 1)
 		{
-			$query = mysql_query("SELECT ID FROM screenshots WHERE ID=$removeID");
-			$result = mysql_fetch_row($query);
+			$query = mysqli_query($db,"SELECT ID FROM screenshots WHERE ID=$removeID");
+			$result = mysqli_fetch_row($query);
 			
-			mysql_query("DELETE FROM screenshots WHERE ID=$removeID");
+			mysqli_query($db,"DELETE FROM screenshots WHERE ID=$removeID");
 			unlink($settings['obsolete'].'/screenshots/thumb/'.$result[0].'.png');
 			unlink($settings['obsolete'].'/screenshots/big/'.$result[0].'.png');
 			Header("Location: screenshots.php?page=".$page);
@@ -49,16 +51,16 @@ if (isset($user) && $user['priv']['screen_manage']==1)
 	{
 		
 		$page		= $_POST['page'];
-		$changeID	= mysql_escape_string(stripslashes($_POST['changeID']));
-		$description	= mysql_escape_string(stripslashes($_POST['description']));
+		$changeID	= mysqli_escape_string($db,stripslashes($_POST['changeID']));
+		$description	= mysqli_escape_string($db,stripslashes($_POST['description']));
 
                 
-		$query = mysql_query("SELECT COUNT(ID) FROM screenshots WHERE screenshots.ID=$changeID");
-		$result = mysql_fetch_row($query);
+		$query = mysqli_query($db,"SELECT COUNT(ID) FROM screenshots WHERE screenshots.ID=$changeID");
+		$result = mysqli_fetch_row($query);
 		
 		if ($result[0] == 1)
 		{
-			mysql_query("UPDATE screenshots SET text='$description' WHERE ID=$changeID");		
+			mysqli_query($db,"UPDATE screenshots SET text='$description' WHERE ID=$changeID");		
 			Header("Location: screenshots.php?page=".$page);
 		}
 		else
@@ -69,19 +71,19 @@ if (isset($user) && $user['priv']['screen_manage']==1)
 
 	if ($_GET['adding']==1)
 	{
-		$filename	= mysql_escape_string(stripslashes($_POST['insert']));
-		$text		= mysql_escape_string(stripslashes($_POST['description']));
+		$filename	= mysqli_escape_string($db,stripslashes($_POST['insert']));
+		$text		= mysqli_escape_string($db,stripslashes($_POST['description']));
 
 		if ($result[0] == 0)
 		{
-			mysql_query("
+			mysqli_query($db,"
 			INSERT INTO screenshots
 				(text, datetime)
 			VALUES ('$text', NOW())
 			");
 			
                        
-			$parentID = mysql_insert_id();
+			$parentID = mysqli_insert_id($db);
                         
                         
 			copy($settings['obsolete'].'/tmp/thumb/'.$filename, $settings['obsolete'].'/screenshots/thumb/'.$parentID.'.png');
@@ -128,13 +130,13 @@ if (isset($user) && $user['priv']['screen_manage']==1)
 	if (isset($_GET['changeID']))
 	{
 		
-		$changeID = mysql_escape_string(stripslashes($_GET['changeID']));
+		$changeID = mysqli_escape_string($db,stripslashes($_GET['changeID']));
 		
-		$query = mysql_query("SELECT ID, text FROM screenshots WHERE ID=$changeID");
+		$query = mysqli_query($db,"SELECT ID, text FROM screenshots WHERE ID=$changeID");
 		
-		if (mysql_num_rows($query))
+		if (mysqli_num_rows($query))
 		{
-			$result = mysql_fetch_row($query);
+			$result = mysqli_fetch_row($query);
 			template_pagebox_start("Changing screenshot-post", 625);
 			
 			echo '
@@ -206,21 +208,21 @@ function display_screenshots_current($page)
 	{
 		echo '<table>';
 
-				$page = mysql_escape_string(stripslashes($page));
+				$page = mysqli_escape_string($db,stripslashes($page));
 
 				
-				$count_query = mysql_query("SELECT COUNT(ID) FROM screenshots");
-				$count = mysql_fetch_row($count_query);
+				$count_query = mysqli_query($db,"SELECT COUNT(ID) FROM screenshots");
+				$count = mysqli_fetch_row($count_query);
 				
 				$maxpages=floor(($count[0]-1)/6);
                                 
 
                                 
-                                $query = mysql_query("SELECT ID, text FROM screenshots ORDER BY screenshots.datetime DESC LIMIT ".($page*6).",6");
+                                $query = mysqli_query($db,"SELECT ID, text FROM screenshots ORDER BY screenshots.datetime DESC LIMIT ".($page*6).",6");
                                 
-                                $num = mysql_num_rows($query);
+                                $num = mysqli_num_rows($query);
                                 
-			        while ($result = mysql_fetch_row($query))
+			        while ($result = mysqli_fetch_row($query))
 			        {
 					if ($x==0)
 						echo "<tr>";

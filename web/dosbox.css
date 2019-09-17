@@ -91,6 +91,14 @@ th {
     font-weight: bold;
 }
 
+.red {
+    color: red;
+}
+
+.blue {
+   color: coral;
+}
+
 .indent {
     margin-left: 2.5em;
 }

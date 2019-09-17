@@ -106,9 +106,7 @@ pageTracker._initData();
 pageTracker._trackPageview();
 </script>
 </body>
-
-	</html>
-	';
+</html>';
 }
 
 function template_pagebox_start( $text, $width=640 )

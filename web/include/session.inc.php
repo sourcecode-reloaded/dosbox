@@ -12,10 +12,11 @@ function sess_close() {
 	return(true);
 }
 function sess_read($sess_id) {
-	$sess_id=mysql_escape_string($sess_id);
-	$query = mysql_query("SELECT user_session.string FROM user_session WHERE user_session.ID = '$sess_id'");
+	global $db;
+	$sess_id=mysqli_escape_string($db, $sess_id);
+	$query = mysqli_query($db,"SELECT user_session.string FROM user_session WHERE user_session.ID = '$sess_id'");
 	
-	switch(mysql_affected_rows())
+	switch(mysqli_affected_rows($db))
 	{
 		case -1:
 			return false;
@@ -24,18 +25,21 @@ function sess_read($sess_id) {
 			return '';
 			break;
 		case 1:
-			$stext = mysql_fetch_row($query);
+			$stext = mysqli_fetch_row($query);
 			return $stext[0];
 	}
 }
 function sess_write($sess_id, $var){
-	$sess_id=mysql_escape_string($sess_id);
-	$var=mysql_escape_string($var);
+	if(!isset($_SESSION["userID"])) return true; // nothing to do. leave early
+	
+	global $db;
+	db_connect();
+	$sess_id=mysqli_escape_string( $db ,$sess_id);
+	$var=mysqli_escape_string( $db, $var);
 
-if(!isset($_SESSION["userID"])) return false;
 
-	mysql_query("REPLACE INTO user_session (ID, lifetime, string, userID, last_active) VALUES ('$sess_id', UNIX_TIMESTAMP(), '$var',".$_SESSION["userID"].", NOW())");
-	switch(mysql_affected_rows())
+	mysqli_query($db, "REPLACE INTO user_session (ID, lifetime, string, userID, last_active) VALUES ('$sess_id', UNIX_TIMESTAMP(), '$var',".$_SESSION["userID"].", NOW())");
+	switch(mysqli_affected_rows($db))
 	{
 		case -1:
 			return false;
@@ -48,8 +52,9 @@ if(!isset($_SESSION["userID"])) return false;
 }
 function sess_destroy($sess_id)
 {
-	$sess_id=mysql_escape_string($sess_id);
-	$query = mysql_query("DELETE FROM user_session WHERE user_session.ID = '$sess_id'");
+	global $db;
+	$sess_id = mysqli_escape_string( $db, $sess_id);
+	$query = mysqli_query( $db, "DELETE FROM user_session WHERE user_session.ID = '$sess_id'");
 	return true;
 }
 function sess_gc($max_lifetime)
