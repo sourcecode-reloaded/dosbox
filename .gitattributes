@@ -70,6 +70,7 @@ src/cpu/core_dyn_x86/decoder.h svneol=native#text/plain
 src/cpu/core_dyn_x86/dyn_fpu.h svneol=native#text/plain
 src/cpu/core_dyn_x86/dyn_fpu_dh.h svneol=native#text/plain
 src/cpu/core_dyn_x86/helpers.h svneol=native#text/plain
+src/cpu/core_dyn_x86/risc_x64.h svneol=native#text/plain
 src/cpu/core_dyn_x86/risc_x86.h svneol=native#text/plain
 src/cpu/core_dyn_x86/string.h svneol=native#text/plain
 src/cpu/core_dynrec.cpp svneol=native#text/plain
