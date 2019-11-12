@@ -38,7 +38,7 @@
 				$occupied = $nickname;
 		
 		if ($problem == 1 || $occupied != '' || $passwd == 1 || $error_mail == 1 || $email_exists != '')
-			Header("Location: register_account.php?main_form=1&amp;email_exists=".$email_exists."&amp;error_mail=".$error_mail."&amp;passwd=".$passwd."&amp;problem=".$problem."&amp;occupied=".$occupied."");
+			Header("Location: register_account.php?main_form=1&email_exists=".$email_exists."&error_mail=".$error_mail."&passwd=".$passwd."&problem=".$problem."&occupied=".$occupied."");
 		else
 		{
 			mysqli_query( $db, "INSERT INTO userdb (name,nickname,password,email,website, added, chg_passwd, active) VALUES ('$name', '$nickname', '$password1', '$email', '$website', NOW(), '', 1)");

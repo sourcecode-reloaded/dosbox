@@ -96,16 +96,16 @@ if (isset($_GET['changing'],$_POST['ID'],$_POST['name'],$_POST['publisher'],$_PO
 	if (check_game_owner($changeID, $_SESSION['userID'])==1 || (isset($user) && $user['priv']['compat_list_manage']==1))
 	{
 		if ($name == '' || $publisher == '' || !is_numeric($released))
-		Header("Location: comp_list.php?letter=".$letter."&amp;problem=1&amp;changeID=".$changeID);
+		Header("Location: comp_list.php?letter=".$letter."&problem=1&changeID=".$changeID);
 		else
 		{
 
 //			if ($moby != '' AND verifyurl($moby)==false)
-//			Header("Location: comp_list.php?letter=".$letter."&amp;problem=1&amp;changeID=".$changeID);
+//			Header("Location: comp_list.php?letter=".$letter."&problem=1&changeID=".$changeID);
 			//don't support the moby url
 			$moby = '';
 			mysqli_query($db,"UPDATE list_game SET name='$name', publisher='$publisher', first_char='$first_char', released=$released, moby_url='$moby' WHERE ID=$changeID");
-			Header("Location: comp_list.php?changeID=".$changeID."&amp;letter=".$letter);
+			Header("Location: comp_list.php?changeID=".$changeID."&letter=".$letter);
 		}
 	}
 }
@@ -144,11 +144,11 @@ if (isset($_SESSION['userID']) && $_SESSION['userID'])
 		$num = mysqli_num_rows($query);
 
 		if ($num > 0 || $name == '' || $publisher == '' || !is_numeric($released) || strlen($comment)>1024)
-		Header("Location: comp_list.php?post_new=1&amp;error=1&amp;letter=".$letter);
+			Header("Location: comp_list.php?post_new=1&error=1&letter=".$letter);
 		else
 		{
 //			if (verifyurl($moby)==0 AND $moby != '')
-//			Header("Location: comp_list.php?post_new=1&amp;error=1&amp;letter=".$letter);
+//			Header("Location: comp_list.php?post_new=1&error=1&letter=".$letter);
 
 			$moby_url='';
 
@@ -173,7 +173,7 @@ if (isset($_SESSION['userID']) && $_SESSION['userID'])
 				");
 			}
 
-			Header("Location: comp_list.php?showID=".$AUTO_INCREMENT_ID."&amp;letter=".$letter);
+			Header("Location: comp_list.php?showID=".$AUTO_INCREMENT_ID."&letter=".$letter);
 		}
 
 	}
