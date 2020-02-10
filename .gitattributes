@@ -176,6 +176,7 @@ src/gui/midi_coremidi.h svneol=native#text/plain
 src/gui/midi_oss.h svneol=native#text/plain
 src/gui/midi_win32.h svneol=native#text/plain
 src/gui/render.cpp svneol=native#text/plain
+src/gui/render_glsl.h svneol=native#text/plain
 src/gui/render_loops.h svneol=native#text/plain
 src/gui/render_scalers.cpp svneol=native#text/plain
 src/gui/render_scalers.h svneol=native#text/plain
