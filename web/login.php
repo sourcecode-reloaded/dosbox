@@ -12,7 +12,28 @@
 		
 	if (isset($_GET['login'],$_POST['nickname'],$_POST['password']) && $_GET['login']==1)
 	{
-		login($_POST['nickname'], $_POST['password']);
+		if(isset($_POST['h-captcha-response']) && !empty($_POST['h-captcha-response'])) {
+        		// get verify response
+       	 		$data = array(
+				'secret' => "0x0000000000000000000000000000000000000000",
+				'response' => $_POST['h-captcha-response']
+			);
+			$verify = curl_init();
+			curl_setopt($verify, CURLOPT_URL,   "https://hcaptcha.com/siteverify");
+			curl_setopt($verify, CURLOPT_POST, true);
+			curl_setopt($verify, CURLOPT_POSTFIELDS, http_build_query($data));
+			curl_setopt($verify, CURLOPT_RETURNTRANSFER, true);
+			$verifyResponse = curl_exec($verify);
+			$responseData = json_decode($verifyResponse);
+
+			if($responseData->success) {
+				login($_POST['nickname'], $_POST['password']);
+			} else { 
+				Header("Location: login.php?failed=1");
+			}
+		} else {
+			Header("Location: login.php?failed=1");
+		}
 	}	
 
 	template_header();
@@ -22,13 +43,15 @@
 	
 	echo '<br>';
 	if (isset($_GET['failed']) && $_GET['failed']==1)
-		echo '<span class="bold red">The username/password you tried to use is incorrect, please try again!</span>';
+		echo '<span class="bold red">The username/password you tried to use is incorrect or the captcha failed, please try again!</span>';
 
 
 	if (!isset($_SESSION['userID']))
 {
 
+echo' <script src="https://www.hCaptcha.com/1/api.js" async defer></script>';
 echo '	<form action="login.php?login=1" method="POST">
+<div class="h-captcha" data-sitekey="10000000-ffff-ffff-ffff-000000000001" data-theme="dark"></div>
 			Nickname:<br>
 			<input name="nickname" type="text"><br><br>
 			Password:<br>
@@ -41,6 +64,7 @@ echo '	<form action="login.php?login=1" method="POST">
 			<br><br>
 			
 			';
+
 
 }	else
 	{ if( isset($user) ) {
@@ -62,17 +86,6 @@ echo '	<form action="login.php?login=1" method="POST">
 	echo '</font>';
 
 		template_pagebox_end();
-/*
-template_pagebox_start("Info for returning users", 550);
-	echo '<font face="Verdana, Arial, Helvetica, sans-serif">';
-echo '
-<h3>Hackers have gained access to the user accounts on DOSBox.com.</h3>
-You should consider <b>your password</b> that you used on <a href="http://www.dosbox.com">DOSBox.com</a> as <b>compromised</b>, so if you used this password at other places you should update them with a new password. Once I fix the problem I will email all active users on DOSBox.com a new password for DOSBox.com. (accounts with no posts/games on DOSBox.com are purged on a regular basis and are thus unaffected by this hack)
-<br><br>
-The passwords for our <a href="http://vogons.zetafleet.com/index.php?c=7">forums</a> are <b>not</b> affected, however if you used the same password for both, then you should update your forum password.
-</font>';
-template_pagebox_end();	
-*/
 		echo '</td></tr></table>';	// end of framespacing-table					
 		template_end();
 ?>
